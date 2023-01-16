@@ -1,0 +1,38 @@
+<%- include('partials/header') -%>
+
+<div class="container">
+    <h2>Hello UserName</h2>
+    <form action="/dashboard" method="POST">
+        <input type="text" name="itemInput" placeholder="Item">
+        <input type="number" name="quantity" placeholder="Quantity">
+        <input type="text" name="unit" placeholder="Unit">
+        <input type="date" name="expiry" placeholder="Expiry date">
+        <button type="submit">Add New Item</button>
+    </form>
+
+    <ol>
+        <!-- Add contents later for inventory -->
+                <% newItem.forEach(item=> { %>
+                    <li>
+                        <div><%= item.itemInput %></div>
+                        <div><%= item.quantity %></div>
+                        <div><%= item.unit %></div>
+                        <div><%= item.expiry %></div>
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                        <div><%= item.daysLeft %></div>
+                    </li>
+                    <% }) %>
+        
+    </ol>
+
+
+
+
+    <a href="#">Scan Barcode</a>
+    <a href="#">Add Comment</a>
+</div>
+
+
+
+<%- include('partials/footer') -%>
