@@ -10,17 +10,19 @@
         <button type="submit">Add New Item</button>
     </form>
 
-    <ol>
+    <ol class="box">
         <!-- Add contents later for inventory -->
                 <% newItem.forEach(item=> { %>
                     <li>
-                        <div><%= item.itemInput %></div>
-                        <div><%= item.quantity %></div>
-                        <div><%= item.unit %></div>
-                        <div><%= item.expiry %></div>
+                        <div>Item: <%= item.itemInput %></div>
+                        <div>Quantity: <%= item.quantity %>
+                            <%= item.unit %>
+                        </div>
+                        <!-- <div></div> -->
+                        <div>Expires: <%= item.expiry %></div>
+                        <div>Days to expiration: <%= item.daysLeft %></div>
                         <a href="#">Edit</a>
                         <a href="#">Delete</a>
-                        <div><%= item.daysLeft %></div>
                     </li>
                     <% }) %>
         
