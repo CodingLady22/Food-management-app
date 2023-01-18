@@ -20,7 +20,7 @@ connectDB()
 
 //todo - Set Middleware
 app.set("view engine", "ejs") 
-app.set(express.static("public"))
+app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 
 
