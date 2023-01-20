@@ -1,0 +1,26 @@
+<form action="/comment" method="POST">
+    <input type="text" placeholder="title" name="title">
+    <div class="text">
+        <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here"></textarea>
+    </div>
+    <button type="submit">Send</button>
+</form>
+
+<ul>
+    <% getComments.forEach(comment=> { %>
+        <li>
+            <div>
+                <%= comment.title %>
+            </div>
+            <div>
+                <%= comment.comment %>
+            </div>
+            <a href="#">Edit</a>
+            <a href="#">Delete</a>
+        </li>
+    <% }) %>
+</ul>
+
+<a href="/">
+    <button type="submit">Dashboard</button>
+</a>
