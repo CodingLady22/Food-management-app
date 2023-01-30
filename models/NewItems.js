@@ -20,10 +20,7 @@ const newItemSchema = new mongoose.Schema({
     purchaseDate: {
         type: Date,
         default: Date.now
-    },
-    daysLeft: {
-        type: Number 
-    },
+    }
 })
 
 module.exports = mongoose.model('NewItem', newItemSchema)
