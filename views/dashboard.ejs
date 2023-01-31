@@ -20,12 +20,12 @@
                             <%= item.unit %>
                         </div>
                         <!-- <div></div> -->
-                        <div>Expires: <%= item.expiry %></div>
-                        <div>Days to expiration: <%= item.daysLeft %></div>
+                        <div> Expires: <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date(item.expiry)) %></div>
+                        <div>Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
                         <a href="#">Edit</a>
                         <a href="#">Delete</a>
                     </li>
-                    <% }) %>
+                <% }) %>
         
     </ol>
 
