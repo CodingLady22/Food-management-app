@@ -1,24 +1,24 @@
-# Food-management-app
+# Food Management App
 
 ## About the project
 
-Food wastage is a major problem all around the world. This app helps reduce food wasteage by sending notifications to the user when food items are about to expire. 
+Food wastage is a major problem all around the world. A simple and easy-to-use app that helps you manage your food and avoid waste. With this app, you will never have to worry about throwing away expired food again. 
 
 Live link: 
 
 ![image]()
+
+## Features
+* Notifications for food expiration
+* Recipe suggestions for food items about to expire
+* Ability to upload and share your own recipes with other users
+* Comments are available where users can write down their shopping lists or ideas on how to use up their food items.
 
 ### How it's made
 This is a full-stack application using the following:
 * [![MongoDB][MongoDB]][MongoDB-url]
 * [![Express][Express.js]][Express-url]
 * [![Node][Node.js]][Node-url]
-
-### Features
-
-* Any food item inputted will show the number of days until expiration.  
-* When the food item is 5 days from expiring, a notification will be sent daily to remind the user to use it before it expires. 
-* Comments are available where users can write down their shopping lists or ideas on how to use up their food items.
 
 ### Optimization
 
