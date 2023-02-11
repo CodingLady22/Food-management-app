@@ -4,27 +4,34 @@ module.exports = {
     getIndex: async (req, res) => {
         try {
             const items = await NewItem.find()
-            res.render('dashboard.ejs', {newItem: items})
+
+            let daysLeft = []
+            for(let i = 0; i < items.length; i++) {
+                let expirations = new Date(items[i].expiry)
+                let today = new Date();
+                let timeDiff = expirations.getTime() - today.getTime();
+                if (timeDiff <= 0) {
+                    daysLeft.push('Expired')
+                } else {
+                    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+                    daysLeft.push(diffDays)
+                }
+            }
+            console.log(daysLeft);
+            res.render('dashboard.ejs', {newItem: items, daysLeft: daysLeft})
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
     },
     createItem: async (req, res) => {
         let expiration = new Date(req.body.expiry);
-        let today = new Date();
-        let timeDiff = Math.abs(expiration.getTime() - today.getTime());
-        let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-        // let options = { month: 'short', day: 'numeric', year: 'numeric' };
-        let expiryFormated = expiration.toDateString();
-        expiryFormated = expiryFormated.slice(4,7) + ' '+ expiryFormated.slice(8,11) + ' ' + expiryFormated.slice(11,16);
-        console.log(expiryFormated);
+
         const newItem = new NewItem(
             {
                 itemInput: req.body.itemInput,
                 quantity: req.body.quantity,
                 unit: req.body.unit,
-                expiry: expiryFormated,
-                daysLeft: diffDays
+                expiry: expiration
             }
         )
         try {
