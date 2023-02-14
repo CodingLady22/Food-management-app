@@ -11,6 +11,5 @@ router.get('/', dashboardController.getIndex) // read
 //* Handles POST method request for adding a new item
 
 router.post('/dashboard', dashboardController.createItem) // create
-router.post('/comment', commentsController.createComment) // create
 
 module.exports = router
