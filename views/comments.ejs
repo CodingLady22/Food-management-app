@@ -1,10 +1,13 @@
-<form action="/comment" method="POST">
+<h2>Enter your comments</h2>
+
+<form action="/comments" method="POST">
     <input type="text" placeholder="title" name="title">
     <div class="text">
         <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here"></textarea>
     </div>
     <button type="submit">Send</button>
 </form>
+
 
 <ul>
     <% getComments.forEach(comment=> { %>
@@ -15,8 +18,8 @@
             <div>
                 <%= comment.comment %>
             </div>
-            <a href="#">Edit</a>
-            <a href="#">Delete</a>
+            <a href="/comments/edit/<%= comment._id%>">Edit</a>
+            <a href="/comments/delete/<%= comment._id%>">Delete</a>
         </li>
     <% }) %>
 </ul>

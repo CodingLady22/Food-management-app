@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require("mongoose")
 const PORT = 3000
 const dashboardRoutes = require("./routes/dashboard")
+const commentsRoutes = require("./routes/comments")
 
 
 
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }))
 
 //todo - Set Routes
 app.use('/', dashboardRoutes)
+app.use('/comments', commentsRoutes)
 
 
 
