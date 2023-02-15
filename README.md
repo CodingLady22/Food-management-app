@@ -10,8 +10,8 @@ Live link:
 
 ## Features
 * Notifications for food expiration
-* Recipe suggestions for food items about to expire
-* Ability to upload and share your own recipes with other users
+* Recipe suggestions for food items about to expire.
+* Ability to upload personal recipes or write it directly in the app.
 * Comments are available where users can write down their shopping lists or ideas on how to use up their food items.
 
 ### How it's made
