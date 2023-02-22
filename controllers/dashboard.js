@@ -42,5 +42,44 @@ module.exports = {
             if (err) return res.status(500).send(err)
             res.redirect('/')
         }
+    },
+      // getting the edit page
+    editItems: async (req, res) => {
+        const id = req.params.id
+        console.log(id);
+        try {
+            const items = await NewItem.find()
+            res.render('editDashboard.ejs', { dashItems : items, dashId : id})
+        } catch (err) {
+            if (err) return res.status(500).send(err)
+        }
+    },
+    // the actual update
+    updateItem: async (req, res) => {
+        const id = req.params.id
+        let expiration = new Date(req.body.expiry);
+        try {
+            console.log('Item has been updated');
+            await NewItem.findByIdAndUpdate(id, {
+                itemInput: req.body.itemInput,
+                quantity: req.body.quantity,
+                unit: req.body.unit,
+                expiry: expiration
+            })
+            res.redirect('/')
+        } catch (err) {
+            if (err) return res.status(500).send(err)
+            res.redirect('/')
+        }
+    },
+    deleteItem: async (req, res) => {
+        const id = req.params.id
+        try {
+            const item = await NewItem.findByIdAndDelete(id)
+            console.log(item);
+            res.redirect('/')
+        } catch (err) {
+            if (err) return res.status(500).send(err)
+        }
     }
 }
