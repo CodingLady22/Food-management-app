@@ -1,0 +1,33 @@
+<%- include('partials/header') -%>
+
+    <section>
+        <h1>Edit your items</h1>
+        <section>
+            <ul>
+                <% dashItems.forEach(items=> { %>
+                    <% if (items._id==dashId ) { %>
+                        <li>
+                            <form action="/update/<%= items._id %>" method="POST">
+                                <label for="item">Item</label>
+                                <input type="text" name="itemInput" value="<%= items.itemInput %>">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" name="quantity" value="<%= items.quantity %>">
+                                <label for="unit">Unit</label>
+                                <input type="text" name="unit" value="<%= items.unit %>">
+                                <label for="expiry">Expiration date</label>
+                                <input type="date" name="expiry" value="<%= items.expiry %>">
+                                <button type="submit">Submit Changes</button>
+                                <a href="/">Cancel</a>
+                                <a href="/delete/<%= items._id%>">Delete</a>
+                            </form>
+                        </li>
+                        <% } %>
+                            <% }) %>
+            </ul>
+        </section>
+        <a href="/">
+            <button type="submit">Dashboard</button>
+        </a>
+    </section>
+
+    <%- include('partials/footer') -%>
