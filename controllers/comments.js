@@ -25,7 +25,7 @@ module.exports = {
             res.redirect('/')
         }
     },
-    // not sure if it is an unnecessary piece of code but I cannot 'GET' the edit page without it
+    // getting to the edit page
     editComments: async (req, res) => {
         const id = req.params.id
         console.log(id);
@@ -36,6 +36,7 @@ module.exports = {
             if (err) return res.status(500).send(err)
         }
     },
+    // doing the actual edit
     updateComment: async (req, res) => {
         const id = req.params.id
         try {
