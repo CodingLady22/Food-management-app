@@ -5,7 +5,7 @@ const commentsController = require('../controllers/comments')
 
 // * Handles initial GET request for the comments page
 router.get('/', commentsController.getComments) // read
-// Unnecessary
+// getting the edit page
 router.get('/edit/:id', commentsController.editComments) // read
 
 //* Handles POST method request for adding a new comments
