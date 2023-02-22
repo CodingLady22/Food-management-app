@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 
 <div class="container">
-    <h2>Hello UserName</h2>
+    <h2 class="bg-emerald-500 text-blue-600 w-52">Hello UserName</h2>
     <form action="/dashboard" method="POST">
         <input type="text" name="itemInput" placeholder="Item">
         <input type="number" name="quantity" placeholder="Quantity">
@@ -20,10 +20,10 @@
                             <%= item.unit %>
                         </div>
                         <!-- <div></div> -->
-                        <div> Expires: <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date(item.expiry)) %></div>
+                        <div> Expires: <%= new Date(item.expiry).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) %></div>
                         <div>Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a href="/edit/<%= item._id%>">Edit</a>
+                        <a href="/delete/<%= item._id%>">Delete</a>
                     </li>
                 <% }) %>
         
@@ -34,6 +34,7 @@
 
     <a href="#">Scan Barcode</a>
     <a href="/comments">Add Comment</a>
+    <a href="/recipes">Add Recipes</a>
 </div>
 
 
