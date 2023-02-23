@@ -1,0 +1,77 @@
+<%- include('partials/header') -%>
+    <!-- To upload recipes -->
+    <div class="container">
+        <h2>Recipes for UserName</h2>
+        <form action="/recipes/recipe" method="POST">
+            <!-- Add file enctype in to upload the image -->
+            <input type="file" name="uploadInput">
+            <button type="submit">Upload Recipe</button>
+        </form>
+
+        <!-- Add for to create recipes  -->
+
+        <form action="/recipes/newRecipe" method="POST">
+            <input class="title" type="text" placeholder="title" name="title">
+            <div class="prep-time">
+                <input class="time" type="text" placeholder="Prep Time" name="prep">
+                <input class="time" type="text" placeholder="Cook Time" name="cook">
+                <input class="time" type="text" placeholder="Total Time" name="total">
+                <input class="time" type="text" placeholder="Servings" name="serving">
+            </div>
+            <div class="add-ingredient">
+                <span class="fixed">Ingredients</span>
+                <textarea class="long-text" name="ingredients" id="" cols="30" rows="10"
+                placeholder="Enter ingredients here"></textarea>
+            </div>
+            <div class="add-instructions">
+                <span class="fixed">Instructions</span>
+                <textarea class="long-text" name="instructions" id="" cols="30" rows="10" placeholder="Enter instructions here"></textarea>
+            </div>
+            
+            <!-- Add file enctype in to upload the image -->
+            <!-- <input type="file" name="uploadImg"> -->
+            <button type="submit">Enter Recipe</button>
+        </form>
+
+
+
+        <!-- Reading of entered recipes  -->
+        <ul class="box">
+            <% getRecipes.forEach(recipe=> { %>
+                <li>
+                    <div>
+                        <%= recipe.title %>
+                    </div>
+                    <div>
+                        <%= recipe.prep %>
+                        <%= recipe.cook %>
+                        <%= recipe.total %>
+                        <%= recipe.serving %>
+                    </div>
+                    <!-- <div></div> -->
+                    <div>
+                        <%= recipe.ingredients %>
+                    </div>
+                    <div>
+                        <%= recipe.instructions %>
+                    </div>
+                    <a href="#">Edit</a>
+                    <a href="#">Delete</a>
+                </li>
+                <% }) %>
+
+        </ul>
+
+
+
+
+        <!-- <a href="#">Scan Barcode</a> -->
+        <a href="/">
+            <button type="submit">Dashboard</button>
+        </a>
+        <a href="/comments">Add Comment</a>
+    </div>
+
+
+
+    <%- include('partials/footer') -%>
