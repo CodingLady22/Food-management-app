@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 const PORT = 3000
 const dashboardRoutes = require("./routes/dashboard")
 const commentsRoutes = require("./routes/comments")
-
+const recipesRoutes = require("./routes/recipes")
 
 
     //*Import functions/routes
@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 //todo - Set Routes
 app.use('/', dashboardRoutes)
 app.use('/comments', commentsRoutes)
+app.use('/recipes', recipesRoutes)
 
 
 
