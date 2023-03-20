@@ -37,10 +37,10 @@ module.exports = {
         try {
             await newItem.save()
             console.log(newItem)
-            res.redirect('/')
+            res.redirect('/dash')
         } catch (err) {
             if (err) return res.status(500).send(err)
-            res.redirect('/')
+            res.redirect('/dash')
         }
     },
       // getting the edit page
@@ -66,10 +66,10 @@ module.exports = {
                 unit: req.body.unit,
                 expiry: expiration
             })
-            res.redirect('/')
+            res.redirect('/dash')
         } catch (err) {
             if (err) return res.status(500).send(err)
-            res.redirect('/')
+            res.redirect('/dash')
         }
     },
     deleteItem: async (req, res) => {
@@ -77,7 +77,7 @@ module.exports = {
         try {
             const item = await NewItem.findByIdAndDelete(id)
             console.log(item);
-            res.redirect('/')
+            res.redirect('/dash')
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
