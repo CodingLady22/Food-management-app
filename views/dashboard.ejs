@@ -1,29 +1,38 @@
 <%- include('partials/header') -%>
 
-<div class="container">
-    <h2 class="bg-emerald-500 text-blue-600 w-52">Hello UserName</h2>
-    <form action="/dashboard" method="POST">
-        <input type="text" name="itemInput" placeholder="Item">
-        <input type="number" name="quantity" placeholder="Quantity">
-        <input type="text" name="unit" placeholder="Unit">
-        <label for="expiry">Expiration date</label>
-        <input type="date" name="expiry" placeholder="Expiry date">
-        <button type="submit">Add New Item</button>
-    </form>
+<section class="h-full p-6">
+    <h2 class="text-blue-600 w-1/4 mt-8 ml-4">Hello UserName</h2>
+    <div class="mt-8 sm:mx-auto sm:w-full">
+        <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+            <form action="/dash/dashboard" method="POST" class="p-1">
+                <input type="text" name="itemInput" placeholder="Item"
+                    class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                <input type="number" name="quantity" placeholder="Quantity"
+                    class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
+                <input type="text" name="unit" placeholder="Unit"
+                    class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
+                <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date: </label>
+                <input type="date" name="expiry" placeholder="Expiry date"
+                    class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
+                <button type="submit"
+                    class="bg-primary-color px-2 w-full font-semibold text-slate-900 rounded-br rounded-tr">Add
+                    New Item</button>
+            </form>
+        </div>
+    </div>
 
-    <ol class="box">
-        <!-- Add contents later for inventory -->
+    <ol class="my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
                 <% newItem.forEach(item=> { %>
-                    <li>
-                        <div>Item: <%= item.itemInput %></div>
+                    <li class="border-2 border-green-800 p-1 w-340px h-500px m-1.5 rounded-md">
+                        <div class="">Item: <%= item.itemInput %></div>
                         <div>Quantity: <%= item.quantity %>
                             <%= item.unit %>
                         </div>
                         <!-- <div></div> -->
                         <div> Expires: <%= new Date(item.expiry).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) %></div>
                         <div>Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
-                        <a href="/edit/<%= item._id%>">Edit</a>
-                        <a href="/delete/<%= item._id%>">Delete</a>
+                        <a href="/dash/edit/<%= item._id%>">Edit</a>
+                        <a href="/dash/delete/<%= item._id%>">Delete</a>
                     </li>
                 <% }) %>
         
@@ -32,10 +41,12 @@
 
 
 
-    <a href="#">Scan Barcode</a>
-    <a href="/comments">Add Comment</a>
-    <a href="/recipes">Add Recipes</a>
-</div>
+    <div class="my-2 p-1">
+        <a href="#">Scan Barcode</a>
+        <a href="/comments" class="bg-white mx-1 py-2 px-3 rounded-tl rounded-bl w-20px">Add Comment</a>
+        <a href="/recipes" class="bg-gray-50 mx-1 py-2 px-3 rounded-tl rounded-bl w-20px">Add Recipes</a>
+    </div>
+</section>
 
 
 
