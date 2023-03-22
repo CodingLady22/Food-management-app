@@ -1,30 +1,42 @@
-<h2>Enter your comments</h2>
+<%- include('partials/header') -%>
 
-<form action="/comments" method="POST">
-    <input type="text" placeholder="title" name="title">
-    <div class="text">
-        <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here"></textarea>
-    </div>
-    <button type="submit">Send</button>
-</form>
+<section class="p-4">
+
+    <h2 class="m-4 text-lg">Enter your comments</h2>
+    
+    <form action="/comments" method="POST">
+        <input type="text" placeholder="title" name="title" class="text-sm py-3 px-4 rounded-md border-2 border-black w-[40%] mb-5">
+        <div class="border-green-500 border-2 mt-4 px-4">
+            <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here"
+                class="border-red-400 border-2 p-1 w-[500px] min-h-[200px] my-0 mx-auto rounded-md"></textarea>
+        </div>
+        <button type="submit">Send</button>
+    </form>
+    
+    
+    <!-- <ul class="border-green-900 border-2 px-4 py-2 w-full mt-3 flex justify-center items-center flex-wrap shadow-md md:p-3 sm:p-5"> -->
+    <ul class="border-green-900 border-2 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
+        <% getComments.forEach(comment=> { %>
+            <li class="border-blue-400 border-2 p-1 w-340px min-h-[150px] m-1.5 rounded-md">
+                <div class="border-red-500 border-2">
+                    <%= comment.title %>
+                </div>
+                <div class="border-purple-500">
+                    <%= comment.comment %>
+                </div>
+                <a href="/comments/edit/<%= comment._id%>">Edit</a>
+                <a href="/comments/delete/<%= comment._id%>">Delete</a>
+            </li>
+            <% }) %>
+    </ul>
+    
+    <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline uppercase delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+        <button type="submit">Dashboard</button>
+    </a>
+    <a href="/recipes" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Add Recipes</a>
+
+</section>
 
 
-<ul>
-    <% getComments.forEach(comment=> { %>
-        <li>
-            <div>
-                <%= comment.title %>
-            </div>
-            <div>
-                <%= comment.comment %>
-            </div>
-            <a href="/comments/edit/<%= comment._id%>">Edit</a>
-            <a href="/comments/delete/<%= comment._id%>">Delete</a>
-        </li>
-    <% }) %>
-</ul>
 
-<a href="/">
-    <button type="submit">Dashboard</button>
-</a>
-<a href="/recipes">Add Recipes</a>
+<%- include('partials/footer') -%>
