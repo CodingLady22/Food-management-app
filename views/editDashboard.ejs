@@ -1,31 +1,36 @@
 <%- include('partials/header') -%>
 
-    <section>
-        <h1>Edit your items</h1>
+    <section class="border-blue-400 border-2 p-5 m-3">
+        <h1 class="ml-4 font-medium text-lg tracking-wide">Edit your items</h1>
         <section>
-            <ul>
+            <ul class="border-green-400">
                 <% dashItems.forEach(items=> { %>
                     <% if (items._id==dashId ) { %>
-                        <li>
-                            <form action="/update/<%= items._id %>" method="POST">
-                                <label for="item">Item</label>
-                                <input type="text" name="itemInput" value="<%= items.itemInput %>">
-                                <label for="quantity">Quantity</label>
-                                <input type="number" name="quantity" value="<%= items.quantity %>">
-                                <label for="unit">Unit</label>
-                                <input type="text" name="unit" value="<%= items.unit %>">
-                                <label for="expiry">Expiration date</label>
-                                <input type="date" name="expiry" value="<%= items.expiry %>">
-                                <button type="submit">Submit Changes</button>
-                                <a href="/">Cancel</a>
-                                <a href="/delete/<%= items._id%>">Delete</a>
-                            </form>
+                        <li class="border-orange-600">
+                            <div class="mt-8 sm:mx-auto sm:w-full">
+                                <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+                                    <form action="/dash/update/<%= items._id %>" method="POST">
+                                        <label for="item" class="block mt-4 text-sm font-medium text-gray-700">Item</label>
+                                        <input type="text" name="itemInput" value="<%= items.itemInput %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                                        <label for="quantity" class="block mt-4 text-sm font-medium text-gray-700">Quantity</label>
+                                        <input type="number" name="quantity" value="<%= items.quantity %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                                        <label for="unit" class="block mt-4 text-sm font-medium text-gray-700">Unit</label>
+                                        <input type="text" name="unit" value="<%= items.unit %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                                        <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date</label>
+                                        <input type="date" name="expiry" value="<%= items.expiry %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                                        <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Submit Changes</button>
+                                        <a href="/dash"
+                                        class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Cancel</a>
+                                        <a href="/dash/delete/<%= items._id%>" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Delete</a>
+                                    </form>
+                                </div>
+                            </div>
                         </li>
                         <% } %>
                             <% }) %>
             </ul>
         </section>
-        <a href="/">
+        <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
             <button type="submit">Dashboard</button>
         </a>
     </section>
