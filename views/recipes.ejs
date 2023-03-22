@@ -1,48 +1,67 @@
 <%- include('partials/header') -%>
+
+<section class="border-purple-700 border-2 flex justify-center p-5 m-3">
     <!-- To upload recipes -->
     <div class="container">
-        <h2>Recipes for UserName</h2>
-        <form action="/recipes/recipe" method="POST">
-            <!-- Add file enctype in to upload the image -->
-            <input type="file" name="uploadInput">
-            <button type="submit">Upload Recipe</button>
-        </form>
+        <h2 class="ml-4 font-medium text-lg tracking-wide">Recipes for UserName</h2>
+        <div class="mt-8 sm:mx-auto sm:w-full">
+            <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+                <form action="/recipes/recipe" method="POST">
+                    <!-- Add file enctype in to upload the image -->
+                    <input type="file" name="uploadInput" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Upload Recipe</button>
+                </form>
+            </div>
+        </div>
+       
 
         <!-- Add for to create recipes  -->
 
-        <form action="/recipes/newRecipe" method="POST">
-            <input class="title" type="text" placeholder="title" name="title">
-            <div class="prep-time">
-                <input class="time" type="text" placeholder="Prep Time" name="prep">
-                <input class="time" type="text" placeholder="Cook Time" name="cook">
-                <input class="time" type="text" placeholder="Total Time" name="total">
-                <input class="time" type="text" placeholder="Servings" name="serving">
+        <div class="mt-8 sm:mx-auto sm:w-full">
+            <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+                <form action="/recipes/newRecipe" method="POST" class="border-blue-400">
+                    <input type="text" placeholder="title" name="title"
+                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <div class="border-2 border-green-600 my-3">
+                        <input class="mb-2 border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[250px] &::placeholder- " type="text"
+                            placeholder="Prep Time" name="prep">
+                        <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[250px]" type="text"
+                            placeholder="Cook Time" name="cook">
+                        <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[250px]" type="text"
+                            placeholder="Total Time" name="total">
+                        <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[250px]" type="text" placeholder="Servings"
+                            name="serving">
+                    </div>
+                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <span class="">Ingredients</span>
+                        <textarea class="border-2 border-rose-500" name="ingredients" id="" cols="30" rows="10"
+                            placeholder="Enter ingredients here" ></textarea>
+                    </div>
+                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <span class="">Instructions</span>
+                        <textarea class="border-2 border-rose-500" name="instructions" id="" cols="30" rows="10"
+                            placeholder="Enter instructions here" ></textarea>
+                    </div>
+                
+                    <!-- Add file enctype in to upload the image -->
+                    <!-- <input type="file" name="uploadImg"> -->
+                    <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Enter Recipe</button>
+                </form>
             </div>
-            <div class="add-ingredient">
-                <span class="fixed">Ingredients</span>
-                <textarea class="long-text" name="ingredients" id="" cols="30" rows="10"
-                placeholder="Enter ingredients here"></textarea>
-            </div>
-            <div class="add-instructions">
-                <span class="fixed">Instructions</span>
-                <textarea class="long-text" name="instructions" id="" cols="30" rows="10" placeholder="Enter instructions here"></textarea>
-            </div>
-            
-            <!-- Add file enctype in to upload the image -->
-            <!-- <input type="file" name="uploadImg"> -->
-            <button type="submit">Enter Recipe</button>
-        </form>
+        </div>
+        
 
 
 
         <!-- Reading of entered recipes  -->
-        <ul class="box">
+        <ul class="border-black border-2 my-3 p-3">
             <% getRecipes.forEach(recipe=> { %>
-                <li>
+                <li class="border-orange-600 border-2 my-2">
                     <div>
                         <%= recipe.title %>
                     </div>
-                    <div>
+                    <!-- Maybe put each in a div to style -->
+                    <div class="border-blue-400 border-2">
                         <%= recipe.prep %>
                         <%= recipe.cook %>
                         <%= recipe.total %>
@@ -55,8 +74,14 @@
                     <div>
                         <%= recipe.instructions %>
                     </div>
-                    <a href="#">Edit</a>
-                    <a href="#">Delete</a>
+
+                   <div>
+                        <a href="#"
+                        class="relative inline-block w-1/6 text-center py-1 px-4 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Edit</a>
+                        
+                        <a href="#"
+                        class="relative inline-block w-1/6 text-center py-1 px-4 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Delete</a>
+                   </div>
                 </li>
                 <% }) %>
 
@@ -66,12 +91,19 @@
 
 
         <!-- <a href="#">Scan Barcode</a> -->
-        <a href="/">
-            <button type="submit">Dashboard</button>
-        </a>
-        <a href="/comments">Add Comment</a>
+        <div class="border-blue-400 border-2 flex p-2">
+            <!-- work on width. Use the correct syntax -->
+            <a href="/dash" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+                <button type="submit">Dashboard</button>
+            </a>
+            <a href="/comments" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Add Comment</a>
+
+            <a href="#" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Get more recipes</a>
+        </div>
+        
     </div>
 
+    </section>
 
 
     <%- include('partials/footer') -%>
