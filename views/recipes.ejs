@@ -12,7 +12,7 @@
                     <input type="text" name="title" placeholder="Title" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                     <input type="file" name="uploadInput" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                     <input type="text" name="tags" placeholder="#Tags" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                    <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Upload Recipe</button>
+                    <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Upload Recipe</button>
                 </form>
             </div>
         </div>
@@ -36,20 +36,20 @@
                         <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[250px]" type="text" placeholder="Servings"
                             name="serving">
                     </div>
-                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <span class="">Ingredients</span>
+                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <span class="my-2 text-center">Add your Ingredients</span>
                         <textarea class="border-2 border-rose-500" name="ingredients" id="" cols="30" rows="10"
                             placeholder="Enter ingredients here" ></textarea>
                     </div>
-                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <span class="">Instructions</span>
+                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <span class="my-2 text-center">Instructions</span>
                         <textarea class="border-2 border-rose-500" name="instructions" id="" cols="30" rows="10"
                             placeholder="Enter instructions here" ></textarea>
                     </div>
                 
                     <!-- Add file enctype in to upload the image -->
                     <!-- <input type="file" name="uploadImg"> -->
-                    <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Enter Recipe</button>
+                    <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Enter Recipe</button>
                 </form>
             </div>
         </div>
@@ -79,12 +79,12 @@
                         <%= recipe.instructions %>
                     </div>
 
-                   <div>
+                   <div class="flex justify-center gap-4 my-2">
                         <a href="#"
-                        class="relative inline-block w-1/6 text-center py-1 px-4 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Edit</a>
+                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Edit</a>
                         
                         <a href="#"
-                        class="relative inline-block w-1/6 text-center py-1 px-4 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Delete</a>
+                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
                    </div>
                 </li>
                 <% }) %>
@@ -97,7 +97,7 @@
         <!-- <a href="#">Scan Barcode</a> -->
         <div class="border-blue-400 border-2 flex p-2">
             <!-- work on width. Use the correct syntax -->
-            <a href="/dash" class="relative inline-block py-2 px-[20px] bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+            <a href="/dash" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
                 <button type="submit">Dashboard</button>
             </a>
             <a href="/comments" class="relative inline-block py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add Comment</a>
