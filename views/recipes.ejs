@@ -3,12 +3,15 @@
 <section class="border-purple-700 border-2 flex justify-center p-5 m-3">
     <!-- To upload recipes -->
     <div class="container">
-        <h2 class="ml-4 font-medium text-lg tracking-wide">Recipes for UserName</h2>
+        <h2 class="text-[#515070] mt-8 text-4xl w-full">What would you like to make today UserName?</h2>
         <div class="mt-8 sm:mx-auto sm:w-full">
             <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+                <p class="mb-2">Use this section if you already have your recipe in a file (pdf), that can be uploaded. Be sure to include a title for the recipe and add tags to make it easier to find your recipes</p>
                 <form action="/recipes/recipe" method="POST">
                     <!-- Add file enctype in to upload the image -->
+                    <input type="text" name="title" placeholder="Title" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                     <input type="file" name="uploadInput" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <input type="text" name="tags" placeholder="#Tags" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                     <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Upload Recipe</button>
                 </form>
             </div>
@@ -19,6 +22,7 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full">
             <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+                <p class="mb-2">Use the area below to create your new recipe</p>
                 <form action="/recipes/newRecipe" method="POST" class="border-blue-400">
                     <input type="text" placeholder="title" name="title"
                         class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
@@ -93,12 +97,12 @@
         <!-- <a href="#">Scan Barcode</a> -->
         <div class="border-blue-400 border-2 flex p-2">
             <!-- work on width. Use the correct syntax -->
-            <a href="/dash" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+            <a href="/dash" class="relative inline-block py-2 px-[20px] bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
                 <button type="submit">Dashboard</button>
             </a>
-            <a href="/comments" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Add Comment</a>
+            <a href="/comments" class="relative inline-block py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add Comment</a>
 
-            <a href="#" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Get more recipes</a>
+            <a href="#" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Get more recipes</a>
         </div>
         
     </div>
