@@ -1,9 +1,12 @@
 <%- include('partials/header') -%>
 
-<section class="h-full p-6">
-    <h2 class="text-blue-600 w-1/4 mt-8 ml-4">Hello UserName</h2>
+<section class="h-full p-6 bg-[#f6f6f6]">
+    <h2 class="text-[#515070] mt-8 text-5xl w-full">Hello UserName</h2>
     <div class="mt-8 sm:mx-auto sm:w-full">
-        <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+        <div class="py-8 px-6 shadow rounded-lg sm:px-10 flex flex-row gap-4 bg-white">
+            <section class="border-2 border-red-500 w-1/2">
+                <img src="../public/images/basket.png" alt="">
+            </section>
             <form action="/dash/dashboard" method="POST" class="p-1">
                 <input type="text" name="itemInput" placeholder="Item"
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
@@ -15,7 +18,7 @@
                 <input type="date" name="expiry" placeholder="Expiry date"
                     class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <button type="submit"
-                    class="bg-primary-color px-2 w-full font-semibold text-slate-900 rounded-br rounded-tr">Add
+                    class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Add
                     New Item</button>
             </form>
         </div>
@@ -23,28 +26,31 @@
 
     <ol class="my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
                 <% newItem.forEach(item=> { %>
-                    <li class="border-2 border-green-800 p-1 w-340px h-500px m-1.5 rounded-md">
-                        <div class="">Item: <%= item.itemInput %></div>
+                    <li class="bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+                        <div class="text-2xl text-center capitalize mb-2 text-[#FF8E6E]"><%= item.itemInput %></div>
                         <div>Quantity: <%= item.quantity %>
                             <%= item.unit %>
                         </div>
                         <!-- <div></div> -->
                         <div> Expires: <%= new Date(item.expiry).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) %></div>
-                        <div>Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
-                        <a href="/dash/edit/<%= item._id%>">Edit</a>
-                        <a href="/dash/delete/<%= item._id%>">Delete</a>
+                        <div class="mb-4">Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
+
+                        <div class=" flex justify-center gap-4">
+                            <a href="/dash/edit/<%= item._id%>"
+                                class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Edit</a>
+                            <a href="/dash/delete/<%= item._id%>"
+                                class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
+                        </div>
                     </li>
                 <% }) %>
         
     </ol>
 
 
-
-
-    <div class="my-2 p-1">
-        <a href="#">Scan Barcode</a>
-        <a href="/comments" class="bg-white mx-1 py-2 px-3 rounded-tl rounded-bl w-20px">Add Comment</a>
-        <a href="/recipes" class="bg-gray-50 mx-1 py-2 px-3 rounded-tl rounded-bl w-20px">Add Recipes</a>
+    <div class="my-2 p-1 px-3">
+        <!-- <a href="#">Scan Barcode</a> -->
+        <a href="/comments" class="bg-[#f6f6f6] text-[#515070] mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Add Comment</a>
+        <a href="/recipes" class="bg-[#f6f6f6] text-[#515070] mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Add Recipes</a>
     </div>
 </section>
 
