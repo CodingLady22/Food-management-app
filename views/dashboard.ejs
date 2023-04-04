@@ -4,8 +4,8 @@
     <h2 class="text-[#515070] mt-8 text-5xl w-full">Hello UserName</h2>
     <div class="mt-8 sm:mx-auto sm:w-full">
         <div class="py-8 px-6 shadow rounded-lg sm:px-10 flex flex-row gap-4 bg-white">
-            <section class="border-2 border-red-500 w-1/2">
-                <img src="../public/images/basket.png" alt="">
+            <section class="md:border-2 border-red-500 w-1/2">
+                <img src="/images/basket.png" alt="">
             </section>
             <form action="/dash/dashboard" method="POST" class="p-1">
                 <input type="text" name="itemInput" placeholder="Item"
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <ol class="my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
+    <ol class="my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
                 <% newItem.forEach(item=> { %>
                     <li class="bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
                         <div class="text-2xl text-center capitalize mb-2 text-[#FF8E6E]"><%= item.itemInput %></div>
