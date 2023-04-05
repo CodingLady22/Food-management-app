@@ -11,7 +11,7 @@ const dashboardRoutes = require("./routes/dashboard");
 const commentsRoutes = require("./routes/comments");
 const recipesRoutes = require("./routes/recipes");
 const homeRoutes = require("./routes/home");
-const PORT = 3000
+const PORT = 3700
 
 
     //*Import functions/routes
@@ -63,6 +63,7 @@ app.use('/', homeRoutes)
 
 
 //todo - Start Server
+//!  Why is my 'process.env.PORT' not working?
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 });
