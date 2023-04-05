@@ -15,17 +15,24 @@
     
     
     <!-- <ul class="border-green-900 border-2 px-4 py-2 w-full mt-3 flex justify-center items-center flex-wrap shadow-md md:p-3 sm:p-5"> -->
-    <ul class="border-green-900 border-2 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
+    <ul class="border-green-900 border-2 my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
         <% getComments.forEach(comment=> { %>
-            <li class="border-blue-400 border-2 p-1 w-340px min-h-[150px] m-1.5 rounded-md">
-                <div class="border-red-500 border-2">
+            <li class="bg-blue-50/95 shadow-md py-4 px-7 pb-3 w-340px h-[250px] m-1.5 rounded-md hover:border-2 hover:shadow-[#0B2447]">
+            <!-- <li class="border-blue-400 border-2 p-1 w-340px min-h-[150px] m-1.5 rounded-md"> -->
+                <div class="text-2xl text-center capitalize mb-3 text-[#19376D]">
                     <%= comment.title %>
                 </div>
-                <div class="border-purple-500">
+                <!-- Thinking of giving this bg a light shade of something -->
+                <div class="border-purple-500 border-2 p-2 h-[100px] mb-4 text-[#0B2447]">
                     <%= comment.comment %>
                 </div>
-                <a href="/comments/edit/<%= comment._id%>">Edit</a>
-                <a href="/comments/delete/<%= comment._id%>">Delete</a>
+                <div class="flex justify-center gap-4">
+                    <a href="/comments/edit/<%= comment._id%>"
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#19376D]">Edit</a>
+                    <a href="/comments/delete/<%= comment._id%>"
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#19376D]">Delete</a>
+                </div>
+                
             </li>
             <% }) %>
     </ul>
@@ -33,7 +40,7 @@
     <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline uppercase delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
         <button type="submit">Dashboard</button>
     </a>
-    <a href="/recipes" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Add Recipes</a>
+    <a href="/recipes" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[rgb(3,233,244)] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Add Recipes</a>
 
 </section>
 
