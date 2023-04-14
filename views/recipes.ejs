@@ -5,14 +5,14 @@
     <div class="container">
         <h2 class="text-[#515070] mt-8 text-4xl w-full">What would you like to make today UserName?</h2>
         <div class="mt-8 sm:mx-auto sm:w-full">
-            <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+            <div class="py-8 px-6 shadow rounded-lg sm:px-10 hover:shadow-[#515070]">
                 <p class="mb-2">Use this section if you already have your recipe in a file (pdf), that can be uploaded. Be sure to include a title for the recipe and add tags to make it easier to find your recipes</p>
-                <form action="/recipes/recipe" method="POST">
-                    <!-- Add file enctype in to upload the image -->
+                <!-- Add file enctype to upload the image -->
+                <form action="/recipes/recipe" enctype="multipart/form-data" method="POST">
                     <input type="text" name="title" placeholder="Title" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                    <input type="file" name="uploadInput" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                    <input type="text" name="tags" placeholder="#Tags" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                    <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Upload Recipe</button>
+                    <input type = "file" name = "pdf" class = "w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <input type = "text" name = "tags" placeholder = "#Tags" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <button type = "submit" class = "w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Upload Recipe</button>
                 </form>
             </div>
         </div>
@@ -21,9 +21,13 @@
         <!-- Add for to create recipes  -->
 
         <div class="mt-8 sm:mx-auto sm:w-full">
-            <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+            <div class="py-8 px-6 shadow rounded-lg hover:shadow-[#515070] sm:px-10">
                 <p class="mb-2">Use the area below to create your new recipe</p>
-                <form action="/recipes/newRecipe" method="POST" class="border-blue-400">
+                <form action="/recipes/newRecipe" enctype="multipart/form-data" method="POST" class="border-blue-400">
+                    <div class="mb-3">
+                        <label for="imgUpload" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="imageUpload" name="file">
+                    </div>
                     <input type="text" placeholder="title" name="title"
                         class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                     <div class="border-2 border-green-600 my-3">
@@ -49,7 +53,7 @@
                 
                     <!-- Add file enctype in to upload the image -->
                     <!-- <input type="file" name="uploadImg"> -->
-                    <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Enter Recipe</button>
+                    <button type="submit" value="Upload" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Enter Recipe</button>
                 </form>
             </div>
         </div>
@@ -58,37 +62,52 @@
 
 
         <!-- Reading of entered recipes  -->
-        <ul class="border-black border-2 my-3 p-3">
+        <ul class="border-black border-2 my-3 p-3 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
             <% getRecipes.forEach(recipe=> { %>
                 <li class="border-orange-600 border-2 my-2">
-                    <div>
+                    <!-- image over here -->
+                    <div class="border-purple-600 border-2 px-2 py-2">
                         <%= recipe.title %>
                     </div>
+                    <div class="border-2 border-red-700 h-[250px] w-full rounded lg:w-2/3 ">
+                            <img src="<%= recipe.image%>" class="w-full h-full object-cover" >
+                    </div>
                     <!-- Maybe put each in a div to style -->
-                    <div class="border-blue-400 border-2">
-                        <%= recipe.prep %>
-                        <%= recipe.cook %>
-                        <%= recipe.total %>
-                        <%= recipe.serving %>
+                    <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
+                        <span class="block mx-1">Prep: <%= recipe.prep %></span>
+                        <span class="block mx-1">Cook: <%= recipe.cook %></span>
+                        <span class="block mx-1">Total: <%= recipe.total %></span>
+                        <span class="block mx-1">Serving: <%= recipe.serving %></span>
+        
                     </div>
-                    <!-- <div></div> -->
-                    <div>
-                        <%= recipe.ingredients %>
+                    <!-- remove grid or start all over again -->
+                    <div
+                        class="border-green-600 border-2 h-[300px] rounded my-4 p-3 grid grid-rows-2 gap-1 md:grid md:grid-cols-2 md:gap-8">
+                        <!-- using heaight didn't work -->
+                        <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full">
+                            <h4 class="font-mono uppercase underline text-lg">Ingredients</h4>
+                            <%= recipe.ingredients %>
+                        </div>
+                        <!-- Trying to give space b/w both divs at mid point. Also see why the spacing is that much now. -->
+                        <!-- <hr> -->
+                        <!-- <br class="bg-black border-2 border-black"> -->
+                        <!-- <div class="border-2 h-[1px] mt-5 border-slate-300 w-full md:hidden"></div> -->
+                        <div class="border-red-600 border-2">
+                            <h4 class="font-mono uppercase underline text-lg">Preparations</h4>
+                            <%= recipe.instructions %>
+                        </div>
                     </div>
-                    <div>
-                        <%= recipe.instructions %>
-                    </div>
-
-                   <div class="flex justify-center gap-4 my-2">
+        
+                    <div class="flex justify-center gap-4 my-2">
                         <a href="#"
-                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Edit</a>
-                        
-                        <a href="#"
-                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
-                   </div>
+                            class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Edit</a>
+        
+                        <a href="/recipes/delete/<%= recipe._id%>"
+                            class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
+                    </div>
                 </li>
                 <% }) %>
-
+        
         </ul>
 
 
