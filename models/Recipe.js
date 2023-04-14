@@ -5,6 +5,14 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    image: {
+    type: String,
+    require: true,
+    },
+    cloudinaryId: {
+    type: String,
+    require: true,
+    },
     prep : {
         type: String,
         require: true
@@ -32,6 +40,10 @@ const recipeSchema = new mongoose.Schema({
     instructions : {
         type: String,
         require: true
+    },
+    createdAt: {
+    type: Date,
+    default: Date.now,
     },
 })
 
