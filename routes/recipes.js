@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const recipesController = require('../controllers/recipes')
+const upload = require("../middleware/multer");
+const recipesController = require('../controllers/recipes');
 // const homeController = require('../controllers/home')
 
 // * Handles initial GET request on the homepage
@@ -11,9 +12,10 @@ router.get('/edit/:id', recipesController.editRecipe) // read edit page
 
 //* Handles POST method request for adding a new item
 
-router.post('/newRecipe', recipesController.createRecipe) // create recipe on app
-router.post('/recipe', recipesController.addRecipe) // import recipe into app
+router.post('/newRecipe', upload.single("file"), recipesController.createRecipe) // create recipe on app
+router.post('/recipe', upload.single("pdf"), recipesController.addRecipe) // import recipe into app
 router.post('/update/:id', recipesController.updateRecipe) // update
 router.get('/delete/:id', recipesController.deleteRecipe) // delete
+router.get('/deleteUpload/:id', recipesController.deleteUploadedRecipe) // delete
 
 module.exports = router
