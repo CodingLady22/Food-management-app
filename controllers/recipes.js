@@ -1,4 +1,6 @@
+const cloudinary = require("../middleware/cloudinary");
 const Recipe = require("../models/Recipe")
+// const UploadedRecipe = require("../models/UploadedRecipe")
 
 module.exports = {
     getRecipes: async (req, res) => {
@@ -10,25 +12,32 @@ module.exports = {
         }
     },
     addRecipe: async (req, res) => {
-        // const newComment = new Comment(
-            // {
-            //     title: req.body.title,
-            //     comment: req.body.comment
-            // }
-        // )
         // try {
-            // await newComment.save()
-            // console.log(newComment)
-            // res.redirect('/comments')
+            // Upload pdf to cloudinary
+        // const result = await cloudinary.uploader.upload(req.file.path);
+
+        // await UploadedRecipe.create({
+        //     title: req.body.title,
+        //     pdf: result.secure_url,
+        //     cloudinaryId: result.public_id,
+        //     tags: req.body.tags
+        // });
+        //     console.log("Recipe has been uploaded")
+        //     res.redirect('/recipes');
         // } catch (err) {
-            // if (err) return res.status(500).send(err)
-            // res.redirect('/')
+        //     if (err) return res.status(500).send(err)
+        //     res.redirect('/')
         // }
     },
     createRecipe: async (req, res) => {
+        // Upload image to cloudinary
+      const result = await cloudinary.uploader.upload(req.file.path);
+      
        const newRecipe = new Recipe(
             {
                 title: req.body.title,
+                image: result.secure_url,
+                cloudinaryId: result.public_id,
                 prep: req.body.prep,
                 cook: req.body.cook,
                 total: req.body.total,
@@ -71,13 +80,29 @@ module.exports = {
         // }
     },
     deleteRecipe: async (req, res) => {
-        // const id = req.params.id
+        try {
+    //   Find post by id
+      let recipe = await Recipe.findByIdAndDelete(id);
+
+      // Delete image from cloudinary
+      await cloudinary.uploader.destroy(recipe.cloudinaryId);
+      console.log("Recipe has been deleted");
+            res.redirect('/recipes')
+    } catch (err) {
+      if (err) return res.status(500).send(err)
+    }
+    },
+    deleteUploadedRecipe: async (req, res) => {
         // try {
-        //     const comment = await Comment.findByIdAndDelete(id)
-        //     console.log(comment);
-        //     res.redirect('/comments')
-        // } catch (err) {
-        //     if (err) return res.status(500).send(err)
-        // }
+    //   Find post by id
+    //   let uploadedRecipe = await UploadedRecipe.findByIdAndDelete(id)
+
+      // Delete image from cloudinary
+    //   await cloudinary.uploader.destroy(uploadedRecipe.cloudinaryId);
+    //   console.log("Recipe pdf has been deleted");
+    //         res.redirect('/recipes')
+    // } catch (err) {
+    //   if (err) return res.status(500).send(err)
+    // }
     }
 }
