@@ -1,0 +1,47 @@
+<section>
+    <!-- Reading of click recipe  -->
+    <ul class="border-black border-2 my-3 p-3 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
+        <% getRecipes.forEach(recipe=> { %>
+            <li class="border-orange-600 border-2 my-2">
+                <!-- image over here -->
+                <div class="border-purple-600 border-2 px-2 py-2">
+                    <%= recipe.title %>
+                </div>
+                <!-- Maybe put each in a div to style -->
+                <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
+                    <span class="block mx-1">Prep: <%= recipe.prep %></span>
+                    <span class="block mx-1">Cook: <%= recipe.cook %></span>
+                    <span class="block mx-1">Total: <%= recipe.total %></span>
+                    <span class="block mx-1">Serving: <%= recipe.serving %></span>
+    
+                </div>
+                <!-- remove grid or start all over again -->
+                <div
+                    class="border-green-600 border-2 h-[300px] rounded my-4 p-3 grid grid-rows-2 gap-1 md:grid md:grid-cols-2 md:gap-8">
+                    <!-- using heaight didn't work -->
+                    <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full">
+                        <h4 class="font-mono uppercase underline text-lg">Ingredients</h4>
+                        <%= recipe.ingredients %>
+                    </div>
+                    <!-- Trying to give space b/w both divs at mid point. Also see why the spacing is that much now. -->
+                    <!-- <hr> -->
+                    <!-- <br class="bg-black border-2 border-black"> -->
+                    <!-- <div class="border-2 h-[1px] mt-5 border-slate-300 w-full md:hidden"></div> -->
+                    <div class="border-red-600 border-2">
+                        <h4 class="font-mono uppercase underline text-lg">Preparations</h4>
+                        <%= recipe.instructions %>
+                    </div>
+                </div>
+    
+                <div class="flex justify-center gap-4 my-2">
+                    <a href="#"
+                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Edit</a>
+    
+                    <a href="#"
+                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
+                </div>
+            </li>
+            <% }) %>
+    
+    </ul>
+</section>
