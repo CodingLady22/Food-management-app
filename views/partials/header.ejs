@@ -6,18 +6,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Food Management App</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.49.0/dist/full.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link href="/output.css" rel="stylesheet">
+    <!-- <link href="/css/styles.css" rel="stylesheet"> -->
 </head>
 
 <body>
     <header class="header">
-        <div class="text-center">
-            <h1 class="">Ainora Food Management App</h1>
-            <span>Reducing food wastage, one household at a time</span>
-        </div>
+
+        <!-- Responsive navbar-->
+        <nav
+            class="flex flex-col bg-slate-900 sm:flex-row flex-wrap md:items-center fixed top-0 z-20 w-full px-4 md:px-5 lg:px-16 py-2 justify-between">
+        
+        
+            <div class="flex justify-between sm:justify-around gap-x-2 text-white items-center">
+        
+                <!-- Link To Direct to Home Page -->
+                <!-- This can be a logo or a simple text (or both). Just write it in-between the anchor tag below-->
+                <!-- <a href="#!" class="text-2xl py-1 flex items-center">
+                    Ainora Food Management App
+                </a>
+                <span class="text-1xl mt-1 text-white">Reducing food wastage, one household at a time</span> -->
+        
+        
+                <!-- Hamburger -->
+                <button class="sm:hidden cursor-pointer flex flex-col justify-center gap-y-1" id="hamburger" aria-label="menu">
+                    <div class="w-6 h-1 bg-white rounded-lg bar duration-500"></div>
+                    <div class="w-6 h-1 bg-white rounded-lg bar duration-500"></div>
+                    <div class="w-6 h-1 bg-white rounded-lg bar duration-500"></div>
+                </button>
+        
+            </div>
+        
+        
+            <ul class="hidden sm:flex text-gray-400 justify-end items-center gap-x-7 gap-y-5 mt-5 sm:mt-0" id="links">
+                <li class="">
+                    <a href="/dash" class="active">Dashboard</a>
+                </li>
+                <li class="">
+                    <a href="/comments" class="active">Comments</a>
+                </li>
+                <li class="">
+                    <a href="/recipes" class="hover:text-gray-300">Recipes</a>
+                </li>
+                <li class="">
+                    <a href="/logout" class="hover:text-gray-300">Log Out</a>
+                </li>
+        
+            </ul>
+        
+        </nav>
+        
     </header>
+
+    
+    
 </body>
 
 </html>
