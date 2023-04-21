@@ -16,6 +16,7 @@ router.get("/", homeController.getIndex);
 // router.get("/feed", ensureAuth, postsController.getFeed);
 router.get("/login", authController.getLogin);
 // router.get("/login", authController.getLogin);
+
 router.post("/login", authController.postLogin); //new
 router.get("/logout", authController.logout); //new
 router.get("/signup", authController.getSignup);
