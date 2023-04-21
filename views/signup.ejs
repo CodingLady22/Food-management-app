@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <!-- New login form -->
+
+    <div class="min-h-screen bg-[#efccb6] flex justify-center items-center">
+        <div class="p-8 flex-1">
+            <div class="w-80 bg-white rounded-3xl mx-auto overflow-hidden shadow-xl">
+                
+                <!-- error messages -->
+                <% if (locals.messages.errors) { %>
+                    <% messages.errors.forEach( el=> { %>
+                        <div class="text-red-600">
+                            <%= el.msg %>
+                        </div>
+                    <% }) %>
+                <% } %>
+                <% if (locals.messages.info) { %>
+                    <% messages.info.forEach( el=> { %>
+                        <div class="text-red-600">
+                            <%= el.msg %>
+                        </div>
+                    <% }) %>
+                <% } %>
+    
+                <div class="px-10 pt-4 pb-8 bg-white rounded-tr-4xl">
+                    <h2 class="mt-0 mx-0 mb-8 text-black text-center">Sign Up</h2>
+                    <form action="/signup" method="POST">
+                        <!-- User Name -->
+                        <div class="relative">
+                            <input type="text" name="userName" placeholder="User Name" required=""
+                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+    
+                            <label for="userName"
+                                class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">User Name</label>
+                        </div>
+                        <!-- Email -->
+                        <div class="relative">
+                            <input type="email" name="email" placeholder="Email" required=""
+                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+    
+                            <label for="email"
+                                class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
+                        </div>
+                        <!-- Password -->
+                        <div class="relative">
+                            <input type="password" name="password" placeholder="Password" required=""
+                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                        
+                            <label for="password"
+                                class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+                        </div>
+                        <!-- Confirm Password -->
+                        <div class="relative">
+                            <input type="password" name="confirmPassword" placeholder="Confirm Password" required=""
+                                class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                            <label for="confirmPassword"
+                                class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm Password</label>
+                        </div>
+                        <!-- Test -->
+                        <!-- changed peer-focus:-top-0 from peer-focus:-top-3.5 -->
+                        <!-- <div class="relative">
+                            <input type="password" name="Cpassword" placeholder="Confirm password" required=""
+                                class="peer h-14 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                            <label for="Cpassword"
+                                class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-0 peer-focus:text-gray-600 peer-focus:text-sm">Confirm Password</label>
+                        </div> -->
+
+                        <button type="sumbit" 
+                            class="mt-20 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer">
+                            Submit
+                        </button>
+                        <!-- 
+                            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+                         -->
+                    </form>
+                    <a href="/login"
+                        class="mt-4 block text-sm text-center font-medium text-rose-600 hover:underline focus:outline-none focus:ring-2 focus:ring-rose-500">
+                        Already have an account? </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Former signup form -->
+<!--
+    <div
+        class="absolute top-1/2 left-1/2 w-400px p-40px -translate-x-2/4 -translate-y-2/4 bg-black/50 box-border shadow-xl shadow-black/60">
+        <h2 class="mt-0 mx-0 mb-8 text-white text-center">Sign Up</h2>
+        <form action="/signup" method="POST">
+            <div class="relative">
+                <input type="text" name="fName" placeholder="First Name" required=""
+                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                <label for="fName"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">First
+                    Name</label>
+            </div>
+            <div class="relative">
+                <input type="text" name="lName" placeholder="Last Name" required=""
+                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                <label for="lName"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Last
+                    Name</label>
+            </div>
+            <div class="relative">
+                <input type="email" name="email" placeholder="Email" required=""
+                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                <label for="email"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" placeholder="password" required=""
+                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                <label for="password"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="Cpassword" placeholder="Confirm password" required=""
+                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                <label for="Cpassword"
+                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm
+                    Password</label>
+            </div>
+            <button type="submit"
+                class="relative inline-block py-2.5 px-5 text-[#03e9f4] text-base no-underline uppercase overflow-hidden delay-100 tracking-wide mt-10 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+                Submit
+            </button>
+            <input type="sumbit" value="Sign in"
+                class="mt-20 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer" />
+        </form>
+    </div>
+    -->
+
+
+
+</body>
+</html>
