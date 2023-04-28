@@ -5,8 +5,8 @@ const Recipe = require("../models/Recipe")
 module.exports = {
     getRecipes: async (req, res) => {
         try {
-            const recipes = await Recipe.find()
-            res.render('recipes.ejs', {getRecipes: recipes})
+            const recipes = await Recipe.find({ user: req.user.id })
+            res.render('recipes.ejs', { getRecipes: recipes, user: req.user })
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
@@ -44,6 +44,7 @@ module.exports = {
                 serving: req.body.serving,
                 ingredients: req.body.ingredients,
                 instructions: req.body.instructions,
+                user: req.user.id,
             }
         )
         try {
