@@ -17,10 +17,10 @@ const uploadedRecipeSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    // User : {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    // },
+    user : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
     
 })
 

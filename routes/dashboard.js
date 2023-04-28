@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const dashboardController = require('../controllers/dashboard')
-const commentsController = require('../controllers/comments')
+// const commentsController = require('../controllers/comments')
+const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 // * Handles initial GET request from the homepage
 
-router.get('/', dashboardController.getIndex) // read
+router.get('/', ensureAuth, dashboardController.getDashboard) // read
 router.get('/edit/:id', dashboardController.editItems) // read
 
 

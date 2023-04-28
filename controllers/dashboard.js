@@ -1,9 +1,10 @@
 const NewItem = require("../models/NewItems")
 
 module.exports = {
-    getIndex: async (req, res) => {
+    getDashboard: async (req, res) => {
         try {
-            const items = await NewItem.find()
+            console.log(req.user.id);
+            const items = await NewItem.find({ user: req.user.id })
 
             let daysLeft = []
             for(let i = 0; i < items.length; i++) {
@@ -18,7 +19,7 @@ module.exports = {
                 }
             }
             console.log(daysLeft);
-            res.render('dashboard.ejs', {newItem: items, daysLeft: daysLeft})
+            res.render('dashboard.ejs', {newItem: items, user: req.user, daysLeft: daysLeft})
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
@@ -31,7 +32,8 @@ module.exports = {
                 itemInput: req.body.itemInput,
                 quantity: req.body.quantity,
                 unit: req.body.unit,
-                expiry: expiration
+                expiry: expiration,
+                user: req.user.id,
             }
         )
         try {
@@ -64,7 +66,8 @@ module.exports = {
                 itemInput: req.body.itemInput,
                 quantity: req.body.quantity,
                 unit: req.body.unit,
-                expiry: expiration
+                expiry: expiration,
+                user: req.user.id,
             })
             res.redirect('/dash')
         } catch (err) {

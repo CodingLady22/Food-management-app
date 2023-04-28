@@ -1,7 +1,9 @@
 <%- include('partials/header') -%>
 
 <section class="h-full p-6 bg-[#f6f6f6]">
-    <h2 class="text-[#515070] mt-8 text-5xl w-full">Hello UserName</h2>
+    <h2 class="text-[#515070] mt-8 text-5xl w-full">Hello <%= user.userName %>,</h2>
+
+    <!-- Add line to show number of items about to expire -->
     <div class="mt-8 sm:mx-auto sm:w-full">
         <div class="py-12 px-6 shadow rounded-lg sm:px-10 flex justify-evenly gap-4 bg-white md:p-8">
             <section class="hidden md:inline-block mx-5 w-[350px]">
