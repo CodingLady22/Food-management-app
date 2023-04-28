@@ -3,8 +3,9 @@ const Comment = require("../models/Comment")
 module.exports = {
     getComments: async (req, res) => {
         try {
-            const comments = await Comment.find()
-            res.render('comments.ejs', {getComments: comments})
+            console.log(req.user.id);
+            const comments = await Comment.find({ user: req.user.id })
+            res.render('comments.ejs', { enteredComments: comments, user: req.user })
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
@@ -13,7 +14,8 @@ module.exports = {
         const newComment = new Comment(
             {
                 title: req.body.title,
-                comment: req.body.comment
+                comment: req.body.comment,
+                user: req.user.id,
             }
         )
         try {
