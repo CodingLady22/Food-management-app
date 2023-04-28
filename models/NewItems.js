@@ -17,6 +17,10 @@ const newItemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
     purchaseDate: {
         type: Date,
         default: Date.now
