@@ -7,7 +7,7 @@ Food wastage is a major problem all around the world. A simple and easy-to-use a
 Live link: 
 
 ## Current look of some pages
-![image]()
+
 <img width="920" alt="Screen Shot 2023-04-29 at 6 22 21 PM" src="https://user-images.githubusercontent.com/99496129/235314073-7c857314-2e8b-453c-84b2-7414bd6b5353.png">
 
 <img width="920" alt="Screen Shot 2023-04-29 at 6 22 46 PM" src="https://user-images.githubusercontent.com/99496129/235314085-ec81b010-e25c-4e5c-b18a-b6031fe90f49.png">
