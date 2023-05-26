@@ -56,10 +56,7 @@ module.exports = {
             res.redirect('/')
         }
     },
-    // not sure if it is an unnecessary piece of code but I cannot 'GET' the edit page without it
     singleRecipe: async (req, res) => {
-        // const  = 
-        // 
         try {
             const viewRecipe = await Recipe.findById(req.params.id);
             res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user })
