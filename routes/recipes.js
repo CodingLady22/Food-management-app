@@ -7,7 +7,8 @@ const recipesController = require('../controllers/recipes');
 // * Handles initial GET request on the homepage
 
 router.get('/', recipesController.getRecipes) // read
-router.get('/edit/:id', recipesController.editRecipe) // read edit page
+router.get('/viewRecipe/:id', recipesController.singleRecipe) // read
+// router.get('/edit/:id', recipesController.editRecipe) // read edit page
 
 
 //* Handles POST method request for adding a new item
