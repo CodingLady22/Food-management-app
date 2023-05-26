@@ -57,15 +57,15 @@ module.exports = {
         }
     },
     // not sure if it is an unnecessary piece of code but I cannot 'GET' the edit page without it
-    editRecipe: async (req, res) => {
-        // const id = req.params.id
-        // console.log(id);
-        // try {
-        //     const comments = await Comment.find()
-        //     res.render('editComment.ejs', { editComment : comments, commentId : id})
-        // } catch (err) {
-        //     if (err) return res.status(500).send(err)
-        // }
+    singleRecipe: async (req, res) => {
+        // const  = 
+        // 
+        try {
+            const viewRecipe = await Recipe.findById(req.params.id);
+            res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user })
+        } catch (err) {
+            console.log(err);
+        }
     },
     updateRecipe: async (req, res) => {
         // const id = req.params.id
