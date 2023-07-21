@@ -65,6 +65,26 @@ module.exports = {
             console.log(err);
         }
     },
+     updateRecipe: async (req, res) => {
+        const id = req.params.id
+        try {
+            const { title, prep, cook, total, serving, ingredients, instructions } = req.body;
+            const updatedRecipe = await Recipe.findById(id);
+           await Recipe.findByIdAndUpdate(updatedRecipe, {
+               title,
+               prep,
+               cook,
+               total,
+               serving,
+               ingredients,
+               instructions,
+           });
+            console.log("Recipe has been updated")
+            res.redirect(`/recipes/viewRecipe/${id}`)
+        } catch (err) {
+            res.status(500).send('Error retrieving recipe for editing.')
+        }
+    },
     // updateRecipe: async (req, res) => {
     //     const id = req.params.id
     //     try {
