@@ -1,10 +1,36 @@
-<section>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Management App</title>
+    <link href="/output.css" rel="stylesheet">
+    <!-- <link href="/css/styles.css" rel="stylesheet"> -->
+</head>
+<body>
+
+<section class="border-black border-2 mt-5">
     <!-- Reading of click recipe  -->
-    <ul class="border-black border-2 my-3 p-3 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
-        <% getRecipes.forEach(recipe=> { %>
-            <li class="border-orange-600 border-2 my-2">
+
+    <div class="border-orange-400 border-2 p-2">
+        <div class="border-blue-700 border-2 flex justify-center mt-5">
+            <div class="border-orange-900 border-2">
+                <!-- Remove one of the title. There are 2 -->
+                <h2>
+                    <%= recipe.title %>
+                </h2>
+                <img class="border-green-900 border-2" src="<%= recipe.image%>" />
+              
+            </div>
+    
+    
+            <!-- Edit the one from recipes page -->
+
+            <div class="border-orange-600 border-2 my-2">
                 <!-- image over here -->
-                <div class="border-purple-600 border-2 px-2 py-2">
+                <div class="border-blue-600 border-2 px-2 py-2">
                     <%= recipe.title %>
                 </div>
                 <!-- Maybe put each in a div to style -->
@@ -13,35 +39,88 @@
                     <span class="block mx-1">Cook: <%= recipe.cook %></span>
                     <span class="block mx-1">Total: <%= recipe.total %></span>
                     <span class="block mx-1">Serving: <%= recipe.serving %></span>
-    
+            
                 </div>
                 <!-- remove grid or start all over again -->
-                <div
-                    class="border-green-600 border-2 h-[300px] rounded my-4 p-3 grid grid-rows-2 gap-1 md:grid md:grid-cols-2 md:gap-8">
+                <div class="border-green-600 border-2 ">
                     <!-- using heaight didn't work -->
                     <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full">
                         <h4 class="font-mono uppercase underline text-lg">Ingredients</h4>
                         <%= recipe.ingredients %>
                     </div>
-                    <!-- Trying to give space b/w both divs at mid point. Also see why the spacing is that much now. -->
-                    <!-- <hr> -->
-                    <!-- <br class="bg-black border-2 border-black"> -->
-                    <!-- <div class="border-2 h-[1px] mt-5 border-slate-300 w-full md:hidden"></div> -->
+            
                     <div class="border-red-600 border-2">
                         <h4 class="font-mono uppercase underline text-lg">Preparations</h4>
                         <%= recipe.instructions %>
                     </div>
                 </div>
-    
-                <div class="flex justify-center gap-4 my-2">
+
+                <div class="border-purple-800 border-2 flex justify-between">
+                    <!-- change from post to recipes -->
+                    
+                    <!-- MAKING CHANGES FOR DUAL PURPOSE FORM -->
+                    <%if(recipe.user==user.id){ %>
+                        <a href="/recipes/viewRecipe/<%= recipe.id %>?edit=true" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
+                        hover:text-[#FF8E6E]">Edit</a>
+                        <form action="/recipes/deleteOneRecipe/<%= recipe.id%>?_method=DELETE" method="POST" class="border-green-500 border-2">
+                            <button class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]" type="submit">Delete</button>
+                        </form>
+                    <%}%>
+                </div>
+            
+                
+                <!-- <div class="flex justify-center gap-4 my-2">
                     <a href="#"
-                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Edit</a>
-    
+                        class="">Edit</a>
+            
                     <a href="#"
                         class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT FORM -->
+    <% if (showEditForm) { %>
+        <div class="border-green-800 border-2 mt-52">
+            <form action="/recipes/updateOneRecipe/<%= recipe.id%>?_method=PUT" method="POST" class="border-green-500 border-2">
+                <input type="text" name="title" value="<%= recipe.title %>" class="border-red-600 border-2">
+                <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
+                    <input type="text" name="prep" value="<%= recipe.prep %>" class="block mx-1 border-blue-600 border-2"> </input>
+                    <input type="text" name="cook" value="<%= recipe.cook %>" class="block mx-1 border-blue-600 border-2"> </input>
+                    <input type="text" name="total" value="<%= recipe.total %>" class="block mx-1 border-blue-600 border-2"> </input>
+                    <input type="text" name="serving" value="<%= recipe.serving %>" class="block mx-1 border-blue-600 border-2"> </input>
                 </div>
-            </li>
-            <% }) %>
-    
-    </ul>
+                <div
+                    class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <textarea class="border-2 border-rose-500" name="ingredients" id="" cols="30" rows="10">
+                        <%= recipe.ingredients %>
+                    </textarea>
+                </div>
+                <div
+                    class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    <textarea class="border-2 border-rose-500" name="instructions" id="" cols="30" rows="10">
+                        <%= recipe.instructions %>
+                    </textarea>
+                </div>
+                <div class="border-purple-900 border-2">
+                    <button
+                    class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                    type="submit">Save</button>
+                    <a href="/recipes/viewRecipe/<%= recipe._id%>" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
+                    hover:text-[#FF8E6E]">Cancel</a>
+                </div>
+            </form>
+        </div>
+    <% } %>
+
+    <div class="col-6 mt-5">
+        <a class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]" href="/recipes">Return to Recipes</a>
+        <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
+    </div>
 </section>
+
+</body>
+
+</html>
