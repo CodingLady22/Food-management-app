@@ -59,35 +59,50 @@ module.exports = {
     singleRecipe: async (req, res) => {
         try {
             const viewRecipe = await Recipe.findById(req.params.id);
-            res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user })
+            const showEditForm = req.query.edit === 'true';
+            res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user, showEditForm: showEditForm })
         } catch (err) {
             console.log(err);
         }
     },
-    updateRecipe: async (req, res) => {
-        // const id = req.params.id
-        // try {
-        //     await Comment.findByIdAndUpdate(id, {
-        //         title: req.body.title,
-        //         comment: req.body.comment
-        //     })
-        //     res.redirect('/comments')
-        // } catch (err) {
-        //     if (err) return res.status(500).send(err)
-        //     res.redirect('/comments')
-        // }
-    },
+    // updateRecipe: async (req, res) => {
+    //     const id = req.params.id
+    //     try {
+    //         const updatedRecipe = {
+    //             title: req.body.title,
+    //             // image: result.secure_url,
+    //             prep: req.body.prep,
+    //             cook: req.body.cook,
+    //             total: req.body.total,
+    //             serving: req.body.serving,
+    //             ingredients: req.body.ingredients,
+    //             instructions: req.body.instructions,
+    //         }
+    //         await Recipe.findByIdAndUpdate(id, updatedRecipe);
+    //         console.log("Recipe has been updated")
+    //         res.redirect('/recipes')
+    //     } catch (err) {
+    //         if (err) return res.status(500).send(err)
+    //         res.redirect('/recipes')
+    //     }
+    // },
     deleteRecipe: async (req, res) => {
+        //   Find post by id
+        const id = req.params.id
         try {
-    //   Find post by id
-      let recipe = await Recipe.findByIdAndDelete(id);
+            // let recipe = await Recipe.findById({ id: req.params.id });
+        let recipe = await Recipe.findByIdAndDelete(id);
 
       // Delete image from cloudinary
       await cloudinary.uploader.destroy(recipe.cloudinaryId);
+      // Delete post from db
+    //   await Recipe.remove({ id: req.params.id });
+      await Recipe.findByIdAndDelete(id);
       console.log("Recipe has been deleted");
             res.redirect('/recipes')
     } catch (err) {
-      if (err) return res.status(500).send(err)
+      err.status(500).send(err)
+      res.redirect('/recipes')
     }
     },
     deleteUploadedRecipe: async (req, res) => {
