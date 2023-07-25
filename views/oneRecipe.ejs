@@ -81,8 +81,26 @@
         </div>
     </div>
 
-    <!-- EDIT FORM -->
+    <!-- Editing start -->
     <% if (showEditForm) { %>
+        <!-- Edit Image -->
+        <form action="/recipes/updateImageRecipe/<%= recipe.id%>?_method=PUT" enctype="multipart/form-data" method="POST">
+            <div class="mb-3">
+                <label for="editImgUpload" class="form-label">Image</label>
+                <input type="file" class="form-control" id="editImageUpload" name="editFile"> 
+                <!-- check name value above-->
+            </div>
+            <div class="border-red-700 border-2">
+                <img class="border-green-900 border-2" src="<%= recipe.image%>" />
+            </div>
+            <button
+                class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                type="submit">Save</button>
+        </form>
+    
+
+    <!-- EDIT FORM -->
+    
         <div class="border-green-800 border-2 mt-52">
             <form action="/recipes/updateOneRecipe/<%= recipe.id%>?_method=PUT" method="POST" class="border-green-500 border-2">
                 <input type="text" name="title" value="<%= recipe.title %>" class="border-red-600 border-2">
@@ -114,6 +132,8 @@
             </form>
         </div>
     <% } %>
+
+    <!-- Editing ends -->
 
     <div class="col-6 mt-5">
         <a class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]" href="/recipes">Return to Recipes</a>
