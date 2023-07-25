@@ -65,11 +65,43 @@ module.exports = {
             console.log(err);
         }
     },
+    updateRecipeImage: async (req, res) => {
+        const id = req.params.id;
+        try {
+            // change name of this variable
+            const updatedRecipe = await Recipe.findById(id);
+            
+            // first check if a new image is being uploaded
+            // if(req.file) {
+                // first upload the new image
+                const newImageUpload = await cloudinary.uploader.upload(req.file.path);
+                const newImagePublicId = newImageUpload.public_id;
+
+                // next, retrieve the existing image details from the database
+                const oldImagePublicId = updatedRecipe.cloudinaryId;
+
+                // then delete the old image from cloudinary
+                await cloudinary.uploader.destroy(oldImagePublicId);
+
+                // lastly, update the image URL and cloudinary id in the database
+                updatedRecipe.image = newImageUpload.secure_url;
+                updatedRecipe.cloudinaryId = newImagePublicId;
+            // }
+            await updatedRecipe.save();
+            console.log("Image has been updated")
+            res.redirect(`/recipes/viewRecipe/${id}`)
+            
+        } catch (err) {
+            res.status(500).send('Error retrieving image for editing.')
+        }
+    },
      updateRecipe: async (req, res) => {
-        const id = req.params.id
+        const id = req.params.id;
         try {
             const { title, prep, cook, total, serving, ingredients, instructions } = req.body;
             const updatedRecipe = await Recipe.findById(id);
+
+            // now update the other recipe details in the database
            await Recipe.findByIdAndUpdate(updatedRecipe, {
                title,
                prep,
@@ -79,6 +111,10 @@ module.exports = {
                ingredients,
                instructions,
            });
+
+        //    save the updated recipe in the database
+        // await updatedRecipe.save();
+        
             console.log("Recipe has been updated")
             res.redirect(`/recipes/viewRecipe/${id}`)
         } catch (err) {
