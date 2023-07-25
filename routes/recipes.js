@@ -16,6 +16,7 @@ router.get('/viewRecipe/:id', recipesController.singleRecipe) // read
 router.post('/newRecipe', upload.single("file"), recipesController.createRecipe) // create recipe on app
 router.post('/recipe', upload.single("pdf"), recipesController.addRecipe) // import recipe into app
 router.put('/updateOneRecipe/:id', recipesController.updateRecipe) // update
+router.put('/updateImageRecipe/:id', upload.single("editFile"), recipesController.updateRecipeImage) // update
 router.delete('/deleteOneRecipe/:id', recipesController.deleteRecipe) // delete
 router.get('/deleteUpload/:id', recipesController.deleteUploadedRecipe) // delete
 
