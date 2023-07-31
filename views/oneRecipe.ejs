@@ -12,73 +12,77 @@
 <body>
 
 <section class="border-black border-2 mt-5">
-    <!-- Reading of click recipe  -->
 
-    <div class="border-orange-400 border-2 p-2">
-        <div class="border-blue-700 border-2 flex justify-center mt-5">
-            <div class="border-orange-900 border-2">
-                <!-- Remove one of the title. There are 2 -->
-                <h2>
-                    <%= recipe.title %>
-                </h2>
-                <img class="border-green-900 border-2" src="<%= recipe.image%>" />
-              
-            </div>
-    
-    
-            <!-- Edit the one from recipes page -->
+    <!-- Recipe box  -->
+    <div class="border-orange-400 border-2 p-8 max-w-5xl">
 
-            <div class="border-orange-600 border-2 my-2">
+        <!-- Box holding 3 sections in Recipe -->
+        <div class="border-2 border-green-500 flex flex-col justify-center p-4 rounded-md shadow-md shadow-black/5">
+
+            <!-- Section holding Image -->
+            <section class="border-blue-700 border-2 mt-5 bg-no-repeat bg-cover max-h-[90rem]">
+                <!-- Why is the image not changing size? -->
+                <div class="border-orange-900 border-2 flex justify-center">
+                
+                    <img class="border-green-900 border-2 w-full h-full object-cover rounded-lg" src="<%= recipe.image%>" />
+            
+                </div>
+            </section>
+            
+            <!-- Section holding Sub head info -->
+            <section class="border-orange-600 border-2 my-2">
                 <!-- image over here -->
-                <div class="border-blue-600 border-2 px-2 py-2">
+                <div class="border-blue-600 font-bold uppercase text-xl border-2 px-2 py-2">
                     <%= recipe.title %>
                 </div>
                 <!-- Maybe put each in a div to style -->
-                <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
-                    <span class="block mx-1">Prep: <%= recipe.prep %></span>
-                    <span class="block mx-1">Cook: <%= recipe.cook %></span>
-                    <span class="block mx-1">Total: <%= recipe.total %></span>
-                    <span class="block mx-1">Serving: <%= recipe.serving %></span>
+                <div class="border-purple-900 border-2 p-2 w-full grid grid-cols-2 md:flex md:flex-wrap md:justify-evenly ">
+                    <span class="block mx-1"><span class="font-bold">Prep:</span> <%= recipe.prep %></span>
+                    <span class="block mx-1"><span class="font-bold">Cook:</span> <%= recipe.cook %></span>
+                    <span class="block mx-1"><span class="font-bold">Total:</span> <%= recipe.total %></span>
+                    <span class="block mx-1"><span class="font-bold">Servings:</span> <%= recipe.serving %></span>
             
                 </div>
-                <!-- remove grid or start all over again -->
-                <div class="border-green-600 border-2 ">
+            </section>
+
+            <!-- Section holding Ingredients and Directions -->
+            <section class="border-2 border-black">
+                <div class="border-green-600 border-2 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-4 p-5">
                     <!-- using heaight didn't work -->
-                    <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full">
-                        <h4 class="font-mono uppercase underline text-lg">Ingredients</h4>
+                    <div class="border-red-600 border-2 pb-3">
+                    <!-- <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full"> -->
+                        <h4 class="font-mono text-center font-bold uppercase underline text-lg my-4">Ingredients</h4>
                         <%= recipe.ingredients %>
                     </div>
-            
-                    <div class="border-red-600 border-2">
-                        <h4 class="font-mono uppercase underline text-lg">Preparations</h4>
+                
+                    <div class="border-red-600 border-2 col-span-2 p-4">
+                        <h4 class="font-mono text-center font-bold uppercase underline text-lg my-4">Preparations</h4>
                         <%= recipe.instructions %>
                     </div>
                 </div>
-
-                <div class="border-purple-800 border-2 flex justify-between">
-                    <!-- change from post to recipes -->
-                    
-                    <!-- MAKING CHANGES FOR DUAL PURPOSE FORM -->
-                    <%if(recipe.user==user.id){ %>
-                        <a href="/recipes/viewRecipe/<%= recipe.id %>?edit=true" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
-                        hover:text-[#FF8E6E]">Edit</a>
-                        <form action="/recipes/deleteOneRecipe/<%= recipe.id%>?_method=DELETE" method="POST" class="border-green-500 border-2">
-                            <button class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]" type="submit">Delete</button>
-                        </form>
-                    <%}%>
-                </div>
-            
-                
-                <!-- <div class="flex justify-center gap-4 my-2">
-                    <a href="#"
-                        class="">Edit</a>
-            
-                    <a href="#"
-                        class="bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]">Delete</a>
-                </div> -->
-                
-            </div>
+            </section>
         </div>
+        
+        <!-- Section holding edit/delete or user name if viewed by non poster -->
+        <div class="border-2 border-blue-700">
+            <div class="border-purple-800 border-2 flex justify-between">
+            
+                <!-- MAKING CHANGES FOR DUAL PURPOSE FORM -->
+                <%if(recipe.user==user.id){ %>
+                    <a href="/recipes/viewRecipe/<%= recipe.id %>?edit=true" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
+                                                hover:text-[#FF8E6E]">Edit</a>
+                    <form action="/recipes/deleteOneRecipe/<%= recipe.id%>?_method=DELETE" method="POST"
+                        class="border-green-500 border-2">
+                        <button
+                            class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                            type="submit">Delete</button>
+                    </form>
+                    <%}%>
+            </div>
+        </div>    
+                    
+        
+        
     </div>
 
     <!-- Editing start -->
