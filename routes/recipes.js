@@ -7,15 +7,17 @@ const recipesController = require('../controllers/recipes');
 // * Handles initial GET request on the homepage
 
 router.get('/', recipesController.getRecipes) // read
-router.get('/edit/:id', recipesController.editRecipe) // read edit page
+router.get('/viewRecipe/:id', recipesController.singleRecipe) // read
+// router.get('/edit/:id', recipesController.editRecipe) // read edit page
 
 
 //* Handles POST method request for adding a new item
 
 router.post('/newRecipe', upload.single("file"), recipesController.createRecipe) // create recipe on app
 router.post('/recipe', upload.single("pdf"), recipesController.addRecipe) // import recipe into app
-router.post('/update/:id', recipesController.updateRecipe) // update
-router.get('/delete/:id', recipesController.deleteRecipe) // delete
+router.put('/updateOneRecipe/:id', recipesController.updateRecipe) // update
+router.put('/updateImageRecipe/:id', upload.single("editFile"), recipesController.updateRecipeImage) // update
+router.delete('/deleteOneRecipe/:id', recipesController.deleteRecipe) // delete
 router.get('/deleteUpload/:id', recipesController.deleteUploadedRecipe) // delete
 
 module.exports = router
