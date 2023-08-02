@@ -6,7 +6,9 @@ module.exports = {
             console.log(req.user.id);
             const items = await NewItem.find({ user: req.user.id })
 
-            let daysLeft = []
+            let daysLeft = [];
+            let expiringSoonCount = 0;
+
             for(let i = 0; i < items.length; i++) {
                 let expirations = new Date(items[i].expiry)
                 let today = new Date();
@@ -15,11 +17,15 @@ module.exports = {
                     daysLeft.push('Expired')
                 } else {
                     let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-                    daysLeft.push(diffDays)
+                    daysLeft.push(diffDays);
+
+                    if (diffDays <= 7) {
+                        expiringSoonCount++;
+                    }
                 }
             }
             console.log(daysLeft);
-            res.render('dashboard.ejs', {newItem: items, user: req.user, daysLeft: daysLeft})
+            res.render('dashboard.ejs', {newItem: items, user: req.user, daysLeft: daysLeft, expiringSoonCount: expiringSoonCount})
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
