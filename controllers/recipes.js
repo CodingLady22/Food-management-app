@@ -56,41 +56,109 @@ module.exports = {
             res.redirect('/')
         }
     },
-    // not sure if it is an unnecessary piece of code but I cannot 'GET' the edit page without it
-    editRecipe: async (req, res) => {
-        // const id = req.params.id
-        // console.log(id);
-        // try {
-        //     const comments = await Comment.find()
-        //     res.render('editComment.ejs', { editComment : comments, commentId : id})
-        // } catch (err) {
-        //     if (err) return res.status(500).send(err)
-        // }
-    },
-    updateRecipe: async (req, res) => {
-        // const id = req.params.id
-        // try {
-        //     await Comment.findByIdAndUpdate(id, {
-        //         title: req.body.title,
-        //         comment: req.body.comment
-        //     })
-        //     res.redirect('/comments')
-        // } catch (err) {
-        //     if (err) return res.status(500).send(err)
-        //     res.redirect('/comments')
-        // }
-    },
-    deleteRecipe: async (req, res) => {
+    singleRecipe: async (req, res) => {
         try {
-    //   Find post by id
-      let recipe = await Recipe.findByIdAndDelete(id);
+            const viewRecipe = await Recipe.findById(req.params.id);
+            const showEditForm = req.query.edit === 'true';
+            res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user, showEditForm: showEditForm })
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    updateRecipeImage: async (req, res) => {
+        const id = req.params.id;
+        try {
+            // change name of this variable
+            const updatedRecipe = await Recipe.findById(id);
+            
+            // first check if a new image is being uploaded
+            // if(req.file) {
+                // first upload the new image
+                const newImageUpload = await cloudinary.uploader.upload(req.file.path);
+                const newImagePublicId = newImageUpload.public_id;
+
+                // next, retrieve the existing image details from the database
+                const oldImagePublicId = updatedRecipe.cloudinaryId;
+
+                // then delete the old image from cloudinary
+                await cloudinary.uploader.destroy(oldImagePublicId);
+
+                // lastly, update the image URL and cloudinary id in the database
+                updatedRecipe.image = newImageUpload.secure_url;
+                updatedRecipe.cloudinaryId = newImagePublicId;
+            // }
+            await updatedRecipe.save();
+            console.log("Image has been updated")
+            res.redirect(`/recipes/viewRecipe/${id}`)
+            
+        } catch (err) {
+            res.status(500).send('Error retrieving image for editing.')
+        }
+    },
+     updateRecipe: async (req, res) => {
+        const id = req.params.id;
+        try {
+            const { title, prep, cook, total, serving, ingredients, instructions } = req.body;
+            const updatedRecipe = await Recipe.findById(id);
+
+            // now update the other recipe details in the database
+           await Recipe.findByIdAndUpdate(updatedRecipe, {
+               title,
+               prep,
+               cook,
+               total,
+               serving,
+               ingredients,
+               instructions,
+           });
+
+        //    save the updated recipe in the database
+        // await updatedRecipe.save();
+        
+            console.log("Recipe has been updated")
+            res.redirect(`/recipes/viewRecipe/${id}`)
+        } catch (err) {
+            res.status(500).send('Error retrieving recipe for editing.')
+        }
+    },
+    // updateRecipe: async (req, res) => {
+    //     const id = req.params.id
+    //     try {
+    //         const updatedRecipe = {
+    //             title: req.body.title,
+    //             // image: result.secure_url,
+    //             prep: req.body.prep,
+    //             cook: req.body.cook,
+    //             total: req.body.total,
+    //             serving: req.body.serving,
+    //             ingredients: req.body.ingredients,
+    //             instructions: req.body.instructions,
+    //         }
+    //         await Recipe.findByIdAndUpdate(id, updatedRecipe);
+    //         console.log("Recipe has been updated")
+    //         res.redirect('/recipes')
+    //     } catch (err) {
+    //         if (err) return res.status(500).send(err)
+    //         res.redirect('/recipes')
+    //     }
+    // },
+    deleteRecipe: async (req, res) => {
+        //   Find post by id
+        const id = req.params.id
+        try {
+            // let recipe = await Recipe.findById({ id: req.params.id });
+        let recipe = await Recipe.findByIdAndDelete(id);
 
       // Delete image from cloudinary
       await cloudinary.uploader.destroy(recipe.cloudinaryId);
+      // Delete post from db
+    //   await Recipe.remove({ id: req.params.id });
+      await Recipe.findByIdAndDelete(id);
       console.log("Recipe has been deleted");
             res.redirect('/recipes')
     } catch (err) {
-      if (err) return res.status(500).send(err)
+      err.status(500).send(err)
+      res.redirect('/recipes')
     }
     },
     deleteUploadedRecipe: async (req, res) => {
