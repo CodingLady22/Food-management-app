@@ -1,1 +1,37 @@
+<%- include('partials/header') -%>
+
 <!-- Get all the recipes -->
+
+<section class="border-2 border-green-900 mt-12 h-screen">
+    <h1>Hello Recipe Feed</h1>
+    <!-- my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3 -->
+    <section class="border-2 border-black grid grid-cols-1 auto-rows-fr md:grid-cols-3 lg:grid-cols-4 h-4/5">
+        <section class="border-2 border-yellow-700 col-span-1 bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+            <h2>First box</h2>
+        </section>
+        <section class="border-2 border-indigo-700 col-span-1 md:col-span-2 lg:col-span-3 bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+            <h2 class="border-2 border-red-700">Second box</h2>
+            <h2 class="border-2 border-orange-700">Third box</h2>
+            <h2 class="border-2 border-purple-600">Fourth box</h2>
+        </section>
+    </section>
+
+    <!-- links to other pages -->
+
+    <div class="border-blue-400 border-2 flex p-2">
+        <!-- work on width. Use the correct syntax -->
+        <a href="/dash"
+            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+            <button type="submit">Dashboard</button>
+        </a>
+        <a href="/comments"
+            class="relative inline-block py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add
+            Comment</a>
+    
+        <a href="/recipes"
+            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">My Recipes</a>
+    </div>
+</section>
+
+
+<%- include('partials/footer') -%>
