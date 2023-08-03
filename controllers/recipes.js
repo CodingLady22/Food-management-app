@@ -11,6 +11,14 @@ module.exports = {
             if (err) return res.status(500).send(err)
         }
     },
+    recipeFeed: async (req, res) => {
+        try {
+            const recipes = await Recipe.find()
+            res.render('allRecipes.ejs', { viewAllRecipes: recipes, user: req.user })
+        } catch (err) {
+            if (err) return res.status(500).send(err)
+        }
+    },
     addRecipe: async (req, res) => {
         // try {
             // Upload pdf to cloudinary
