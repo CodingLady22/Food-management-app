@@ -13,8 +13,8 @@ module.exports = {
     },
     recipeFeed: async (req, res) => {
         try {
-            const recipes = await Recipe.find()
-            res.render('allRecipes.ejs', { viewAllRecipes: recipes, user: req.user })
+            const recipes = await Recipe.find().populate("user")
+            res.render('allRecipes.ejs', { recipes: recipes, user: req.user })
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
