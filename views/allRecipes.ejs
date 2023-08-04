@@ -1,1 +1,102 @@
+<%- include('partials/header') -%>
+
 <!-- Get all the recipes -->
+
+<section class="border-2 border-green-900 mt-12 p-6">
+    <!-- my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3 -->
+    <section class="border-2 border-black grid grid-cols-1 auto-rows-fr md:grid-cols-3 lg:grid-cols-4 h-4/5">
+        <section class="border-2 border-yellow-700 col-span-1 bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+            <h2><%= user.userName %>, see any recipe you like?</h2>
+        </section>
+        <section class="border-2 border-indigo-700 col-span-1 md:col-span-2 lg:col-span-3 bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+            <div class="border-2 border-black p-3">
+                <h2 class="border-2 border-red-700">Second box</h2>
+                <input type="search" placeholder="search box" class="border-2 border-orange-700 p-2 m-2">
+                    Add an input field to search for external recipes
+                </input>
+                <span class="block mx-1"><span class="font-bold">Total:</span>
+                    Add an input field to search for recipes on app
+                </span>
+            </div>
+        </section>
+    </section>
+
+    <!-- WORKING ON DISPLAYING RECIPES -->
+
+    <ul
+        class="border-black border-2 bg-[#fafafa] my-2 py-2 grid grid-cols-1 gap-5 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
+        <% recipes.forEach(recipe=> { %>
+            <li class="border-green-900 border-2 my-2 p-2">
+                <!-- Modifying recipe card -->
+                <div class="border-purple-600 border-2 flex items-center justify-evenly flex-wrap">
+                    <div
+                        class="my-2 flex flex-col rounded-md bg-white border-2 border-black/10 max-w-1xl min-h-[20rem] shadow-sm p-3 hover:border-2 hover:border-[#FFBB91]">
+    
+                        <div class="border-red-600 border-2 bg-no-repeat bg-cover min-h-[20rem]">
+                            <img src="<%= recipe.image%>" alt="" class="border-green-500 border-2 w-96 h-80">
+                        </div>
+    
+                        <div class="border-blue-800 border-2 flex flex-col pt-0 px-2 pb-2">
+                            <h1 class="border-yellow-300 border-2 capitalize p-3 text-[#313135] font-bold text-3xl">
+                                <%= recipe.title %>
+                            </h1>
+                            <p class="border-green-500 border-2 pt-8 font-medium text-2xl text-[#59595C] mb-10">The tags
+                                will go in here</p>
+    
+                        </div>
+
+                        <div class="border-2 border-red-500 p-2 flex justify-between">
+                           <div class="bg-[#f7f5f5] p-1.5 rounded-3xl text-sm font-semibold text-[#313135] mb-2">
+                                <!-- Display the owner's name -->
+                                <% if (recipe.user) { %>
+                                    <span>
+                                        By: <%= recipe.user.userName %>
+                                    </span>
+                                <% } else { %>
+                                    <span>
+                                        Owner information not available.
+                                    </span>
+                                <% } %>
+                           </div>
+                           <div class="bg-[#f7f5f5] mb-2 p-1.5 rounded-3xl">
+                               <span class="font-semibold">Time: <%= recipe.total %></span>
+                           </div>
+
+                        </div>
+                        
+                        <a href="/recipes/viewRecipe/<%= recipe._id%>"
+                            class="border-orange-600 border-2 mx-auto justify-self-end no-underline text-[#FFBB91] bg-black/5 rounded text-4xl py-1.5 w-72 text-center hover:shadow-md hover:bg-white hover:text-[#FF8E6E]">View
+                            Recipe</a>
+                    </div>
+                </div>
+    
+                <!-- End of recipe card -->
+            </li>
+            <% }) %>
+    
+    </ul>
+
+
+    <!-- END OF WORKING ON DISPLAYING RECIPES -->
+
+
+
+    <!-- links to other pages -->
+
+    <div class="border-blue-400 border-2 flex p-2">
+        <!-- work on width. Use the correct syntax -->
+        <a href="/dash"
+            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+            <button type="submit">Dashboard</button>
+        </a>
+        <a href="/comments"
+            class="relative inline-block py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add
+            Comment</a>
+    
+        <a href="/recipes"
+            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">My Recipes</a>
+    </div>
+</section>
+
+
+<%- include('partials/footer') -%>

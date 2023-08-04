@@ -8,6 +8,7 @@ const recipesController = require('../controllers/recipes');
 
 router.get('/', recipesController.getRecipes) // read
 router.get('/viewRecipe/:id', recipesController.singleRecipe) // read
+router.get('/viewRecipeFeed', recipesController.recipeFeed) // read
 // router.get('/edit/:id', recipesController.editRecipe) // read edit page
 
 

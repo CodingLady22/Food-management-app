@@ -11,6 +11,14 @@ module.exports = {
             if (err) return res.status(500).send(err)
         }
     },
+    recipeFeed: async (req, res) => {
+        try {
+            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user")
+            res.render('allRecipes.ejs', { recipes: recipes, user: req.user })
+        } catch (err) {
+            if (err) return res.status(500).send(err)
+        }
+    },
     addRecipe: async (req, res) => {
         // try {
             // Upload pdf to cloudinary
@@ -58,7 +66,7 @@ module.exports = {
     },
     singleRecipe: async (req, res) => {
         try {
-            const viewRecipe = await Recipe.findById(req.params.id);
+            const viewRecipe = await Recipe.findById(req.params.id).populate("user");
             const showEditForm = req.query.edit === 'true';
             res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user, showEditForm: showEditForm })
         } catch (err) {
