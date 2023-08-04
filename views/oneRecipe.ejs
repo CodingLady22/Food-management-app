@@ -68,7 +68,7 @@
             <div class="border-purple-800 border-2 flex justify-between">
             
                 <!-- MAKING CHANGES FOR DUAL PURPOSE FORM -->
-                <%if(recipe.user==user.id){ %>
+                <%if(recipe.user && recipe.user._id.toString() === user.id){ %>
                     <a href="/recipes/viewRecipe/<%= recipe.id %>?edit=true" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
                                                 hover:text-[#FF8E6E]">Edit</a>
                     <form action="/recipes/deleteOneRecipe/<%= recipe.id%>?_method=DELETE" method="POST"
