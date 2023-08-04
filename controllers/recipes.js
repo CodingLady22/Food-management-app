@@ -66,7 +66,7 @@ module.exports = {
     },
     singleRecipe: async (req, res) => {
         try {
-            const viewRecipe = await Recipe.findById(req.params.id);
+            const viewRecipe = await Recipe.findById(req.params.id).populate("user");
             const showEditForm = req.query.edit === 'true';
             res.render('oneRecipe.ejs', { recipe: viewRecipe, user: req.user, showEditForm: showEditForm })
         } catch (err) {
