@@ -79,15 +79,10 @@
                     </form>
                     <% }  else { %>
                         <!-- Display the owner's name -->
-                        <% if (recipe.user) { %>
-                            <p class="border-blue-800 border-2 text-xl font-semibold text-[#313135] mb-2">
-                                By: <%= recipe.user.userName %>
-                            </p>
-                        <% } else { %>
-                                <p class="border-blue-800 border-2 text-xl font-semibold text-[#313135] mb-2">
-                                    Owner information not available.
-                                </p>
-                        <% } %>
+                        <% const ownerName = recipe.user ? recipe.user.userName : 'Owner information unavailable' %>
+                        <p class="border-blue-800 border-2 text-xl font-semibold text-[#313135] mb-2">
+                            By: <%= ownerName %>
+                        </p>
                         <a href="#" class="border-blue-800 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
                             Like
                         </a>
