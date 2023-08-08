@@ -1,0 +1,35 @@
+<%- include('partials/header') -%>
+
+<section class="my-20 mx-auto max-w-5xl">
+    <div
+        class="bg-slate-100/25 my-6 mx-2 p-6 ">
+        
+            <div
+                class="bg-blue-50/50 shadow-md py-4 px-7 pb-3 m-1.5 rounded-md border-2 shadow-[#0B2447]">
+        
+                <div class="border-slate-100 text-2xl text-center capitalize p-3 my-5 text-[#19376D]">
+                    <%= oneComment.title %>
+                </div>
+                
+                <div class="border-black/5 border-2 p-2 mb-5 text-[#0B2447]">
+                    <%= oneComment.comment %>
+                </div>
+                <div class="flex justify-center gap-4">
+                    
+                    <a href="/comments/edit/<%= oneComment._id%>"
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Edit</a>
+                    <a href="/comments/delete/<%= oneComment._id%>"
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Delete</a>
+                </div>
+    
+            </div>
+           
+    </div>
+    <div>
+        <a href="/comments"
+            class="bg-white border-[#DBD6D6] border-2 text-slate-800 m-4 py-2 px-3 rounded-md w-[150px] text-center hover:shadow-md hover:text-[#FF8E6E]">Back
+            to Comments</a>
+    </div>
+</section>
+
+

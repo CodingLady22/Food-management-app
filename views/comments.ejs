@@ -4,43 +4,58 @@
 
     <h2 class="m-4 text-lg">Enter your comments</h2>
     
-    <form action="/comments" method="POST">
-        <input type="text" placeholder="title" name="title" class="text-sm py-3 px-4 rounded-md border-2 border-black w-[40%] mb-5">
-        <div class="border-green-500 border-2 mt-4 px-4">
-            <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here"
-                class="border-red-400 border-2 p-1 w-[500px] min-h-[200px] my-0 mx-auto rounded-md"></textarea>
-        </div>
-        <button type="submit">Send</button>
-    </form>
-    
-    
-    <!-- <ul class="border-green-900 border-2 px-4 py-2 w-full mt-3 flex justify-center items-center flex-wrap shadow-md md:p-3 sm:p-5"> -->
-    <ul class="border-green-900 border-2 my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
-        <% enteredComments.forEach(comment=> { %>
-            <li class="bg-blue-50/95 shadow-md py-4 px-7 pb-3 w-340px h-[250px] m-1.5 rounded-md hover:border-2 hover:shadow-[#0B2447]">
-            <!-- <li class="border-blue-400 border-2 p-1 w-340px min-h-[150px] m-1.5 rounded-md"> -->
-                <div class="text-2xl text-center capitalize mb-3 text-[#19376D]">
-                    <%= comment.title %>
+    <div class="bg-white mt-8 sm:mx-auto sm:w-full">
+        <div class="py-6 px-6 shadow rounded-lg sm:px-10">
+            <form action="/comments" method="POST">
+                <label for="title" class="block mt-4 text-sm font-medium text-gray-700">Title</label>
+                <input type="text" placeholder="title" name="title"
+                    class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-[#FF8E6E] focus:ring-1 focus:ring-[#FF8E6E] caret-[#FFBB91]">
+
+                <div>
+                    <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-[#FF8E6E] focus:ring-1 focus:ring-[#FF8E6E] caret-[#FFBB91]"></textarea>
                 </div>
-                <!-- Thinking of giving this bg a light shade of something -->
-                <div class="border-purple-500 border-2 p-2 h-[100px] mb-4 text-[#0B2447]">
-                    <%= comment.comment %>
+
+                <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Enter Comment</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Displaying the entered comments -->
+
+    <ul class="border-2 rounded-md shadow-sm bg-slate-100/25 my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
+        <% enteredComments.forEach(comment=> { %>
+            <li class="bg-blue-50/50 shadow-md py-4 px-7 pb-3 w-340px h-[300px] m-1.5 rounded-md hover:border-2 hover:shadow-[#0B2447]">
+            
+                <div class="text-2xl text-center capitalize mb-3 text-[#19376D] overflow-hidden" title="<%= comment.title %>">
+
+                    <!-- Truncating title to 20 letters -->
+                    <%= comment.title.length > 20 ? comment.title.slice(0, 20) + '...' : comment.title %>
+                </div>
+                
+                <div class="border-black/5 border-2 p-2 h-[160px] mb-4 text-[#0B2447]">
+                    
+                    <!-- Truncating comment body to 20 letters -->
+                    <% const words = comment.comment.split(' '); %>
+                    <%= words.slice(0, 20).join(' ') %><%= words.length > 50 ? '...' : '' %>
                 </div>
                 <div class="flex justify-center gap-4">
+                    <a href="/comments/viewComment/<%= comment._id%>"
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">View</a>
                     <a href="/comments/edit/<%= comment._id%>"
-                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#19376D]">Edit</a>
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Edit</a>
                     <a href="/comments/delete/<%= comment._id%>"
-                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#19376D]">Delete</a>
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Delete</a>
                 </div>
                 
             </li>
             <% }) %>
     </ul>
     
-    <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline uppercase delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+    <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">
         <button type="submit">Dashboard</button>
     </a>
-    <a href="/recipes" class="relative inline-block py-2 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[rgb(3,233,244)] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Add Recipes</a>
+    <a href="/recipes" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Add Recipes</a>
 
 </section>
 

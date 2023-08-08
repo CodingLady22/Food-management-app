@@ -5,6 +5,8 @@ const commentsController = require('../controllers/comments')
 
 // * Handles initial GET request for the comments page
 router.get('/', commentsController.getComments) // read
+// Gets the page to view a full comment
+router.get('/viewComment/:id', commentsController.getOneComment) // read
 // getting the edit page
 router.get('/edit/:id', commentsController.editComments) // read
 
