@@ -1,14 +1,14 @@
 <%- include('partials/header') -%>
 
-    <section class="border-blue-400 border-2 p-5 m-3">
-        <h1 class="ml-4 font-medium text-lg tracking-wide">Edit your items</h1>
+    <section class="bg-[#f6f6f6] p-5 m-7">
+        <h1 class="mt-5 ml-4 font-medium text-lg tracking-wide">Edit your food items</h1>
         <section>
-            <ul class="border-green-400">
+            <ul>
                 <% dashItems.forEach(items=> { %>
                     <% if (items._id==dashId ) { %>
-                        <li class="border-orange-600">
-                            <div class="mt-8 sm:mx-auto sm:w-full">
-                                <div class="py-8 px-6 shadow rounded-lg sm:px-10">
+                        <li>
+                            <div class="bg-white mt-8 sm:mx-auto sm:w-full">
+                                <div class="py-6 px-6 shadow rounded-lg sm:px-10">
                                     <form action="/dash/update/<%= items._id %>" method="POST">
                                         <label for="item" class="block mt-4 text-sm font-medium text-gray-700">Item</label>
                                         <input type="text" name="itemInput" value="<%= items.itemInput %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
@@ -18,10 +18,10 @@
                                         <input type="text" name="unit" value="<%= items.unit %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                                         <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date</label>
                                         <input type="date" name="expiry" value="<%= items.expiry %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                                        <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Submit Changes</button>
+                                        <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Submit Changes</button>
                                         <a href="/dash"
-                                        class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Cancel</a>
-                                        <a href="/dash/delete/<%= items._id%>" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">Delete</a>
+                                        class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Cancel</a>
+                                        <a href="/dash/delete/<%= items._id%>" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Delete</a>
                                     </form>
                                 </div>
                             </div>
@@ -30,9 +30,9 @@
                             <% }) %>
             </ul>
         </section>
-        <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
+        <!-- <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
             <button type="submit">Dashboard</button>
-        </a>
+        </a> -->
     </section>
 
     <%- include('partials/footer') -%>
