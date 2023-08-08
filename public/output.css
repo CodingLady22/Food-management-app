@@ -558,9 +558,6 @@ video {
 .m-4 {
   margin: 1rem;
 }
-.m-6 {
-  margin: 1.5rem;
-}
 .m-7 {
   margin: 1.75rem;
 }
@@ -662,9 +659,6 @@ video {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.mt-6 {
-  margin-top: 1.5rem;
 }
 .box-border {
   box-sizing: border-box;
@@ -926,10 +920,6 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
-.border-green-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(74 222 128 / var(--tw-border-opacity));
-}
 .border-green-500 {
   --tw-border-opacity: 1;
   border-color: rgb(34 197 94 / var(--tw-border-opacity));
@@ -1166,6 +1156,10 @@ video {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -1173,10 +1167,6 @@ video {
 .py-\[\.45em\] {
   padding-top: .45em;
   padding-bottom: .45em;
-}
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
 }
 .pb-2 {
   padding-bottom: 0.5rem;
@@ -1347,9 +1337,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.text-\[\#\] {
-  color: #;
-}
 .underline {
   text-decoration-line: underline;
 }
@@ -1439,6 +1426,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 142 110 / var(--tw-bg-opacity));
 }
+.hover\:bg-\[\#f6f6f6\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 246 246 / var(--tw-bg-opacity));
+}
 .hover\:bg-\[rgb\(3\2c 233\2c 244\)\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(3 233 244 / var(--tw-bg-opacity));
@@ -1450,10 +1441,6 @@ video {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-.hover\:bg-\[\#f6f6f6\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(246 246 246 / var(--tw-bg-opacity));
 }
 .hover\:text-\[\#19376D\]:hover {
   --tw-text-opacity: 1;
@@ -1470,9 +1457,6 @@ video {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.hover\:text-\[\#\]:hover {
-  color: #;
 }
 .hover\:underline:hover {
   text-decoration-line: underline;
@@ -1506,10 +1490,6 @@ video {
 }
 .hover\:shadow-\[\#FF8E6E\]:hover {
   --tw-shadow-color: #FF8E6E;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-.hover\:shadow-\[\#\]:hover {
-  --tw-shadow-color: #;
   --tw-shadow: var(--tw-shadow-colored);
 }
 .focus\:border-indigo-400:focus {
