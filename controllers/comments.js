@@ -27,6 +27,15 @@ module.exports = {
             res.redirect('/dash')
         }
     },
+    getOneComment: async (req, res) => {
+        try {
+            console.log(req.user.id);
+            const comments = await Comment.findById(req.params.id)
+            res.render('viewComment.ejs', { oneComment: comments, user: req.user })
+        } catch (err) {
+            if (err) return res.status(500).send(err)
+        }
+    },
     // getting to the edit page
     editComments: async (req, res) => {
         const id = req.params.id
