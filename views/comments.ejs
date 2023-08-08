@@ -19,23 +19,22 @@
             </form>
         </div>
     </div>
-    
-    <!-- class for the text area incase mine doesn't work -->
-    <!-- class="border-red-400 border-2 p-1 w-[500px] min-h-[200px] my-0 mx-auto rounded-md" -->
 
 
+    <!-- Displaying the entered comments -->
 
-    <!-- <ul class="border-green-900 border-2 px-4 py-2 w-full mt-3 flex justify-center items-center flex-wrap shadow-md md:p-3 sm:p-5"> -->
     <ul class="border-2 rounded-md shadow-sm bg-slate-100/25 my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
         <% enteredComments.forEach(comment=> { %>
             <li class="bg-blue-50/50 shadow-md py-4 px-7 pb-3 w-340px h-[300px] m-1.5 rounded-md hover:border-2 hover:shadow-[#0B2447]">
-            <!-- <li class="border-blue-400 border-2 p-1 w-340px min-h-[150px] m-1.5 rounded-md"> -->
+            
                 <div class="text-2xl text-center capitalize mb-3 text-[#19376D] overflow-hidden" title="<%= comment.title %>">
+
                     <!-- Truncating title to 20 letters -->
                     <%= comment.title.length > 20 ? comment.title.slice(0, 20) + '...' : comment.title %>
                 </div>
-                <!-- Thinking of giving this bg a light shade of something -->
+                
                 <div class="border-black/5 border-2 p-2 h-[160px] mb-4 text-[#0B2447]">
+                    
                     <!-- Truncating comment body to 20 letters -->
                     <% const words = comment.comment.split(' '); %>
                     <%= words.slice(0, 20).join(' ') %><%= words.length > 50 ? '...' : '' %>
