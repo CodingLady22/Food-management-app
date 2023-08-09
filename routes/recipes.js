@@ -10,14 +10,15 @@ router.get('/', recipesController.getRecipes) // read
 router.get('/viewRecipe/:id', recipesController.singleRecipe) // read
 router.get('/viewRecipeFeed', recipesController.recipeFeed) // read
 // router.get('/edit/:id', recipesController.editRecipe) // read edit page
-
+router.get('/savedRecipes', recipesController.displaySavedRecipes)
 
 //* Handles POST method request for adding a new item
 
 router.post('/newRecipe', upload.single("file"), recipesController.createRecipe) // create recipe on app
 router.post('/recipe', upload.single("pdf"), recipesController.addRecipe) // import recipe into app
-router.put('/updateOneRecipe/:id', recipesController.updateRecipe) // update
-router.put('/updateImageRecipe/:id', upload.single("editFile"), recipesController.updateRecipeImage) // update
+router.post('/saveRecipe/:id', recipesController.saveRecipe)
+router.put('/updateOneRecipe/:id', recipesController.updateRecipe) // update recipe body
+router.put('/updateImageRecipe/:id', upload.single("editFile"), recipesController.updateRecipeImage) // update recipe image
 router.delete('/deleteOneRecipe/:id', recipesController.deleteRecipe) // delete
 router.get('/deleteUpload/:id', recipesController.deleteUploadedRecipe) // delete
 
