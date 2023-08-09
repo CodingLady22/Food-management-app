@@ -13,7 +13,77 @@
 
 <section class="border-black border-2 mt-5 pb-5">
 
-    <!-- Recipe box  -->
+    <!-- Editing start -->
+    
+    <% if (showEditForm) { %>
+        <section class="border-amber-700 border-2 my-20">
+
+            <h2 class="bg-slate-100 p-2 m-2">Edit your recipe here</h2>
+            <!-- Edit Image -->
+            <form action="/recipes/updateImageRecipe/<%= recipe.id%>?_method=PUT" enctype="multipart/form-data"
+                method="POST">
+                <div class="mb-3">
+                    <label for="editImgUpload" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="editImageUpload" name="editFile">
+                    <!-- check name value above-->
+                </div>
+                <div class="border-red-700 border-2 w-80 h-80">
+                    <img class="border-green-900 border-2 w-full h-full" src="<%= recipe.image%>" />
+                </div>
+                <button
+                    class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                    type="submit">Save</button>
+            </form>
+    
+    
+            <!-- EDIT FORM -->
+    
+            <div class="border-green-800 border-2 mt-52 mx-8 p-2">
+                <form action="/recipes/updateOneRecipe/<%= recipe.id%>?_method=PUT" method="POST"
+                    class="border-green-500 border-2">
+                    <input type="text" name="title" value="<%= recipe.title %>" class="border-red-600 border-2">
+                    <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
+                        <input type="text" name="prep" value="<%= recipe.prep %>"
+                            class="block mx-1 border-blue-600 border-2">
+                        </input>
+                        <input type="text" name="cook" value="<%= recipe.cook %>"
+                            class="block mx-1 border-blue-600 border-2">
+                        </input>
+                        <input type="text" name="total" value="<%= recipe.total %>"
+                            class="block mx-1 border-blue-600 border-2">
+                        </input>
+                        <input type="text" name="serving" value="<%= recipe.serving %>"
+                            class="block mx-1 border-blue-600 border-2">
+                        </input>
+                    </div>
+                    <div
+                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <textarea class="border-2 border-rose-500 p-0 m-0" name="ingredients" id="" cols="30" rows="10">
+                                        <%= recipe.ingredients %>
+                                    </textarea>
+                    </div>
+                    <div
+                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <textarea class="border-2 border-rose-500 p-0 m-0" name="instructions" id="" cols="30" rows="10">
+                                        <%= recipe.instructions %>
+                                    </textarea>
+                    </div>
+                    <div class="border-purple-900 border-2">
+                        <button
+                            class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                            type="submit">Save</button>
+                        <a href="/recipes/viewRecipe/<%= recipe._id%>" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
+                                    hover:text-[#FF8E6E]">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <% } %>
+    
+            <!-- Editing ends -->
+
+    <!-- Recipe box start -->
+
     <div class=" p-8 my-6 mx-auto bg-pink-50/25 max-w-5xl rounded-md shadow-lg shadow-black/20">
 
         <!-- Box holding 3 sections in Recipe -->
@@ -83,9 +153,12 @@
                         <p class="border-blue-800 border-2 text-xl font-semibold text-[#313135] mb-2">
                             By: <%= ownerName %>
                         </p>
-                        <a href="#" class="border-blue-800 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
-                            Like
-                        </a>
+                        <!-- <a href="#" >
+                            Save
+                        </a> -->
+                        <form action="/recipes/saveRecipe/<%= recipe._id%>" method="POST" class="border-blue-800 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
+                            <button type="submit">Save</button>
+                        </form>
                         
                     <% } %>
             </div>
@@ -95,74 +168,19 @@
         
     </div>
 
-    <!-- Editing start -->
+    <!-- Recipe box end -->
 
-    <% if (showEditForm) { %>
-        <section class="border-amber-700 border-2 mt-16">
-            <!-- Edit Image -->
-            <form action="/recipes/updateImageRecipe/<%= recipe.id%>?_method=PUT" enctype="multipart/form-data" method="POST">
-                <div class="mb-3">
-                    <label for="editImgUpload" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="editImageUpload" name="editFile">
-                    <!-- check name value above-->
-                </div>
-                <div class="border-red-700 border-2 w-80 h-80">
-                    <img class="border-green-900 border-2 w-full h-full" src="<%= recipe.image%>" />
-                </div>
-                <button
-                    class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
-                    type="submit">Save</button>
-            </form>
-            
-            
-            <!-- EDIT FORM -->
-            
-            <div class="border-green-800 border-2 mt-52">
-                <form action="/recipes/updateOneRecipe/<%= recipe.id%>?_method=PUT" method="POST" class="border-green-500 border-2">
-                    <input type="text" name="title" value="<%= recipe.title %>" class="border-red-600 border-2">
-                    <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
-                        <input type="text" name="prep" value="<%= recipe.prep %>" class="block mx-1 border-blue-600 border-2">
-                        </input>
-                        <input type="text" name="cook" value="<%= recipe.cook %>" class="block mx-1 border-blue-600 border-2">
-                        </input>
-                        <input type="text" name="total" value="<%= recipe.total %>" class="block mx-1 border-blue-600 border-2">
-                        </input>
-                        <input type="text" name="serving" value="<%= recipe.serving %>" class="block mx-1 border-blue-600 border-2">
-                        </input>
-                    </div>
-                    <div
-                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="border-2 border-rose-500 p-0 m-0" name="ingredients" id="" cols="30" rows="10">
-                                    <%= recipe.ingredients %>
-                                </textarea>
-                    </div>
-                    <div
-                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="border-2 border-rose-500 p-0 m-0" name="instructions" id="" cols="30" rows="10">
-                                    <%= recipe.instructions %>
-                                </textarea>
-                    </div>
-                    <div class="border-purple-900 border-2">
-                        <button
-                            class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
-                            type="submit">Save</button>
-                        <a href="/recipes/viewRecipe/<%= recipe._id%>" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
-                                hover:text-[#FF8E6E]">Cancel</a>
-                    </div>
-                </form>
-            </div>
-        </section>
-    <% } %>
-
-    <!-- Editing ends -->
-
-    <div class="col-6 mt-5">
-        <a class="bg-[#f6f6f6] text-[#515070] ml-4 py-1 px-3 rounded shadow-lg shadow-black/20 w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]" href="/recipes">Return to My Recipes</a>
-        <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
-    </div>
-    <div class="col-6 mt-5">
-        <a class="bg-[#f6f6f6] text-[#515070] ml-4 py-1 px-3 rounded shadow-lg shadow-black/20 w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]" href="/recipes/viewRecipeFeed">Return to Recipes Feed</a>
-        <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
+    <div class="flex justify-center gap-3 mb-5 p-3">
+        <div class="col-6 mt-5">
+            <a class="bg-[#f6f6f6] text-[#515070] ml-4 p-3 rounded shadow-lg shadow-black/20 w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                href="/recipes">Return to My Recipes</a>
+            <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
+        </div>
+        <div class="col-6 mt-5">
+            <a class="bg-[#f6f6f6] text-[#515070] ml-4 p-3 rounded shadow-lg shadow-black/20 w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                href="/recipes/viewRecipeFeed">Return to Recipes Feed</a>
+            <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
+        </div>
     </div>
 </section>
 
