@@ -38,7 +38,7 @@
     
                         <div class="border-blue-800 border-2 flex flex-col pt-0 px-2 pb-2">
                             <h1 class="border-yellow-300 border-2 capitalize p-3 text-[#313135] font-bold text-3xl">
-                                <%= recipe.title %>
+                                <%= recipe.title.length > 20 ? recipe.title.slice(0, 20) + '...' : recipe.title%>
                             </h1>
                             <p class="border-green-500 border-2 pt-8 font-medium text-2xl text-[#59595C] mb-10">The tags
                                 will go in here</p>
@@ -83,18 +83,23 @@
 
     <!-- links to other pages -->
 
-    <div class="border-blue-400 border-2 flex p-2">
+    <div class="border-blue-400 border-2 flex flex-wrap p-2">
         <!-- work on width. Use the correct syntax -->
         <a href="/dash"
-            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">
             <button type="submit">Dashboard</button>
         </a>
         <a href="/comments"
-            class="relative inline-block py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add
-            Comment</a>
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Add Comment
+        </a>
     
         <a href="/recipes"
-            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">My Recipes</a>
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">My Recipes
+        </a>
+
+        <a href="/recipes/savedRecipes"
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Saved recipes
+        </a>
     </div>
 </section>
 
