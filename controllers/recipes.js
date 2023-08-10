@@ -1,5 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Recipe = require("../models/Recipe")
+const User = require("../models/User") //! This model was brought in ONLY for the displaySavedRecipes() because the saved recipes are stored in an array in the User database and I want all methods for the recipes to be in one, this recipe, file
 // const UploadedRecipe = require("../models/UploadedRecipe")
 
 module.exports = {
@@ -17,6 +18,28 @@ module.exports = {
             res.render('allRecipes.ejs', { recipes: recipes, user: req.user })
         } catch (err) {
             if (err) return res.status(500).send(err)
+        }
+    },
+    displaySavedRecipes: async (req, res) => {
+        try {
+            const user = await User.findById(req.user.id).populate('savedRecipes');
+            res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, user: req.user })
+        } catch (err) {
+            console.error('Error fetching saved recipes:', err);
+            res.status(500).send('Error fetching saved recipes');
+        }
+    },
+    // Controller method to save a recipe for a user
+    saveRecipe: async(req, res) => {
+        const userId = req.user.id;
+        const recipeId = req.params.id;
+
+        try {
+            // Add the recipeId to the savedRecipes array of the user
+            await User.findByIdAndUpdate(userId, { $addToSet: { savedRecipes: recipeId } });
+            res.redirect('/recipes/viewRecipeFeed'); // Redirect the user back to the recipes page after saving
+        } catch (err) {
+            if (err) return res.status(500).send(err);
         }
     },
     addRecipe: async (req, res) => {
