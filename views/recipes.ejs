@@ -22,7 +22,7 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full">
             <div class="py-8 px-6 shadow rounded-lg hover:shadow-[#515070] sm:px-10">
-                <p class="mb-2">Use the area below to create your new recipe</p>
+                <p class="mb-6 p-2 bg-slate-100/40">Use this section to input your recipe. Do not forget to select an image of your recipe from your files</p>
                 <form action="/recipes/newRecipe" enctype="multipart/form-data" method="POST" class="border-blue-400">
                     <div class="mb-3">
                         <label for="imgUpload" class="form-label">Image</label>
@@ -74,12 +74,12 @@
 
                             <div class="border-red-600 border-2 bg-no-repeat bg-cover min-h-[20rem]">
                                 <img src="<%= recipe.image%>" alt=""
-                                class="border-green-500 border-2 w-96 h-80">
+                                class="border-green-500 border-2 w-96 h-80 object-contain">
                             </div>
                             
                             <div class="border-blue-800 border-2 flex flex-col pt-0 px-2 pb-2">
                                 <h1 class="border-yellow-300 border-2 capitalize p-3 text-[#313135] font-bold text-3xl">
-                                    <%= recipe.title %>
+                                    <%= recipe.title.length > 18 ? recipe.title.slice(0, 18) + '...' : recipe.title%>
                                 </h1>
                                 <p class="border-green-500 border-2 pt-8 font-medium text-2xl text-[#59595C] mb-10">The tags will go in here</p>
                             
@@ -105,14 +105,17 @@
             
             
             <!-- <a href="#">Scan Barcode</a> -->
-            <div class="border-blue-400 border-2 flex p-2">
+            <div class="border-blue-400 border-2 flex flex-wrap p-2">
                 <!-- work on width. Use the correct syntax -->
-                <a href="/dash" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+                <a href="/dash" class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">
                     <button type="submit">Dashboard</button>
                 </a>
-                <a href="/comments" class="relative inline-block py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add Comment</a>
+                <a href="/comments" class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Add Comment</a>
                 
-                <a href="/recipes/viewRecipeFeed" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Get more recipes</a>
+                <a href="/recipes/viewRecipeFeed" class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Get more recipes</a>
+
+                <a href="/recipes/savedRecipes" class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Saved recipes</a>
+
             </div>
             
         </div>

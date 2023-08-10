@@ -8,6 +8,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   
   password: String,
+
+  savedRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }],
   
 });
 

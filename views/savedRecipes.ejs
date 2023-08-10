@@ -1,0 +1,63 @@
+<%- include('partials/header') -%>
+
+<section class="border-green-400 border-2 my-10 p-8 flex flex-col">
+    <section class="border-blue-400 border-2 p-2">
+
+    </section>
+
+    <section>
+        <ul
+            class="border-black border-2 my-2 py-2 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
+            <!-- <ul class="border-black border-2 my-3 p-3 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8"> -->
+            <% savedRecipes.forEach(recipe=> { %>
+                <li class="border-green-900 border-2 my-2">
+                    <!-- Modifying recipe card -->
+                    <div class="border-purple-600 border-2 rounded-md shadow-lg shadow-black/20 flex items-center justify-evenly flex-wrap">
+                        <div
+                            class="my-2 flex flex-col rounded-md bg-[#fafafa] border-2 border-black/10 max-w-1xl min-h-[20rem] shadow-sm">
+        
+                            <div class="border-red-600 border-2 bg-no-repeat bg-cover min-h-[20rem]">
+                                <img src="<%= recipe.image%>" alt="" class="border-green-500 border-2 w-96 h-80 object-contain">
+                            </div>
+        
+                            <div class="border-blue-800 border-2 flex flex-col pt-0 px-2 pb-2">
+                                <h1 class="border-yellow-300 border-2 capitalize p-3 text-[#313135] font-bold text-3xl">
+                                    <!-- Truncating title to 18 letters -->
+                                    <%= recipe.title.length > 18 ? recipe.title.slice(0, 18) + '...' : recipe.title%>
+                                </h1>
+                                <p class="border-green-500 border-2 pt-8 font-medium text-2xl text-[#59595C] mb-10">The tags
+                                    will go in here</p>
+        
+                            </div>
+                            <!-- <div class="border-green-500 border-2 my-0 mx-auto"> -->
+                            <a href="/recipes/viewRecipe/<%= recipe._id%>"
+                                class="border-orange-600 border-2 mx-auto justify-self-end no-underline text-[#FFBB91] bg-black/5 rounded text-4xl py-1 w-72 text-center hover:shadow-md hover:bg-white hover:text-[#FF8E6E]">View
+                                Recipe</a>
+                            <!-- <a href="/recipes/viewRecipe/<%= recipe._id%>"
+                                            class="border-orange-600 border-2 inline-block bg-[#515070] py-[.45em] px-[1em] w-full text-center rounded text-white font-bold tracking-wider text-lg hover:shadow-sm hover:text-[#FF8E6E]">View
+                                            Recipe</a> -->
+                            <!-- </div> -->
+                        </div>
+                    </div>
+        
+                    <!-- End of recipe card -->
+                </li>
+                <% }) %>
+        
+        </ul>
+    </section>
+
+    <section class="flex justify-center gap-3 mb-5 p-3">
+        <div class="col-6 mt-5">
+            <a class="bg-[#f6f6f6] text-[#515070] ml-4 p-3 rounded shadow-lg shadow-black/20 w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                href="/recipes">My Recipes</a>
+            <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
+        </div>
+        <div class="col-6 mt-5">
+            <a class="bg-[#f6f6f6] text-[#515070] ml-4 p-3 rounded shadow-lg shadow-black/20 w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                href="/recipes/viewRecipeFeed">Recipes Feed</a>
+            <!-- <a class="btn btn-primary" href="/feed">Return to Feed</a> -->
+        </div>
+    </section>
+
+</section>
