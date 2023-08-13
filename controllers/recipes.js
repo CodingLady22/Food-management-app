@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Recipe = require("../models/Recipe")
 const User = require("../models/User") //! This model was brought in ONLY for the displaySavedRecipes() because the saved recipes are stored in an array in the User database and I want all methods for the recipes to be in one, this recipe, file
+const axios = require("axios");
 // const UploadedRecipe = require("../models/UploadedRecipe")
 
 module.exports = {
@@ -23,7 +24,10 @@ module.exports = {
     displaySavedRecipes: async (req, res) => {
         try {
             const user = await User.findById(req.user.id).populate('savedRecipes');
-            res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, user: req.user })
+
+            const response = await axios.get('https://tame-plum-crab-suit.cyclic.app/api');
+            const quotes = response.data;
+            res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, quotes: quotes, user: req.user })
         } catch (err) {
             console.error('Error fetching saved recipes:', err);
             res.status(500).send('Error fetching saved recipes');
