@@ -2,9 +2,14 @@
 
 <section class="border-green-400 border-2 my-10 p-8 flex flex-col">
     <section class="border-blue-400 border-2 p-2">
-
+        <ul>
+            <% for (const key in quotes) { %>
+            <li>
+                <h3><%= key %></h3>
+            </li>
+        <% } %>
+        </ul>
     </section>
-
     <section>
         <ul
             class="border-black border-2 my-2 py-2 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
