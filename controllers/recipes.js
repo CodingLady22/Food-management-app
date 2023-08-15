@@ -25,7 +25,7 @@ module.exports = {
         try {
             const user = await User.findById(req.user.id).populate('savedRecipes');
 
-            const response = await axios.get('https://tame-plum-crab-suit.cyclic.app/api');
+            const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
             const quotes = response.data;
             res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, quotes: quotes, user: req.user })
         } catch (err) {
