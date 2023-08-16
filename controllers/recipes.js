@@ -15,8 +15,11 @@ module.exports = {
     },
     recipeFeed: async (req, res) => {
         try {
-            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user")
-            res.render('allRecipes.ejs', { recipes: recipes, user: req.user })
+            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user");
+             const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
+            const quotes = response.data;
+
+            res.render('allRecipes.ejs', { recipes: recipes, quotes: quotes, user: req.user })
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
