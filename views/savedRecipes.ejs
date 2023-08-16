@@ -1,14 +1,22 @@
 <%- include('partials/header') -%>
 
 <section class="border-green-400 border-2 my-10 p-8 flex flex-col">
-    <section class="border-blue-400 border-2 p-2">
-        <ul>
-            <% for (const key in quotes) { %>
-            <li>
-                <h3><%= key %></h3>
-            </li>
-        <% } %>
-        </ul>
+    <h3 class="bg-slate-100 my-3 font-semibold text-2xl p-2">SAVED RECIPES</h3>
+    <section class="border-black/5 border-2 bg-[f6f6f6] pt-6 px-3 pb-4 flex flex-col justify-center items-center rounded shadow-sm">
+        <div class="my-4 mx-0">
+            <div class="flex justify-center p-3">
+                <p class="text-xl text-center">" <%= quotes.quote %> "
+                </p>
+            </div>
+            <div class="flex justify-end italic text-lg p-3">
+                <span class="mx-3"> - </span>
+                <span>
+                    <%= quotes.author %>
+                </span>
+            </div>
+        </div>
+                
+            
     </section>
     <section>
         <ul
