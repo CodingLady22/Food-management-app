@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Recipe = require("../models/Recipe")
 const User = require("../models/User") //! This model was brought in ONLY for the displaySavedRecipes() because the saved recipes are stored in an array in the User database and I want all methods for the recipes to be in one, this recipe, file
+const axios = require("axios");
 // const UploadedRecipe = require("../models/UploadedRecipe")
 
 module.exports = {
@@ -14,8 +15,11 @@ module.exports = {
     },
     recipeFeed: async (req, res) => {
         try {
-            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user")
-            res.render('allRecipes.ejs', { recipes: recipes, user: req.user })
+            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user");
+             const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
+            const quotes = response.data;
+
+            res.render('allRecipes.ejs', { recipes: recipes, quotes: quotes, user: req.user })
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
@@ -23,7 +27,10 @@ module.exports = {
     displaySavedRecipes: async (req, res) => {
         try {
             const user = await User.findById(req.user.id).populate('savedRecipes');
-            res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, user: req.user })
+
+            const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
+            const quotes = response.data;
+            res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, quotes: quotes, user: req.user })
         } catch (err) {
             console.error('Error fetching saved recipes:', err);
             res.status(500).send('Error fetching saved recipes');

@@ -5,13 +5,32 @@
 <section class="border-2 border-green-900 mt-12 p-6">
     <!-- my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3 -->
     <section class="border-2 border-black grid grid-cols-1 auto-rows-fr md:grid-cols-3 lg:grid-cols-4 h-4/5">
-        <section class="border-2 border-yellow-700 col-span-1 bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
-            <h2><%= user.userName %>, see any recipe you like?</h2>
+        <section class="border-2 border-yellow-700 col-span-1 md:col-span-2 bg-white shadow-md py-1 px-7 min-w-[340px] min-h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+            <h2 class="p-2 mb-2"><span class="font-bold text-lg capitalize"><%= user.userName %></span>, see any recipe you like?</h2>
+            <!-- Make quote hidden in small screen? change border back to half black? -->
+            <section
+                class="border-[#f7cdb3] border-2 bg-[f6f6f6] py-2 px-3 flex flex-col justify-center items-center rounded shadow-sm">
+                <div class="my-4 mx-0">
+                    <div class="flex justify-center p-3">
+                        <p class="text-xl text-center">" <%= quotes.quote %> "
+                        </p>
+                    </div>
+                    <div class="flex justify-end italic text-lg p-3">
+                        <span class="mx-3"> - </span>
+                        <span>
+                            <%= quotes.author %>
+                        </span>
+                    </div>
+                </div>
+            
+            
+            </section>
         </section>
-        <section class="border-2 border-indigo-700 col-span-1 md:col-span-2 lg:col-span-3 bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+        <section class="border-2 border-indigo-700 col-span-1 bg-white shadow-md py-4 px-3 pb-3 min-h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91] lg:col-span-2">
+            <!-- add search input box here or in nav bar? -->
             <div class="border-2 border-black p-3">
                 <h2 class="border-2 border-red-700">Second box</h2>
-                <input type="search" placeholder="search box" class="border-2 border-orange-700 p-2 m-2">
+                <!-- <input type="search" placeholder="search box" class="border-2 border-orange-700 p-2 m-2"> -->
                     Add an input field to search for external recipes
                 </input>
                 <span class="block mx-1"><span class="font-bold">Total:</span>
