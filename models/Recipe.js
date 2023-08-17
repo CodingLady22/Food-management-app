@@ -41,6 +41,9 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    hashtags : {
+        type: [String]
+    },
     createdAt: {
     type: Date,
     default: Date.now,
