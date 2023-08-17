@@ -68,6 +68,10 @@
                                         <%= recipe.instructions %>
                                     </textarea>
                     </div>
+                    <div>
+                        <input type="text" name="hashtags" value="<%= recipe.hashtags %>" class="border-blue-600 font-semibold text-xl border-2 px-2 py-2">
+                        </input>
+                    </div>
                     <div class="border-purple-900 border-2">
                         <button
                             class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
@@ -129,6 +133,11 @@
                         <h4 class="font-mono text-center font-bold uppercase underline text-lg my-4">Preparations</h4>
                         <pre class="font-mono text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.instructions %></pre>
                     </div>
+                </div>
+            </section>
+            <section>
+                <div class="border-blue-600 font-semibold text-xl border-2 px-2 py-2">
+                    <%= recipe.hashtags %>
                 </div>
             </section>
         </div>

@@ -82,6 +82,7 @@ module.exports = {
                 serving: req.body.serving,
                 ingredients: req.body.ingredients,
                 instructions: req.body.instructions,
+                hashtags: req.body.hashtags,
                 user: req.user.id,
             }
         )
@@ -136,7 +137,7 @@ module.exports = {
      updateRecipe: async (req, res) => {
         const id = req.params.id;
         try {
-            const { title, prep, cook, total, serving, ingredients, instructions } = req.body;
+            const { title, prep, cook, total, serving, ingredients, instructions, hashtags } = req.body;
             const updatedRecipe = await Recipe.findById(id);
 
             // now update the other recipe details in the database
@@ -148,6 +149,7 @@ module.exports = {
                serving,
                ingredients,
                instructions,
+               hashtags,
            });
 
         //    save the updated recipe in the database
