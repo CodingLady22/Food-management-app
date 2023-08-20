@@ -16,7 +16,7 @@ module.exports = {
     recipeFeed: async (req, res) => {
         try {
             const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user");
-             const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
+            const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
             const quotes = response.data;
 
             res.render('allRecipes.ejs', { recipes: recipes, quotes: quotes, user: req.user })
@@ -69,9 +69,9 @@ module.exports = {
     },
     createRecipe: async (req, res) => {
         // Upload image to cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path);
       
-       const newRecipe = new Recipe(
+        const newRecipe = new Recipe(
             {
                 title: req.body.title,
                 image: result.secure_url,
@@ -104,6 +104,8 @@ module.exports = {
             console.log(err);
         }
     },
+    // ! Had a seperate method to update the image before putting all updates in one method
+    /*
     updateRecipeImage: async (req, res) => {
         const id = req.params.id;
         try {
@@ -111,7 +113,7 @@ module.exports = {
             const updatedRecipe = await Recipe.findById(id);
             
             // first check if a new image is being uploaded
-            // if(req.file) {
+            if(req.file) {
                 // first upload the new image
                 const newImageUpload = await cloudinary.uploader.upload(req.file.path);
                 const newImagePublicId = newImageUpload.public_id;
@@ -125,7 +127,7 @@ module.exports = {
                 // lastly, update the image URL and cloudinary id in the database
                 updatedRecipe.image = newImageUpload.secure_url;
                 updatedRecipe.cloudinaryId = newImagePublicId;
-            // }
+            }
             await updatedRecipe.save();
             console.log("Image has been updated")
             res.redirect(`/recipes/viewRecipe/${id}`)
@@ -134,26 +136,44 @@ module.exports = {
             res.status(500).send('Error retrieving image for editing.')
         }
     },
-     updateRecipe: async (req, res) => {
+    */
+    updateRecipe: async (req, res) => {
         const id = req.params.id;
         try {
             const { title, prep, cook, total, serving, ingredients, instructions, hashtags } = req.body;
             const updatedRecipe = await Recipe.findById(id);
 
+            // first check if a new image is being uploaded
+            if(req.file) {
+                // first upload the new image
+                const newImageUpload = await cloudinary.uploader.upload(req.file.path);
+                const newImagePublicId = newImageUpload.public_id;
+
+                // next, retrieve the existing image details from the database
+                const oldImagePublicId = updatedRecipe.cloudinaryId;
+
+                // then delete the old image from cloudinary
+                await cloudinary.uploader.destroy(oldImagePublicId);
+
+                // lastly, update the image URL and cloudinary id in the database
+                updatedRecipe.image = newImageUpload.secure_url;
+                updatedRecipe.cloudinaryId = newImagePublicId;
+            }
+
             // now update the other recipe details in the database
-           await Recipe.findByIdAndUpdate(updatedRecipe, {
-               title,
-               prep,
-               cook,
-               total,
-               serving,
-               ingredients,
-               instructions,
-               hashtags,
-           });
+            await Recipe.findByIdAndUpdate(updatedRecipe, {
+                title,
+                prep,
+                cook,
+                total,
+                serving,
+                ingredients,
+                instructions,
+                hashtags,
+            });
 
         //    save the updated recipe in the database
-        // await updatedRecipe.save();
+        await updatedRecipe.save();
         
             console.log("Recipe has been updated")
             res.redirect(`/recipes/viewRecipe/${id}`)

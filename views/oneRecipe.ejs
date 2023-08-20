@@ -11,73 +11,93 @@
 </head>
 <body>
 
-<section class="border-black border-2 mt-5 pb-5">
+<section class="mt-5 pb-5">
 
     <!-- Editing start -->
     
     <% if (showEditForm) { %>
-        <section class="border-amber-700 border-2 my-20">
+        <section class="mt-20 mb-44">
 
             <h2 class="bg-slate-100 p-2 m-2">Edit your recipe here</h2>
             <!-- Edit Image -->
-            <form action="/recipes/updateImageRecipe/<%= recipe.id%>?_method=PUT" enctype="multipart/form-data"
-                method="POST">
-                <div class="mb-3">
-                    <label for="editImgUpload" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="editImageUpload" name="editFile">
-                    <!-- check name value above-->
-                </div>
-                <div class="border-red-700 border-2 w-80 h-80">
-                    <img class="border-green-900 border-2 w-full h-full" src="<%= recipe.image%>" />
-                </div>
-                <button
+            <!-- <form action="/recipes/updateImageRecipe/<%= recipe.id%>?_method=PUT"
+                method="POST"> -->
+                
+                <!-- <button
                     class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
                     type="submit">Save</button>
-            </form>
+            </form> -->
     
     
             <!-- EDIT FORM -->
     
-            <div class="border-green-800 border-2 mt-52 mx-8 p-2">
-                <form action="/recipes/updateOneRecipe/<%= recipe.id%>?_method=PUT" method="POST"
-                    class="border-green-500 border-2">
-                    <input type="text" name="title" value="<%= recipe.title %>" class="border-red-600 border-2">
-                    <div class="border-purple-900 border-2 p-2 w-full flex flex-wrap justify-evenly ">
-                        <input type="text" name="prep" value="<%= recipe.prep %>"
-                            class="block mx-1 border-blue-600 border-2">
-                        </input>
-                        <input type="text" name="cook" value="<%= recipe.cook %>"
-                            class="block mx-1 border-blue-600 border-2">
-                        </input>
-                        <input type="text" name="total" value="<%= recipe.total %>"
-                            class="block mx-1 border-blue-600 border-2">
-                        </input>
-                        <input type="text" name="serving" value="<%= recipe.serving %>"
-                            class="block mx-1 border-blue-600 border-2">
-                        </input>
+            <div class="bg-[#f4f0ef] border-[#ff8e6e] border-2 mt-10 mx-8 p-2 rounded-2xl shadow-md">
+                <form action="/recipes/updateOneRecipe/<%= recipe.id%>?_method=PUT" enctype="multipart/form-data" method="POST"
+                    class="text-lg p-1 rounded-sm">
+                    <div class="mb-3">
+                        <label for="editImgUpload" class="text-xl text-[#515070]">Image</label>
+                        <input type="file" class="bg-white border-2 border-black/10 my-2 px-3 py-2 rounded-lg shadow-sm" id="editImageUpload" name="editFile">
+                        <!-- check name value above-->
                     </div>
+                    <div class="w-96 h-96">
+                        <img class="border-black/5 border-2 w-full h-full" src="<%= recipe.image%>" />
+                    </div>
+                    <input type="text" name="title" value="<%= recipe.title %>" class="w-1/2 border border-gray-300 m-2 p-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400
+                    focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                    
+                    <!-- Prep, cook, total and servings box -->
+                    <div class="bg-white border-black/10 border p-2 w-full grid grid-cols-2 md:flex md:flex-wrap md:justify-evenly ">
+                        <div>
+                            <label for="prep" class="block pl-2 text-sm font-medium text-gray-700">Prep</label>
+                            <input type="text" name="prep" value="<%= recipe.prep %>" class="w-44 border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400
+                                                        focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                            </input>
+                        </div>
+                        <div>
+                            <label for="cook" class="block pl-2 text-sm font-medium text-gray-700">Cook</label>
+                            <input type="text" name="cook" value="<%= recipe.cook %>" class="w-44 border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400
+                                                        focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                            </input>
+                        </div>
+                        <div>
+                            <label for="total" class="block pl-2 text-sm font-medium text-gray-700">Total</label>
+                            <input type="text" name="total" value="<%= recipe.total %>" class="w-44 border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400
+                                                        focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                            </input>
+                        </div>
+                        <div>
+                            <label for="serving" class="block pl-2 text-sm font-medium text-gray-700">Servings</label>
+                            <input type="text" name="serving" value="<%= recipe.serving %>" class="w-44 border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400
+                                                        focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                            </input>
+                        </div>
+                    </div>
+                    <!-- ingredients -->
                     <div
-                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="border-2 border-rose-500 p-0 m-0" name="ingredients" id="" cols="30" rows="10">
+                        class="bg-white w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <textarea class="p-0 m-0" name="ingredients" id="" cols="30" rows="10">
                                         <%= recipe.ingredients %>
                                     </textarea>
                     </div>
+                    <!-- instructions -->
                     <div
-                        class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="border-2 border-rose-500 p-0 m-0" name="instructions" id="" cols="30" rows="10">
+                        class="bg-white w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <textarea class="p-0 m-0" name="instructions" id="" cols="30" rows="10">
                                         <%= recipe.instructions %>
                                     </textarea>
                     </div>
                     <div>
-                        <input type="text" name="hashtags" value="<%= recipe.hashtags %>" class="border-blue-600 font-semibold text-xl border-2 px-2 py-2">
+                        <input type="text" name="hashtags" value="<%= recipe.hashtags %>" class="w-full border border-gray-300 my-2 p-2 font-semibold text-lg rounded-lg shadow-sm focus:outline-none focus:border-indigo-400
+                        focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                         </input>
                     </div>
-                    <div class="border-purple-900 border-2">
+                    <div class="bg-white flex justify-center gap-3 mb-5 p-3">
                         <button
-                            class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                            class="w-28 p-2 m-1 bg-black/5 text-[#515070] text-center text-base no-underline delay-100 tracking-wide rounded
+                        hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg"
                             type="submit">Save</button>
-                        <a href="/recipes/viewRecipe/<%= recipe._id%>" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
-                                    hover:text-[#FF8E6E]">Cancel</a>
+                        <a href="/recipes/viewRecipe/<%= recipe._id%>" class="w-28 p-2 m-1 bg-black/5 text-[#515070] text-center text-base no-underline delay-100 tracking-wide rounded
+                        hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -86,12 +106,14 @@
     
             <!-- Editing ends -->
 
+
+
     <!-- Recipe box start -->
 
     <div class=" p-8 my-6 mx-auto bg-pink-50/25 max-w-5xl rounded-md shadow-lg shadow-black/20">
 
         <!-- Box holding 3 sections in Recipe -->
-        <div class="border-2 border-green-500 bg-white flex flex-col justify-center p-4 rounded-md shadow-md shadow-black/5">
+        <div class="border-2 border-black/10 bg-white flex flex-col justify-center p-4 rounded-md shadow-md shadow-black/5">
 
             <!-- Section holding Image -->
             <section class=" mt-5 bg-no-repeat bg-cover max-h-[90rem]">
@@ -104,68 +126,68 @@
             </section>
             
             <!-- Section holding Sub head info -->
-            <section class="border-orange-600 border-2 my-2">
+            <section class="my-2 rounded-sm">
                 <!-- image over here -->
-                <div class="border-blue-600 font-bold uppercase text-xl border-2 px-2 py-2">
+                <div class="font-bold uppercase text-xl text-[#515070] px-2 py-2">
                     <%= recipe.title %>
                 </div>
                 <!-- Maybe put each in a div to style -->
-                <div class="border-purple-900 border-2 p-2 w-full grid grid-cols-2 md:flex md:flex-wrap md:justify-evenly ">
-                    <span class="block mx-1"><span class="font-bold">Prep:</span> <%= recipe.prep %></span>
-                    <span class="block mx-1"><span class="font-bold">Cook:</span> <%= recipe.cook %></span>
-                    <span class="block mx-1"><span class="font-bold">Total:</span> <%= recipe.total %></span>
-                    <span class="block mx-1"><span class="font-bold">Servings:</span> <%= recipe.serving %></span>
+                <div class="border-black/10 border bg-[#f6f6f6] p-2 w-full grid grid-cols-2 gap-2 md:flex md:flex-wrap md:justify-evenly ">
+                    <span class="block mx-1 bg-white p-3 rounded-3xl"><span class="font-bold">Prep:</span> <%= recipe.prep %></span>
+                    <span class="block mx-1 bg-white p-3 rounded-3xl"><span class="font-bold">Cook:</span> <%= recipe.cook %></span>
+                    <span class="block mx-1 bg-white p-3 rounded-3xl"><span class="font-bold">Total:</span> <%= recipe.total %></span>
+                    <span class="block mx-1 bg-white p-3 rounded-3xl"><span class="font-bold">Servings:</span> <%= recipe.serving %></span>
             
                 </div>
             </section>
 
             <!-- Section holding Ingredients and Directions -->
-            <section class="border-2 border-black">
-                <div class="border-green-600 border-2 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-4 p-5">
+            <section class="border border-black/10 bg-[#f6f6f6]">
+                <div class="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-4 p-5">
                     <!-- using heaight didn't work -->
-                    <div class="border-red-600 border-2 px-2">
+                    <div class="bg-white rounded-lg px-2">
                     <!-- <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full"> -->
                         <h4 class="font-mono text-center font-bold uppercase underline text-lg my-4">Ingredients</h4>
                         <pre class="font-mono text-sm text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.ingredients %></pre>
                     </div>
                 
-                    <div class="border-red-600 border-2 col-span-2 px-2">
+                    <div class="bg-white rounded-lg col-span-2 px-2">
                         <h4 class="font-mono text-center font-bold uppercase underline text-lg my-4">Preparations</h4>
                         <pre class="font-mono text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.instructions %></pre>
                     </div>
                 </div>
             </section>
             <section>
-                <div class="border-blue-600 font-semibold text-xl border-2 px-2 py-2">
+                <div class="border-black/20 font-semibold text-xl border-2 my-1 px-2 py-2 rounded-md">
                     <%= recipe.hashtags %>
                 </div>
             </section>
         </div>
         
         <!-- Section holding edit/delete or user name if viewed by non poster -->
-        <div class="border-2 border-blue-700 bg-white p-2">
-            <div class="border-purple-800 border-2 flex justify-between">
+        <div class="bg-white p-2">
+            <div class="flex justify-between">
             
                 <!-- MAKING CHANGES FOR DUAL PURPOSE FORM -->
                 <%if(recipe.user && recipe.user._id.toString() === user.id){ %>
-                    <a href="/recipes/viewRecipe/<%= recipe.id %>?edit=true" class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
+                    <a href="/recipes/viewRecipe/<%= recipe.id %>?edit=true" class="border-black/10 border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm
                                                 hover:text-[#FF8E6E]">Edit</a>
                     <form action="/recipes/deleteOneRecipe/<%= recipe.id%>?_method=DELETE" method="POST"
-                        class="border-green-500 border-2">
+                        class="">
                         <button
-                            class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
+                            class="border-black/10 border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
                             type="submit">Delete</button>
                     </form>
                     <% }  else { %>
                         <!-- Display the owner's name -->
                         <% const ownerName = recipe.user ? recipe.user.userName : 'Owner information unavailable' %>
-                        <p class="border-blue-800 border-2 text-xl font-semibold text-[#313135] mb-2">
+                        <p class="border-black/10 border-2 text-xl font-semibold text-[#313135] mb-2">
                             By: <%= ownerName %>
                         </p>
                         <!-- <a href="#" >
                             Save
                         </a> -->
-                        <form action="/recipes/saveRecipe/<%= recipe._id%>" method="POST" class="border-blue-800 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
+                        <form action="/recipes/saveRecipe/<%= recipe._id%>" method="POST" class="border-black/10 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
                             <button type="submit">Save</button>
                         </form>
                         
