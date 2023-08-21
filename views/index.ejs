@@ -1,55 +1,100 @@
-<%- include('partials/header') -%>
-    <!-- full page -->
+<!DOCTYPE html>
+<html lang="en">
 
-    <main class="p-5">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Management App</title>
+    <link href="/output.css" rel="stylesheet">
+    <!-- <link href="/css/styles.css" rel="stylesheet"> -->
+</head>
+
+<body class="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-600 to-red-600">
+
+    <!-- <main class="m-4 p-7 bg-white flex flex-col justify-center items-center"> -->
+    <main class="m-4 p-7 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-yellow-600 to-red-600 flex flex-col justify-center items-center">
+    <!-- <main class="p-5 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/5 to-black/5 bg-no-repeat bg-contain "> -->
+    <!-- <main class="p-5 bg-[url('../images/12802.jpg')] from-black/5 to-black/5 bg-no-repeat bg-contain "> -->
 
         <!-- Hero -->
-        <section class="relative">
-            <div class="container flex flex-col-reverse lg:flex-row items-center gap-12 mt-14 lg:mt-28">
+        <section class="bg-[#f6f6f6] p-3">
+        <!-- <section class="bg-[url('../images/12802.jpg')] bg-no-repeat bg-contain"> -->
+            <div class="p-2 container flex flex-col items-center gap-12 lg:mt-10">
                 <!-- Content -->
-                <div class="flex flex-1 flex-col items-center lg:items-start">
-                    <h2 class="text-bookmark-blue text-3xl md:text-4 lg:text-5xl text-center lg:text-left mb-6">
+                <div class="p-2">
+                    <h2 class="text-[#515070] mb-2 capitalize font-semibold text-center text-3xl md:text-4xl lg:text-5xl">
                         Ainora food management app
                     </h2>
-                    <p class="text-gray-800 text-lg text-center lg:text-left mb-6">
+                    <p class="text-gray-800 text-lg text-center font-medium tracking-tighter md:tracking-wider">
                         Reducing food waste one household at a time.
                     </p>
-                    <div class="flex justify-center flex-wrap gap-6">
-                        <a href="/login" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
-                            Login
-                        </a>
-                        
-                        <!-- <a href="/login" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#03e9f4] text-base no-underline uppercase delay-100 tracking-wide mt-20 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
-                            Login
-                        </a> -->
-                        <a href="/signup" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
-                            Signup
-                        </a>
-                        <!-- <a href="/signup" class="mt-20 px-5 py-2.5 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center inline-block focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer">
-                            Signup
-                        </a> -->
+                </div>
+
+                <!-- Image -->
+                <div class="border-2 border-black/10 w-80 md:w-[600px] lg:w-[786px]">
+                    <div class="rounded w-full">
+                        <img class="w-full h-full object-contain" src="../images/pexels-jane-doan-1092730.jpg"
+                            alt="" />
                     </div>
+                </div>
+
+                <!-- login and signup -->
+                <div class="w-full">
+                    <div class="flex flex-col items-center md:flex-row md:justify-evenly">
+                        <a href="/login"
+                            class="w-44 py-2 px-[20px] text-center bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+                            Login
+                        </a>
+                    
+                        <a href="/signup"
+                            class="w-44 py-2 px-[20px] text-center bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
+                            Signup
+                        </a>
+                    
+                    </div>
+                </div>    
 
                     <!-- Extra section from other design -->
-                    <div class="relative mt-20 pl-16">
-                        <dt class="text-base font-semibold leading-7 text-gray-900">
+                <div class=" flex flex-col md:flex-row md:justify-evenly">
+                    <div class="relative m-2 py-3 md:px-3">
+                        <dt class="text-base capitalize font-semibold leading-7 text-gray-900">
                             What is a food management app?
                         </dt>
                         <dd class="mt-2 text-base leading-7 text-gray-600">A food management app keeps track of your food items and their
                             expiry dates. When an item is nearing it's expiration date, the user gets notified so that they can use up the
                             items thereby preventing that food item from wastage.</dd>
                     </div>
+                    <div class="relative mx-2 md:my-2 border-black/10 border-y-2 py-5 md:border-black/10 md:border-x-2 md:px-5 md:py-2 md:border-y-0">
+                        <dt class="text-base capitalize font-semibold leading-7 text-gray-900">
+                            Why use this food management app?
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">
+                            Apart from keeping track of your items and their expiration dates, this app also allows your take notes of what you need as well as write down your own recipes and also get recipes from other users
+                        </dd>
+                    </div>
+                    <div class="relative m-2 p-3 md:px-3">
+                        <dt class="text-base capitalize font-semibold leading-7 text-gray-900">
+                            Reasons to reduce food waste
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">A food management app keeps track of your food items and their
+                            expiry dates. When an item is nearing it's expiration date, the user gets notified so that they can use up the
+                            items thereby preventing that food item from wastage.</dd>
+                    </div>
                 </div>
-                <!-- Image -->
-                <div class="flex justify-center flex-1 mb-10 md:mb-16 lg:mb-0 z-10">
-                    <img class="w-1/4 h-5/6 sm:w-1/4 sm:h-1/4 rounded md:w-1/2 md:h-1/3" src="../images/pexels-jane-doan-1092730.jpg" alt="" />
-                    <!-- <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-full md:h-full" src="../images/basket.png" alt="" /> -->
-                </div>
+                
             </div>
             
         </section>
 
+        <footer>
+            <p class="copyright mt-16 text-white">
+                copyright &copy; Ainora food management app <span id="date">2023</span>.
+                all rights reserved
+            </p>
+        </footer>
+        
     </main>
 
-
-    <%- include('partials/footer') -%>
+</body>
+</html>
