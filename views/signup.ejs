@@ -33,116 +33,67 @@
                 <% } %>
     
                 <div class="px-10 pt-4 pb-8 bg-white rounded-tr-4xl">
-                    <h2 class="mt-0 mx-0 mb-8 text-black text-center">Sign Up</h2>
+                    <h2 class="mt-0 mx-0 mb-8 text-[#515070] text-center font-semibold">Sign Up</h2>
                     <form action="/signup" method="POST">
+
                         <!-- User Name -->
                         <div class="relative">
                             <input type="text" name="userName" placeholder="User Name" required=""
-                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#e25f3a]">
     
                             <label for="userName"
                                 class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">User Name</label>
                         </div>
+
                         <!-- Email -->
                         <div class="relative">
                             <input type="email" name="email" placeholder="Email" required=""
-                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#e25f3a]">
     
                             <label for="email"
                                 class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
                         </div>
+
                         <!-- Password -->
                         <div class="relative">
                             <input type="password" name="password" placeholder="Password" required=""
-                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                                class="peer h-10 mb-3 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#e25f3a]">
                         
                             <label for="password"
                                 class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
                         </div>
+
                         <!-- Confirm Password -->
                         <div class="relative">
                             <input type="password" name="confirmPassword" placeholder="Confirm Password" required=""
-                                class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
+                                class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#e25f3a]">
                             <label for="confirmPassword"
                                 class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm Password</label>
                         </div>
-                        <!-- Test -->
-                        <!-- changed peer-focus:-top-0 from peer-focus:-top-3.5 -->
-                        <!-- <div class="relative">
-                            <input type="password" name="Cpassword" placeholder="Confirm password" required=""
-                                class="peer h-14 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
-                            <label for="Cpassword"
-                                class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-0 peer-focus:text-gray-600 peer-focus:text-sm">Confirm Password</label>
-                        </div> -->
 
+                        <!-- submit button -->
                         <button type="sumbit" 
-                            class="mt-20 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer">
+                            class="mt-20 px-4 py-2 rounded bg-[#FF8E6E] hover:bg-[#FFBB91] text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-[#FF8E6E] focus:ring-opacity-80 cursor-pointer">
                             Submit
                         </button>
-                        <!-- 
-                            class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">
-                         -->
                     </form>
-                    <a href="/login"
-                        class="mt-4 block text-sm text-center font-medium text-rose-600 hover:underline focus:outline-none focus:ring-2 focus:ring-rose-500">
-                        Already have an account? </a>
+                    
+                    <!-- links -->
+                    <div class="flex flex-col">
+                        <a href="/login"
+                            class="mt-4 block text-sm text-center font-medium text-[#f07f60] hover:underline focus:outline-none focus:ring-2 focus:ring-[#e25f3a]">
+                            Already have an account?
+                        </a>
+                        <a href="/"
+                            class="mt-4 block text-sm text-center font-medium text-[#FF8E6E] hover:underline focus:outline-none focus:ring-2 focus:ring-[#e25f3a]">
+                            Back to home page
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <!-- Former signup form -->
-<!--
-    <div
-        class="absolute top-1/2 left-1/2 w-400px p-40px -translate-x-2/4 -translate-y-2/4 bg-black/50 box-border shadow-xl shadow-black/60">
-        <h2 class="mt-0 mx-0 mb-8 text-white text-center">Sign Up</h2>
-        <form action="/signup" method="POST">
-            <div class="relative">
-                <input type="text" name="fName" placeholder="First Name" required=""
-                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
-                <label for="fName"
-                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">First
-                    Name</label>
-            </div>
-            <div class="relative">
-                <input type="text" name="lName" placeholder="Last Name" required=""
-                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
-                <label for="lName"
-                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Last
-                    Name</label>
-            </div>
-            <div class="relative">
-                <input type="email" name="email" placeholder="Email" required=""
-                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
-                <label for="email"
-                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
-            </div>
-            <div class="user-box">
-                <input type="password" name="password" placeholder="password" required=""
-                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
-                <label for="password"
-                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
-            </div>
-            <div class="user-box">
-                <input type="password" name="Cpassword" placeholder="Confirm password" required=""
-                    class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600">
-                <label for="Cpassword"
-                    class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Confirm
-                    Password</label>
-            </div>
-            <button type="submit"
-                class="relative inline-block py-2.5 px-5 text-[#03e9f4] text-base no-underline uppercase overflow-hidden delay-100 tracking-wide mt-10 rounded hover:bg-[#03e9f4] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#03e9f4] hover:shadow-[#03e9f4]">
-                Submit
-            </button>
-            <input type="sumbit" value="Sign in"
-                class="mt-20 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer" />
-        </form>
-    </div>
-    -->
-
-
 
 </body>
 </html>
