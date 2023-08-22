@@ -26,7 +26,8 @@ module.exports = {
     },
     displaySavedRecipes: async (req, res) => {
         try {
-            const user = await User.findById(req.user.id).populate('savedRecipes');
+            const user = await User.findById(req.user.id)
+            .populate({ path: 'savedRecipes', populate: { path: 'user' } });
 
             const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
             const quotes = response.data;
