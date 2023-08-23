@@ -42,7 +42,13 @@ const recipeSchema = new mongoose.Schema({
         require: true
     },
     hashtags : {
-        type: [String]
+        type: [String],
+        validate: {
+            validator: function (hashtags) {
+                return hashtags.length <= 15;
+            },
+            message: 'Maximum of 15 hashtags allowed per recipe.'
+        }
     },
     createdAt: {
     type: Date,
