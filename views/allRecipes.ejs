@@ -2,14 +2,33 @@
 
 <!-- Get all the recipes -->
 
-<section class="border-2 border-green-900 mt-12 p-6">
+<section class="mt-12 p-6">
     <!-- my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3 -->
-    <section class="border-2 border-black grid grid-cols-1 auto-rows-fr md:grid-cols-3 lg:grid-cols-4 h-4/5">
-        <section class="border-2 border-yellow-700 col-span-1 md:col-span-2 bg-white shadow-md py-1 px-7 min-w-[340px] min-h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
-            <h2 class="p-2 mb-2"><span class="font-bold text-lg capitalize"><%= user.userName %></span>, see any recipe you like?</h2>
+    <section class="grid grid-cols-1 auto-rows-fr md:grid-cols-3 lg:grid-cols-4 h-4/5">
+        <section
+            class="col-span-1 bg-white shadow-sm py-4 px-3 pb-3 min-h-[200px] m-1.5 rounded-md">
+            <!-- add search input box here or in nav bar? -->
+            <div class="relative p-3">
+                <h2 class="p-2 mb-2">Hey<span class="font-bold text-lg capitalize">
+                        <%= user.userName %>,
+                    </span> see any recipe you like?
+                </h2>
+                <!-- <span class="block mx-1"><span class="font-bold">Total:</span>
+                    Add an input field to search for recipes on app
+                </span> -->
+                <div class="absolute left-0 top-[100px] my-5">
+                    <a href="#bottom"
+                        class="bg-[#f6f6f6] text-[#515070] p-3 rounded shadow-sm shadow-black/20 w-[150px]  text-center hover:shadow-sm hover:text-[#FF8E6E]">Page end
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="col-span-1 md:col-span-2 lg:col-span-3 bg-white py-1 px-7 min-w-[340px] min-h-[200px] m-1.5 shadow">
+            
             <!-- Make quote hidden in small screen? change border back to half black? -->
             <section
-                class="border-[#f7cdb3] border-2 bg-[f6f6f6] py-2 px-3 flex flex-col justify-center items-center rounded shadow-sm">
+                class="bg-[f6f6f6] py-2 px-3 flex flex-col justify-center items-center rounded">
                 <div class="my-4 mx-0">
                     <div class="flex justify-center p-3">
                         <p class="text-xl text-center">" <%= quotes.quote %> "
@@ -26,24 +45,13 @@
             
             </section>
         </section>
-        <section class="border-2 border-indigo-700 col-span-1 bg-white shadow-md py-4 px-3 pb-3 min-h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91] lg:col-span-2">
-            <!-- add search input box here or in nav bar? -->
-            <div class="border-2 border-black p-3">
-                <h2 class="border-2 border-red-700">Second box</h2>
-                <!-- <input type="search" placeholder="search box" class="border-2 border-orange-700 p-2 m-2"> -->
-                    Add an input field to search for external recipes
-                </input>
-                <span class="block mx-1"><span class="font-bold">Total:</span>
-                    Add an input field to search for recipes on app
-                </span>
-            </div>
-        </section>
+        
     </section>
 
     <!-- WORKING ON DISPLAYING RECIPES -->
 
     <ul
-        class="border-black border-2 bg-[#fafafa] my-2 py-2 grid grid-cols-1 gap-5 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
+        class="bg-[#fafafa] my-2 py-2 grid grid-cols-1 gap-5 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
         <% recipes.forEach(recipe=> { %>
             <li class="border-2 my-2 p-1 rounded-md border-black/10 bg-white shadow-sm hover:border-2 hover:border-[#FFBB91]">
                 <!-- Modifying recipe card -->
@@ -105,29 +113,34 @@
 
     <!-- END OF WORKING ON DISPLAYING RECIPES -->
 
+    <!-- Same page link to top -->
+    <div class="my-7">
+        <a href="#top"
+            class="bg-[#f6f6f6] text-[#515070] p-3 rounded shadow-sm shadow-black/20 w-[150px] text-center hover:shadow-sm hover:text-[#FF8E6E]">
+            Back to top
+        </a>
+    </div>
 
 
     <!-- links to other pages -->
 
-    <div class="border-blue-400 border-2 flex flex-wrap p-2">
+    <div id="bottom" class="flex flex-wrap justify-center p-2">
         <!-- work on width. Use the correct syntax -->
         <a href="/dash"
-            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded shadow hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">
             <button type="submit">Dashboard</button>
         </a>
         <a href="/comments"
-            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Add Comment
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded shadow hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Add Comment
         </a>
     
         <a href="/recipes"
-            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">My Recipes
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded shadow hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">My Recipes
         </a>
 
         <a href="/recipes/savedRecipes"
-            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Saved recipes
+            class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline capitalize delay-100 tracking-wide m-2 rounded shadow hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">Saved recipes
         </a>
     </div>
 </section>
 
-
-<%- include('partials/footer') -%>
