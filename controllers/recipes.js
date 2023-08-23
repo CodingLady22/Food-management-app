@@ -26,7 +26,8 @@ module.exports = {
     },
     displaySavedRecipes: async (req, res) => {
         try {
-            const user = await User.findById(req.user.id).populate('savedRecipes');
+            const user = await User.findById(req.user.id)
+            .populate({ path: 'savedRecipes', populate: { path: 'user' } });
 
             const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
             const quotes = response.data;
@@ -70,6 +71,24 @@ module.exports = {
     createRecipe: async (req, res) => {
         // Upload image to cloudinary
         const result = await cloudinary.uploader.upload(req.file.path);
+
+        // Convert hashtag string to an array of strings
+        let hashtagsArray = [];
+
+        if (req.body.hashtags) {
+            if (req.body.hashtags.includes(',')) {
+            // Handle comma-separated hashtags
+            hashtagsArray = req.body.hashtags.split(',').map(tag => tag.trim()).join(' ');
+            } else {
+            // Handle space-separated hashtags
+            hashtagsArray = req.body.hashtags.split(' ').filter(tag => tag.trim() !== '').join(' ');
+            }
+        }
+
+        // Handle both comma seperated and space seperated hashtags
+        // if (req.body.hashtags) {
+        //     hashtagsArray = req.body.hashtags.split(/[, ]+/).filter(tag => tag.trim() !== '').join(' ');
+        // }
       
         const newRecipe = new Recipe(
             {
@@ -82,7 +101,7 @@ module.exports = {
                 serving: req.body.serving,
                 ingredients: req.body.ingredients,
                 instructions: req.body.instructions,
-                hashtags: req.body.hashtags,
+                hashtags: hashtagsArray,
                 user: req.user.id,
             }
         )

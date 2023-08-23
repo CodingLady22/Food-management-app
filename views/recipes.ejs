@@ -82,7 +82,14 @@
                                 <h1 class="capitalize p-3 text-[#313135] font-bold text-3xl">
                                     <%= recipe.title.length > 18 ? recipe.title.slice(0, 18) + '...' : recipe.title%>
                                 </h1>
-                                <p class="border-black/5 border-2 font-medium text-lg text-[#59595C] p-2 my-3 rounded-xl"><%= recipe.hashtags.length > 18 ? recipe.hashtags.slice(0, 18) + '...' : recipe.hashtags %></p>
+                                <p class="border-black/5 border-2 font-medium text-lg text-[#59595C] p-1 my-3 rounded-xl overflow-hidden">
+                                    <% if (recipe.hashtags && recipe.hashtags.length> 0) { %>
+                                        <% const hashtagString = recipe.hashtags.join(', '); %>
+                                        <!-- <p class="overflow-hidden h-8 md:h-16"> -->
+                                        <%= hashtagString.length > 30 ? hashtagString.slice(0, 30) + ' ...' : hashtagString %>
+                                        <!-- </p> -->
+                                    <% } %>
+                                </p>
                             
                             </div>
                             
