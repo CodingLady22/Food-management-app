@@ -6,23 +6,24 @@ Food wastage is a major problem all around the world. A simple and easy-to-use a
 
 Live link: 
 
-## Current look of some pages
+## What the app looks like
 
-<img width="920" alt="Screen Shot 2023-04-29 at 6 22 21 PM" src="https://user-images.githubusercontent.com/99496129/235314073-7c857314-2e8b-453c-84b2-7414bd6b5353.png">
+#### Landing Page
+<img width="771" alt="Screen Shot 2023-08-24 at 4 12 14 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/1ce793b6-7a15-4919-a6de-20e2f02425c8">
 
-<img width="920" alt="Screen Shot 2023-04-29 at 6 22 46 PM" src="https://user-images.githubusercontent.com/99496129/235314085-ec81b010-e25c-4e5c-b18a-b6031fe90f49.png">
+#### Sign up 
+<img width="457" alt="Screen Shot 2023-08-24 at 4 14 20 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/58133139-a4ba-4b9e-ac82-15151553a146">
 
-<img width="898" alt="Screen Shot 2023-04-29 at 6 23 00 PM" src="https://user-images.githubusercontent.com/99496129/235314090-73f8bf50-c5ff-46eb-be51-ecfbf625b65a.png">
+#### Dashboard
+<img width="1440" alt="Screen Shot 2023-08-24 at 4 17 32 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/07c2358c-9ffd-4960-a013-a574eeb790b3">
 
-<img width="1440" alt="Screen Shot 2023-04-29 at 6 23 57 PM" src="https://user-images.githubusercontent.com/99496129/235314184-e35efb05-0c09-45a6-91d5-ee9c18c42178.png">
-
-<img width="1440" alt="Screen Shot 2023-04-29 at 6 40 33 PM" src="https://user-images.githubusercontent.com/99496129/235314195-6d36f12c-ad5a-4371-af54-43800d750c99.png">
+#### Dashboard Edit page
+<img width="1440" alt="Screen Shot 2023-08-24 at 4 18 56 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/7019bd53-ce53-41f1-aefa-95b763418f8e">
 
 
 
 ## Features
 * Notifications for food expiration
-* Recipe suggestions for food items about to expire.
 * Ability to upload personal recipes or write it directly in the app.
 * Comments are available where users can write down their shopping lists or ideas on how to use up their food items.
 
