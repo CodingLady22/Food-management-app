@@ -23,9 +23,12 @@ Live link:
 
 
 ## Features
-* Notifications for food expiration
-* Ability to upload personal recipes or write it directly in the app.
+* Notifications for entered food 
+* Ability to write recipes directly in the app.
 * Comments are available where users can write down their shopping lists or ideas on how to use up their food items.
+* Ability to save recipes of other users
+* Ability to edit and delete any item entered into the app
+
 
 ### How it's made
 This is a full-stack application using the following:
