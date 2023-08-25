@@ -23,7 +23,7 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full">
             <div class="py-8 px-6 shadow rounded-lg hover:shadow-[#515070] sm:px-10">
-                <p class="mb-6 p-2 bg-slate-100/40">Use this section to input your recipe. Do not forget to select an image of your recipe from your files. All fields are required except the hashtag field.</p>
+                <p class="mb-6 p-2 bg-slate-100/40">Use this section to input your recipe. Remember to select an image of your recipe from your files.</p>
                 <form action="/recipes/newRecipe" enctype="multipart/form-data" method="POST" class="border-blue-400">
                     <div class="mb-3">
                         <label for="imgUpload" class="form-label">Image</label>
@@ -50,6 +50,11 @@
                         <span class="my-2 text-center">Enter your Instructions</span>
                         <textarea class="border-2 border-black/10 p-0 m-0" name="instructions" id="" cols="30" rows="10"
                             placeholder="Enter instructions here. Press 'Enter' after each entry to start next entry on a new line. E.g 1) Preheat your oven to...." ></textarea>
+                    </div>
+                    <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
+                        <span class="my-2 text-center">Leave a note</span>
+                        <textarea class="border-2 border-black/10 p-0 m-0" name="note" id="" cols="30" rows="10"
+                            placeholder="Leave a note for any do's and dont's necessary to get this recipe" ></textarea>
                     </div>
 
                     <!-- Add an input field for the tags to this form and it's Model -->
@@ -109,7 +114,7 @@
             
             
             <!-- <a href="#">Scan Barcode</a> -->
-            <div class="flex flex-wrap p-2">
+            <div class="flex justify-center flex-wrap p-2">
                 <!-- work on width. Use the correct syntax -->
                 <a href="/dash" class="w-44 text-center py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-black/5 hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg group-hover:shadow-md hover:shadow-black/30">
                     <button type="submit">Dashboard</button>
@@ -126,6 +131,3 @@
         
     </div>
     </section>
-
-
-    <%- include('partials/footer') -%>
