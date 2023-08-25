@@ -41,6 +41,9 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    note : {
+        type: String
+    },
     hashtags : {
         type: [String],
         validate: {

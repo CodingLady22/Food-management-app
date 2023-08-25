@@ -101,6 +101,7 @@ module.exports = {
                 serving: req.body.serving,
                 ingredients: req.body.ingredients,
                 instructions: req.body.instructions,
+                note: req.body.note,
                 hashtags: hashtagsArray,
                 user: req.user.id,
             }
@@ -159,7 +160,7 @@ module.exports = {
     updateRecipe: async (req, res) => {
         const id = req.params.id;
         try {
-            const { title, prep, cook, total, serving, ingredients, instructions, hashtags } = req.body;
+            const { title, prep, cook, total, serving, ingredients, instructions, note, hashtags } = req.body;
             const updatedRecipe = await Recipe.findById(id);
 
             // first check if a new image is being uploaded
@@ -188,6 +189,7 @@ module.exports = {
                 serving,
                 ingredients,
                 instructions,
+                note,
                 hashtags,
             });
 
