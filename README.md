@@ -27,7 +27,7 @@ Live link:
 * Ability to write recipes directly in the app.
 * Comments are available where users can write down their shopping lists or ideas on how to use up their food items.
 * Ability to save recipes of other users
-* Ability to edit and delete any item entered into the app
+* External api integration to show food-related quotes
 
 
 ### How it's made
@@ -35,12 +35,16 @@ This is a full-stack application using the following:
 * [![MongoDB][MongoDB]][MongoDB-url]
 * [![Express][Express.js]][Express-url]
 * [![Node][Node.js]][Node-url]
+* [![EJS][EJS]][EJS-url]
 
 ### Optimization
 
 * When food items are about to expire, recipes for those food items will be sent along with the expiration notifications.
+* Search for external recipes from the app
 * Personal recipes can be uploaded privately or publicly.
 * Public recipes can be accessed by all users while private recipes will only be seen by the owner of the recipe
+* Update user profile
+* Account deactivation
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
