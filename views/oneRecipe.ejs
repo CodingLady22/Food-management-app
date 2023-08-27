@@ -75,21 +75,21 @@
                     <!-- ingredients -->
                     <div
                         class="bg-white w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="p-0 m-0" name="ingredients" id="" cols="30" rows="10">
+                        <textarea class="p-2 m-0 whitespace-pre-line" name="ingredients" id="" cols="30" rows="10">
                                         <%= recipe.ingredients %>
                                     </textarea>
                     </div>
                     <!-- instructions -->
                     <div
                         class="bg-white w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="p-0 m-0" name="instructions" id="" cols="30" rows="10">
+                        <textarea class="p-2 m-0 whitespace-pre-line" name="instructions" id="" cols="30" rows="10">
                                         <%= recipe.instructions %>
                                     </textarea>
                     </div>
                     <!-- notes -->
                     <div
                         class="bg-white w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                        <textarea class="p-0 m-0" name="note" id="" cols="30" rows="10">
+                        <textarea class="p-2 m-0 whitespace-pre-line" name="note" id="" cols="30" rows="10">
                                         <%= recipe.note %>
                                     </textarea>
                     </div>
@@ -169,11 +169,11 @@
             <!-- Section for notes -->
             <section class="border border-black/10 bg-[#f6f6f6] p-5">
                     
-                <div class="bg-white rounded-lg px-2 w-full">
+                <div class="bg-white rounded-lg p-2 w-full">
                     <!-- <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full"> -->
                     <h4 class="font-mono text-center font-bold uppercase underline text-lg">Notes</h4>
                     <pre
-                        class="font-mono text-sm text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.note %></pre>
+                        class="font-mono p-2 text-sm text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.note %></pre>
                 </div>
 
             </section>
