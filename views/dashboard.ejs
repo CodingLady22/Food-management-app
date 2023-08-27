@@ -14,14 +14,14 @@
                 <img src="/images/basket.png" alt="">
             </section>
             <form action="/dash/dashboard" method="POST" class="p-1">
-                <input type="text" name="itemInput" placeholder="Item"
+                <input type="text" name="itemInput" placeholder="Item" required
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
-                <input type="number" name="quantity" placeholder="Quantity"
+                <input type="number" name="quantity" placeholder="Quantity" required
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
-                <input type="text" name="unit" placeholder="Unit"
+                <input type="text" name="unit" placeholder="Unit" required
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date: </label>
-                <input type="date" name="expiry" placeholder="Expiry date"
+                <input type="date" name="expiry" placeholder="Expiry date" required
                     class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <button type="submit"
                     class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#515070] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#515070] hover:shadow-[#515070]">Add

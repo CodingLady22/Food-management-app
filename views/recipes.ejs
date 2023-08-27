@@ -27,33 +27,33 @@
                 <form action="/recipes/newRecipe" enctype="multipart/form-data" method="POST" class="border-blue-400">
                     <div class="mb-3">
                         <label for="imgUpload" class="form-label">Image</label>
-                        <input type="file" class="form-control" id="imageUpload" name="file">
+                        <input type="file" class="form-control" id="imageUpload" name="file" required>
                     </div>
-                    <input type="text" placeholder="title" name="title"
+                    <input type="text" placeholder="title" name="title" required
                         class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                     <div class="border-2 border-black/20 my-3 py-2 flex flex-wrap justify-evenly gap-2 rounded-md">
                         <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[220px] &::placeholder- " type="text"
-                            placeholder="Prep Time" name="prep">
+                            placeholder="Prep Time" name="prep" required>
                         <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[220px]" type="text"
-                            placeholder="Cook Time" name="cook">
+                            placeholder="Cook Time" name="cook" required>
                         <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[220px]" type="text"
-                            placeholder="Total Time" name="total">
+                            placeholder="Total Time" name="total" required>
                         <input class="border-none appearance-none bg-[#f2f2f2] p-2 rounded w-[220px]" type="text" placeholder="Servings"
-                            name="serving">
+                            name="serving" required>
                     </div>
                     <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                         <span class="my-2 text-center">Enter your Ingredients</span>
-                        <textarea class="border-2 border-black/10 p-0 m-0" name="ingredients" id="" cols="30" rows="10"
+                        <textarea class="border-2 border-black/10 p-0 m-0" name="ingredients" id="" cols="30" rows="10" required
                             placeholder="Press 'Enter' after each entry to start next entry on a new line. E.g Chicken wings - 2kg."></textarea>
                     </div>
                     <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                         <span class="my-2 text-center">Enter your Instructions</span>
-                        <textarea class="border-2 border-black/10 p-0 m-0" name="instructions" id="" cols="30" rows="10"
+                        <textarea class="border-2 border-black/10 p-0 m-0" name="instructions" id="" cols="30" rows="10" required
                             placeholder="Enter instructions here. Press 'Enter' after each entry to start next entry on a new line. E.g 1) Preheat your oven to...." ></textarea>
                     </div>
                     <div class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                         <span class="my-2 text-center">Leave a note</span>
-                        <textarea class="border-2 border-black/10 p-0 m-0" name="note" id="" cols="30" rows="10"
+                        <textarea class="border-2 border-black/10 p-0 m-0" name="note" id="" cols="30" rows="10" required
                             placeholder="Leave a note for any do's and dont's necessary to get this recipe" ></textarea>
                     </div>
 
