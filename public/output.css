@@ -552,6 +552,9 @@ video {
 .m-7 {
   margin: 1.75rem;
 }
+.-m-10 {
+  margin: -2.5rem;
+}
 .mx-0 {
   margin-left: 0px;
   margin-right: 0px;
@@ -863,6 +866,12 @@ video {
 }
 .overflow-hidden {
   overflow: hidden;
+}
+.whitespace-pre {
+  white-space: pre;
+}
+.whitespace-pre-line {
+  white-space: pre-line;
 }
 .whitespace-pre-wrap {
   white-space: pre-wrap;
@@ -1374,6 +1383,9 @@ video {
 .shadow-black\/5 {
   --tw-shadow-color: rgb(0 0 0 / 0.05);
   --tw-shadow: var(--tw-shadow-colored);
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .transition-all {
   transition-property: all;
