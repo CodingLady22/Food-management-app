@@ -20,6 +20,13 @@ Live link:
 #### Dashboard Edit page
 <img width="1440" alt="Screen Shot 2023-08-24 at 4 18 56 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/7019bd53-ce53-41f1-aefa-95b763418f8e">
 
+#### Comments Page
+<img width="1440" alt="Screen Shot 2023-08-28 at 4 59 38 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/c66b3352-8ab9-43ef-97b2-b8b43e5dfc72">
+
+#### Displayed Comments
+<img width="808" alt="Screen Shot 2023-08-28 at 5 02 31 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/4383b8d0-1821-4fec-9308-7a025aa0fdd7">
+
+
 
 
 ## Features
