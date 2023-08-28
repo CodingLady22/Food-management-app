@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const dotenv = require('dotenv')
 const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require("connect-mongo");
@@ -13,7 +14,6 @@ const dashboardRoutes = require("./routes/dashboard");
 const commentsRoutes = require("./routes/comments");
 const recipesRoutes = require("./routes/recipes");
 const homeRoutes = require("./routes/home");
-const PORT = 3700
 
 
     //*Import functions/routes
@@ -22,7 +22,7 @@ const PORT = 3700
     // Passport config
 require("./config/passport")(passport);
 
-require('dotenv').config({ path: './config/.env' })
+dotenv.config({ path: './config/.env' })
 
 
 // todo - connect to Database
@@ -68,10 +68,6 @@ app.use('/', homeRoutes)
 
 
 //todo - Start Server
-//!  Why is my 'process.env.PORT' not working?
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Server running on port ${process.env.PORT}`)
 });
-// app.listen(process.env.PORT, () => {
-//     console.log(`Server running on port ${process.env.PORT}`)
-// });
