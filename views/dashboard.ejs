@@ -7,7 +7,7 @@
         <p class="p-2 text-lg font-medium">You have <span class="text-red-400 text-2xl"><%= expiringSoonCount %></span> food <%= expiringSoonCount===1 ? 'item' : 'items' %> expiring within 7 days.</p>
     </div>
 
-    <!-- Add line to show number of items about to expire -->
+    
     <div class="mt-8 sm:mx-auto sm:w-full">
         <div class="py-12 px-6 shadow rounded-lg sm:px-10 flex justify-evenly gap-4 bg-white md:p-8">
             <section class="hidden md:inline-block mx-5 w-[350px]">
@@ -37,8 +37,10 @@
                         <div>Quantity: <%= item.quantity %>
                             <%= item.unit %>
                         </div>
-                        <!-- <div></div> -->
+                        <!-- Show expiration date -->
                         <div> Expires: <%= new Date(item.expiry).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) %></div>
+                        
+                        <!-- Show number of days to expiration -->
                         <div class="mb-4">Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
 
                         <div class=" flex justify-center gap-4">
@@ -55,13 +57,9 @@
 
     <div class="my-2 p-1 px-3">
         <!-- <a href="#">Scan Barcode</a> -->
-        <!-- <a href="/comments" class="py-2 px-[20px] bg-white text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add Comment</a> -->
+        
         <a href="/comments" class="bg-white text-[#515070] mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Add Comment</a>
-        <!-- <a href="/recipes" class="py-2 px-[20px] bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide m-2 rounded hover:bg-[#FF8E6E] hover:text-white hover:rounded-lg hover:shadow-lg group-hover:shadow-[#FF8E6E] hover:shadow-[#FF8E6E]">Add Recipes</a> -->
+
         <a href="/recipes" class="bg-white text-[#515070] mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Add Recipes</a>
     </div>
 </section>
-
-
-
-<%- include('partials/footer') -%>
