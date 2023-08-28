@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 
 <section class="p-5 my-16 bg-[#f6f6f6]">
-    <h1>Edit your comment</h1>
+    <h1 class="ml-5 font-medium text-lg capitalize tracking-wide">Edit your comment</h1>
     <section class="mb-20">
         <ul>
             <% editComment.forEach(comment=> { %>
@@ -16,9 +16,12 @@
                                     focus:ring-1 focus:ring-[#2a3da9] caret-[#445ce2]">
                                     <label for="comment" class="block mt-4 text-sm font-medium text-gray-700">Comment</label>
                                     <textarea name="comment" id="" cols="30" rows="10" class="w-full border border-gray-300 my-2 px-3 p-2.5 rounded-lg shadow-sm focus:outline-none focus:border-[#2a3da9] focus:ring-1 focus:ring-[#2a3da9] caret-[#445ce2]"><%= comment.comment %></textarea>
-                                    <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Edit</button>
-                                    <a href="/comments" class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Cancel</a>
-                                    <a href="/comments/delete/<%= comment._id%>" class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Delete</a>
+                                    <!-- submit button -->
+                                    <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded shadow hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Edit</button>
+                                    <!-- cancel link -->
+                                    <a href="/comments" class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center shadow hover:shadow-md hover:text-[#FF8E6E]">Cancel</a>
+                                    <!-- delete link -->
+                                    <a href="/comments/delete/<%= comment._id%>" class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center shadow hover:shadow-md hover:text-[#FF8E6E]">Delete</a>
                                 </form>
                         
                             </div>
