@@ -26,7 +26,7 @@ dotenv.config({ path: './config/.env' })
 
 
 // todo - connect to Database
-connectDB()
+// connectDB()
 
 
 
@@ -68,6 +68,8 @@ app.use('/', homeRoutes)
 
 
 //todo - Start Server
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Server running on port ${process.env.PORT}`)
-});
+connectDB().then(() => {
+  app.listen(process.env.PORT || 3000, () => {
+      console.log(`Server running on port ${process.env.PORT}`)
+  });
+})
