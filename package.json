@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "start-prod": "node server.js",
+    "start": "node server.js",
+    "start-dev": "nodemon server.js",
     "watch": "postcss ./public/css/tailwind.css -o ./public/output.css --watch"
   },
   "author": "Maye Jesuorobo",
