@@ -2,7 +2,9 @@
 
 <section class="p-5 mt-5">
 
-    <h2 class="m-4 text-lg">Enter your comments</h2>
+    <h2 class="m-4 text-lg">Enter your comments 
+        <span class="capitalize font-semibold text-lg"><%= user.userName %></span>
+    </h2>
     
     <div class="bg-white mt-8 sm:mx-auto sm:w-full">
         <div class="py-6 px-6 shadow rounded-lg sm:px-10">
@@ -12,10 +14,11 @@
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-[#FF8E6E] focus:ring-1 focus:ring-[#FF8E6E] caret-[#FFBB91]">
 
                 <div>
+                    <label for="comment" class="block mt-4 text-sm font-medium text-gray-700">Body</label>
                     <textarea name="comment" id="" cols="30" rows="10" placeholder="Add your comment here" required class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm flex flex-col focus:outline-none focus:border-[#FF8E6E] focus:ring-1 focus:ring-[#FF8E6E] caret-[#FFBB91]"></textarea>
                 </div>
 
-                <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Enter Comment</button>
+                <button type="submit" class="w-1/2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-3 rounded shadow hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Enter Comment</button>
             </form>
         </div>
     </div>
@@ -25,7 +28,7 @@
 
     <ul class="border-2 rounded-md shadow-sm bg-slate-100/25 my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3  lg:grid-cols-3">
         <% enteredComments.forEach(comment=> { %>
-            <li class="bg-blue-50/50 shadow-md py-4 px-7 pb-3 w-340px h-[300px] m-1.5 rounded-md hover:border-2 hover:shadow-[#0B2447]">
+            <li class="bg-blue-50/50 shadow py-4 px-7 pb-3 w-340px h-[300px] m-1.5 rounded-md hover:border-2 hover:shadow-blue-300">
             
                 <div class="text-2xl text-center capitalize mb-3 text-[#19376D] overflow-hidden" title="<%= comment.title %>">
 
@@ -37,28 +40,24 @@
                     
                     <!-- Truncating comment body to 20 letters -->
                     <% const words = comment.comment.split(' '); %>
-                    <%= words.slice(0, 20).join(' ') %><%= words.length > 50 ? '...' : '' %>
+                    <%= words.slice(0, 20).join(' ') %><%= words.length > 20 ? '...' : '' %>
                 </div>
                 <div class="flex justify-center gap-4">
                     <a href="/comments/viewComment/<%= comment._id%>"
-                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">View</a>
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center shadow hover:shadow-md hover:text-[#FF8E6E]">View</a>
                     <a href="/comments/edit/<%= comment._id%>"
-                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Edit</a>
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center shadow hover:shadow-md hover:text-[#FF8E6E]">Edit</a>
                     <a href="/comments/delete/<%= comment._id%>"
-                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center hover:shadow-md hover:text-[#FF8E6E]">Delete</a>
+                        class="bg-white border-[#DBD6D6] border-2 text-slate-800 mx-1 py-2 px-3 rounded-md w-[80px] text-center shadow hover:shadow-md hover:text-[#FF8E6E]">Delete</a>
                 </div>
                 
             </li>
             <% }) %>
     </ul>
     
-    <a href="/dash" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">
+    <a href="/dash" class="relative inline-block mr-1 mb-2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded shadow hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">
         <button type="submit">Dashboard</button>
     </a>
-    <a href="/recipes" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Add Recipes</a>
+    <a href="/recipes" class="relative inline-block ml-1 mb-2 py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded shadow hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Add Recipes</a>
 
 </section>
-
-
-
-<%- include('partials/footer') -%>
