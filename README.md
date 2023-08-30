@@ -47,11 +47,31 @@ This is a full-stack application using the following:
 ### Optimization
 
 * When food items are about to expire, recipes for those food items will be sent along with the expiration notifications.
-* Search for external recipes from the app
+* Search for external recipes from the app.
+* Search input with dropdown to simplify searching for items.
 * Personal recipes can be uploaded privately or publicly.
-* Public recipes can be accessed by all users while private recipes will only be seen by the owner of the recipe
-* Update user profile
-* Account deactivation
+* Public recipes can be accessed by all users while private recipes will only be seen by the owner of the recipe.
+* Update user profile.
+* Account deactivation.
+
+
+### How to install
+Fork repo, clone and install dependencies 
+```
+npm install
+```
+To run in development: Open 2 integrated terminals, one to run node and the other to run tailwind
+```
+npm run dev
+npm run watch
+```
+
+- Remeber to create your own .env file
+
+
+
+
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
