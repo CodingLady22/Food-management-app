@@ -33,15 +33,40 @@
         <!-- Links in the navbar -->
             <ul class="hidden sm:flex text-gray-400 justify-end items-center gap-x-7 gap-y-5 mt-5 sm:mt-0" id="links">
                 <li class="">
-                    <a href="/dash" class="active">Dashboard</a>
+                    <a href="/dash" class="active hover:text-gray-300">Dashboard</a>
                 </li>
                 <li class="">
-                    <a href="/comments" class="active">Comments</a>
+                    <a href="/comments" class="active hover:text-gray-300">Comments</a>
                 </li>
-                <li class="">
-                    <a href="/recipes" class="hover:text-gray-300">Recipes</a>
+                
+                <!--  Start dropdown -->
+                <li class="relative">
+                    <button id="recipesButton" class="hover:text-gray-300 flex items-center">Recipes
+                        <!-- <img src="/public/images/down-arrow.svg" alt="down arrow" width="10" class="ml-1"> -->
+                        <svg width="12" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="w-5">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z"
+                                fill="#000000" />
+                        </svg>
+                    </button>
+                    <!-- Start dropdown menu -->
+                    <div id="recipeDropdown" class="absolute bg-white rounded-md p-2 mt-2 hidden">
+                        <ul class="space-y-2  md:w-32 lg:w-36">
+                            <li class="flex font-medium text-gray-600 md:p-2 rounded-md hover:bg-gray-100 hover:text-black">
+                                <a href="/recipes">My Recipes</a>
+                            </li>
+                            <li class="flex font-medium text-gray-600 md:p-2 rounded-md hover:bg-gray-100 hover:text-black">
+                                <a href="/recipes/viewRecipeFeed">Recipes Feed</a>
+                            </li>
+                            <li class="flex font-medium text-gray-600 md:p-2 rounded-md hover:bg-gray-100 hover:text-black">
+                                <a href="/recipes/savedRecipes">Saved Recipes</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end of dropdown menu -->
                 </li>
-                <li class="">
+                <!-- end dropdown -->
+                <li id="contentBelowDropdown" class="">
                     <a href="/logout" class="hover:text-gray-300">Log Out</a>
                 </li>
         
