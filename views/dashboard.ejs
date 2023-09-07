@@ -20,7 +20,10 @@
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <input type="text" name="unit" placeholder="Unit" required
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
-                <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date: </label>
+                <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Date purchased </label>
+                <input type="date" name="purchaseDate" placeholder="Date purchased"
+                    class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
+                <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date </label>
                 <input type="date" name="expiry" placeholder="Expiry date" required
                     class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <button type="submit"
@@ -32,16 +35,25 @@
 
     <ol class="my-4 py-4 grid grid-cols-1 gap-4 auto-rows-fr px-5 md:grid-cols-2 md:px-3 lg:grid-cols-3">
                 <% newItem.forEach(item=> { %>
-                    <li class="bg-white shadow-md py-4 px-7 pb-3 w-340px h-[200px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
-                        <div class="text-2xl text-center capitalize mb-2 text-[#FF8E6E]"><%= item.itemInput %></div>
-                        <div>Quantity: <%= item.quantity %>
+                    <li class="bg-white shadow-md py-4 px-7 pb-3 w-340px h-[250px] m-1.5 rounded-md hover:border-2 hover:border-[#FFBB91]">
+                        <div class="text-2xl text-center capitalize mb-3 text-[#FF8E6E]"><%= item.itemInput %></div>
+                        <div class="mb-1.5">Quantity: <%= item.quantity %>
                             <%= item.unit %>
                         </div>
+                        <div class="mb-1.5">Purchased: <span class=""> <%= item.purchaseDate
+                            ? new Date(item.purchaseDate).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' })
+                            : new Date(item.createdAt).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) %> </span></div>
                         <!-- Show expiration date -->
-                        <div> Expires: <%= new Date(item.expiry).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) %></div>
+                        <div class="mb-1.5"> Expires: <span class="text-[#d2380d]"> <%= item.expiry ? new Date(item.expiry).toLocaleDateString('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }) : 'N/A' %> </span> </div>
                         
                         <!-- Show number of days to expiration -->
-                        <div class="mb-4">Days to expiration: <%= daysLeft[newItem.indexOf(item)] %></div>
+                        <div class="mb-4">Days to expiration: 
+                            <% if (item.expiry && item.expiry !=='Invalid Date' ) { %>
+                                <%= daysLeft[newItem.indexOf(item)] %>
+                                    <% } else { %>
+                                        N/A
+                                        <% } %>
+                        </div>
 
                         <div class=" flex justify-center gap-4">
                             <a href="/dash/edit/<%= item._id%>"
