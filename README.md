@@ -4,7 +4,7 @@
 
 Food wastage is a major problem all around the world. A simple and easy-to-use app that helps you manage your food and avoid waste. With this app, you will never have to worry about throwing away expired food again. 
 
-Live link: 
+Live site: https://zany-pear-cod-boot.cyclic.cloud
 
 ## What the app looks like
 
@@ -66,7 +66,7 @@ npm run dev
 npm run watch
 ```
 
-- Remeber to create your own .env file
+- Remember to create your own .env file
 
 
 
