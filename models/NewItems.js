@@ -17,11 +17,15 @@ const newItemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    purchaseDate: {
+        type: String,
+        required: false,
+    },
     user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-    purchaseDate: {
+    createdAt: {
         type: Date,
         default: Date.now
     }

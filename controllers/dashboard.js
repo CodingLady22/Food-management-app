@@ -31,14 +31,14 @@ module.exports = {
         }
     },
     createItem: async (req, res) => {
-        let expiration = new Date(req.body.expiry);
 
         const newItem = new NewItem(
             {
                 itemInput: req.body.itemInput,
                 quantity: req.body.quantity,
                 unit: req.body.unit,
-                expiry: expiration,
+                purchaseDate: req.body.purchaseDate,
+                expiry: req.body.expiry,
                 user: req.user.id,
             }
         )
@@ -65,14 +65,15 @@ module.exports = {
     // the actual update
     updateItem: async (req, res) => {
         const id = req.params.id
-        let expiration = new Date(req.body.expiry);
+
         try {
             console.log('Item has been updated');
             await NewItem.findByIdAndUpdate(id, {
                 itemInput: req.body.itemInput,
                 quantity: req.body.quantity,
                 unit: req.body.unit,
-                expiry: expiration,
+                purchaseDate: req.body.purchaseDate,
+                expiry: req.body.expiry,
                 user: req.user.id,
             })
             res.redirect('/dash')
