@@ -2,6 +2,8 @@ const NewItem = require("../models/NewItems")
 
 module.exports = {
     getDashboard: async (req, res) => {
+        const purchaseDateError = req.flash('purchaseDateError');
+        const expiryDateError = req.flash('expiryDateError');
         try {
             console.log(req.user.id);
             const items = await NewItem.find({ user: req.user.id })
@@ -25,7 +27,7 @@ module.exports = {
                 }
             }
             console.log(daysLeft);
-            res.render('dashboard.ejs', {newItem: items, user: req.user, daysLeft: daysLeft, expiringSoonCount: expiringSoonCount})
+            res.render('dashboard.ejs', {newItem: items, user: req.user, daysLeft: daysLeft, expiringSoonCount: expiringSoonCount, purchaseDateError: purchaseDateError, expiryDateError: expiryDateError})
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
@@ -41,7 +43,26 @@ module.exports = {
                 expiry: req.body.expiry,
                 user: req.user.id,
             }
-        )
+        );
+        
+        // Date validation 
+        const purchaseDate = new Date(req.body.purchaseDate);
+        const expiryDate = new Date(req.body.expiry);
+        const currentDate = new Date();
+
+        if(purchaseDate > currentDate) {
+            req.flash('purchaseDateError', 'Purchase date cannot be in the future.')
+            return res.redirect('/dash')
+        }
+        if (expiryDate < currentDate) {
+            req.flash('expiryDateError', 'Expiry date cannot be in the past.')
+            return res.redirect('/dash')
+        }
+        if (expiryDate < purchaseDate) {
+            req.flash('expiryDateError', 'Expiry date cannot be before the purchase date.')
+            return res.redirect('/dash')
+        }
+
         try {
             await newItem.save()
             console.log(newItem)
@@ -54,10 +75,11 @@ module.exports = {
       // getting the edit page
     editItems: async (req, res) => {
         const id = req.params.id
-        console.log(id);
+        const purchaseDateError = req.flash('purchaseDateError');
+        const expiryDateError = req.flash('expiryDateError');
         try {
             const items = await NewItem.find()
-            res.render('editDashboard.ejs', { dashItems : items, dashId : id})
+            res.render('editDashboard.ejs', { dashItems : items, dashId : id, purchaseDateError: purchaseDateError, expiryDateError: expiryDateError})
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
@@ -76,6 +98,25 @@ module.exports = {
                 expiry: req.body.expiry,
                 user: req.user.id,
             })
+
+            // Date validation 
+        const purchaseDate = new Date(req.body.purchaseDate);
+        const expiryDate = new Date(req.body.expiry);
+        const currentDate = new Date();
+
+        if(purchaseDate > currentDate) {
+            req.flash('purchaseDateError', 'Purchase date cannot be in the future.')
+            return res.redirect(`/dash/edit/${id}`)
+        }
+        if (expiryDate < currentDate) {
+            req.flash('expiryDateError', 'Expiry date cannot be in the past.')
+            return res.redirect(`/dash/edit/${id}`)
+        }
+        if (expiryDate < purchaseDate) {
+            req.flash('expiryDateError', 'Expiry date cannot be before the purchase date.')
+            return res.redirect(`/dash/edit/${id}`)
+        }
+        
             res.redirect('/dash')
         } catch (err) {
             if (err) return res.status(500).send(err)

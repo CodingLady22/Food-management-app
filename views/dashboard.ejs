@@ -21,9 +21,19 @@
                 <input type="text" name="unit" placeholder="Unit" required
                     class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Date purchased </label>
+                <% if (purchaseDateError.length> 0) { %>
+                    <div class="text-red-600">
+                        <%= purchaseDateError[0] %>
+                    </div>
+                <% } %>
                 <input type="date" name="purchaseDate" placeholder="Date purchased"
                     class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date </label>
+                <% if (expiryDateError.length> 0) { %>
+                    <div class="text-red-600">
+                        <%= expiryDateError[0] %>
+                    </div>
+                <% } %>
                 <input type="date" name="expiry" placeholder="Expiry date" required
                     class="w-full border border-gray-300 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400">
                 <button type="submit"
