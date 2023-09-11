@@ -17,9 +17,19 @@
                                     <label for="unit" class="block mt-4 text-sm font-medium text-gray-700">Unit</label>
                                     <input type="text" name="unit" value="<%= items.unit %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                                     <label for="purchaseDate" class="block mt-4 text-sm font-medium text-gray-700">Date purchased</label>
+                                    <% if (purchaseDateError.length> 0) { %>
+                                        <div class="text-red-600">
+                                            <%= purchaseDateError[0] %>
+                                        </div>
+                                    <% } %>
                                     <input type="date" name="purchaseDate" value="<%= items.purchaseDate %>"
                                             class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                                     <label for="expiry" class="block mt-4 text-sm font-medium text-gray-700">Expiration date</label>
+                                    <% if (expiryDateError.length> 0) { %>
+                                        <div class="text-red-600">
+                                            <%= expiryDateError[0] %>
+                                        </div>
+                                    <% } %>
                                     <input type="date" name="expiry" value="<%= items.expiry %>" class="w-full border border-gray-300 my-2 px-3 py-2 rounded-lg shadow-sm focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400 caret-blue-700">
                                     <button type="submit" class="relative inline-block py-2.5 px-5 bg-black/5 text-[#515070] text-base no-underline delay-100 tracking-wide mt-20 rounded hover:bg-[#f6f6f6] hover:text-[#FF8E6E] hover:rounded-lg hover:shadow-lg">Submit Changes</button>
                                     <a href="/dash"
