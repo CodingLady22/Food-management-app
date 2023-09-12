@@ -68,3 +68,21 @@ document.addEventListener("click", function (event) {
     }
 });
 
+
+/* 
+//* Undecided if to use client-side code to display recipe edit form or server-side code
+// Function to toggle between recipe layout and edit form
+     const toggleEditButton = document.getElementById("toggleEditButton");
+    const editForm = document.getElementById("editForm");
+    const recipeLayout = document.getElementById("recipeLayout");
+
+    toggleEditButton.addEventListener("click", () => {
+        if (editForm.classList.contains("hidden")) {
+            editForm.classList.remove("hidden");
+            recipeLayout.classList.add("hidden");
+        } else {
+            editForm.classList.add("hidden");
+            recipeLayout.classList.remove("hidden");
+        }
+    });
+*/
