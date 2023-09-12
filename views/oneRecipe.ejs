@@ -16,18 +16,9 @@
     <!-- Editing start -->
     
     <% if (showEditForm) { %>
-        <section class="mt-20 mb-44">
+        <section id="editForm" class="mt-20 mb-44">
 
             <h2 class="bg-slate-100 p-2 m-2">Edit your recipe here</h2>
-            <!-- Edit Image -->
-            <!-- <form action="/recipes/updateImageRecipe/<%= recipe.id%>?_method=PUT"
-                method="POST"> -->
-                
-                <!-- <button
-                    class="border-black border-2 bg-[#f6f6f6] text-[#515070] py-1 px-3 rounded w-[80px] text-center hover:shadow-sm hover:text-[#FF8E6E]"
-                    type="submit">Save</button>
-            </form> -->
-    
     
             <!-- EDIT FORM -->
     
@@ -110,7 +101,7 @@
                 </form>
             </div>
         </section>
-        <% } %>
+        <% } else { %>
     
             <!-- Editing ends -->
 
@@ -118,7 +109,7 @@
 
     <!-- Recipe box start -->
 
-    <div class=" p-8 my-6 mx-auto bg-pink-50/25 max-w-5xl rounded-md shadow-lg shadow-black/20">
+    <div id="recipeLayout" class=" p-8 my-6 mx-auto bg-pink-50/25 max-w-5xl rounded-md shadow-lg shadow-black/20">
 
         <!-- Box holding 4 sections in Recipe -->
         <div class="border-2 border-black/10 bg-white flex flex-col justify-center p-4 rounded-md shadow-md shadow-black/5">
@@ -154,7 +145,7 @@
                 <div class="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-4 p-5">
                     <!-- using heaight didn't work -->
                     <div class="bg-white rounded-lg px-2">
-                    <!-- <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full"> -->
+                    
                         <h4 class="font-mono text-center font-bold uppercase underline text-lg my-4">Ingredients</h4>
                         <pre class="font-mono text-sm text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.ingredients %></pre>
                     </div>
@@ -170,7 +161,7 @@
             <section class="border border-black/10 bg-[#f6f6f6] p-5">
                     
                 <div class="bg-white rounded-lg p-2 w-full">
-                    <!-- <div class="border-red-600 border-2 mb-3 w-full md:mt-0 h-[100px] md:w-full"> -->
+                    
                     <h4 class="font-mono text-center font-bold uppercase underline text-lg">Notes</h4>
                     <pre
                         class="font-mono p-2 text-sm text-slate-600 whitespace-pre-wrap tracking-wide leading-loose"><%= recipe.note %></pre>
@@ -206,9 +197,7 @@
                         <p class="border-black/10 border-2 text-xl font-semibold text-[#313135] mb-2">
                             By: <%= ownerName %>
                         </p>
-                        <!-- <a href="#" >
-                            Save
-                        </a> -->
+                        
                         <form action="/recipes/saveRecipe/<%= recipe._id%>" method="POST" class="border-black/10 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
                             <button type="submit">Save</button>
                         </form>
@@ -220,6 +209,8 @@
         
         
     </div>
+
+    <% } %>
 
     <!-- Recipe box end -->
 
