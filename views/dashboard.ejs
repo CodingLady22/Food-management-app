@@ -2,9 +2,13 @@
 
 <section class="h-full p-6 bg-[#f6f6f6]">
     <div class="mt-8 flex flex-col md:flex-row md:justify-between">
-        <h2 class="text-[#515070]  text-5xl w-full">Hello <%= user.userName %></h2>
+        <h2 class="text-[#515070] text-5xl w-full mb-2">Hello <%= user.userName %></h2>
         
-        <p class="p-2 text-lg font-medium">You have <span class="text-red-400 text-2xl"><%= expiringSoonCount %></span> food <%= expiringSoonCount===1 ? 'item' : 'items' %> expiring within 7 days.</p>
+        <p class="p-2 text-lg font-medium">You have <span class="text-red-400 text-2xl">
+                <%= expiringSoonCount %>
+            </span> food <%= expiringSoonCount===1 ? 'item' : 'items' %> expiring within 7 days.
+            <a href="/dash/expiring" class="text-[#d2380d]">View them here</a>
+        </p>
     </div>
 
     

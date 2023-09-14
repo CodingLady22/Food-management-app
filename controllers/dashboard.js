@@ -72,6 +72,35 @@ module.exports = {
             res.redirect('/dash')
         }
     },
+    getExpiringItems: async (req, res) => {
+        try {
+            const items = await NewItem.find({ user: req.user.id })
+
+            let expiringItems = [];
+            let expiringDaysLeft = [];
+
+            for (let i = 0; i < items.length; i++) {
+                let expiration = new Date(items[i].expiry);
+                let today = new Date();
+                let timeDiff = expiration.getTime() - today.getTime();
+
+            if (timeDiff > 0 && timeDiff <= 7 * 24 * 60 * 60 * 1000) {
+                // Item expires within 7 days
+                expiringItems.push(items[i]);
+                let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                expiringDaysLeft.push(diffDays);
+            }
+        }
+
+        res.render('expirationPage.ejs', {
+            user: req.user,
+            expiringItems: expiringItems,
+            expiringDaysLeft: expiringDaysLeft
+        });
+        } catch (err) {
+            if (err) return res.status(500).send(err);
+        }
+    },
       // getting the edit page
     editItems: async (req, res) => {
         const id = req.params.id

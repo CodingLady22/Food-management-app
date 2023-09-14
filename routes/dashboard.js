@@ -6,6 +6,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 // * Handles initial GET request from the homepage
 
 router.get('/', ensureAuth, dashboardController.getDashboard) // read
+router.get('/expiring', dashboardController.getExpiringItems) // read
 router.get('/edit/:id', dashboardController.editItems) // read
 
 
