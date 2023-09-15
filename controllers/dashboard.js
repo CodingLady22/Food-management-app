@@ -1,16 +1,37 @@
+/**
+ * Controller for managing the dashboard, including displaying items, creating, editing, and deleting.
+ * Handles data retrieval, validation, and rendering of views.
+ *
+ * @module DashboardController
+ */
+
 const NewItem = require("../models/NewItems")
 
 module.exports = {
+    /**
+     * Retrieves and renders the user's dashboard, displaying items with expiration information.
+     * Handles date calculations and rendering of the dashboard view.
+     *
+     * @function
+     * @async
+     * @param {Object} req - Express request object.
+     * @param {Object} res - Express response object.
+     * @returns {void}
+     */
     getDashboard: async (req, res) => {
+        // Error messages for wrong date inputs
         const purchaseDateError = req.flash('purchaseDateError');
         const expiryDateError = req.flash('expiryDateError');
         try {
+            // Retrieve user's items
             console.log(req.user.id);
             const items = await NewItem.find({ user: req.user.id })
 
+            // Initialize arrays to store days left for each item and count of expiring items
             let daysLeft = [];
             let expiringSoonCount = 0;
 
+            // Calculate days left for each item and check if it's expiring soon
             for(let i = 0; i < items.length; i++) {
                 let expirations = new Date(items[i].expiry)
                 let today = new Date();
@@ -26,14 +47,17 @@ module.exports = {
                     }
                 }
             }
-            console.log(daysLeft);
+            // console.log(daysLeft);
+            // Render the dashboard view with data
             res.render('dashboard.ejs', {newItem: items, user: req.user, daysLeft: daysLeft, expiringSoonCount: expiringSoonCount, purchaseDateError: purchaseDateError, expiryDateError: expiryDateError})
         } catch (err) {
+            // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
         }
     },
     createItem: async (req, res) => {
 
+        // Creates user's items
         const newItem = new NewItem(
             {
                 itemInput: req.body.itemInput,
@@ -51,14 +75,17 @@ module.exports = {
         const currentDate = new Date();
 
         if(purchaseDate > currentDate) {
+            // Check if date of purchase is in the future
             req.flash('purchaseDateError', 'Purchase date cannot be in the future.')
             return res.redirect('/dash')
         }
         if (expiryDate < currentDate) {
+            // Check if date of expiration is in the past
             req.flash('expiryDateError', 'Expiry date cannot be in the past.')
             return res.redirect('/dash')
         }
         if (expiryDate < purchaseDate) {
+            // Check if date of expiration is before date of purchase
             req.flash('expiryDateError', 'Expiry date cannot be before the purchase date.')
             return res.redirect('/dash')
         }
@@ -66,59 +93,70 @@ module.exports = {
         try {
             await newItem.save()
             console.log(newItem)
+            // Redirect to dashboard view
             res.redirect('/dash')
         } catch (err) {
+            // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
             res.redirect('/dash')
         }
     },
     getExpiringItems: async (req, res) => {
         try {
+            // Retrieve user's items
             const items = await NewItem.find({ user: req.user.id })
 
+            // Initialize arrays to store days left for each item and count of expiring items
             let expiringItems = [];
             let expiringDaysLeft = [];
 
+            // Calculate days left for each item
             for (let i = 0; i < items.length; i++) {
                 let expiration = new Date(items[i].expiry);
                 let today = new Date();
                 let timeDiff = expiration.getTime() - today.getTime();
 
             if (timeDiff > 0 && timeDiff <= 7 * 24 * 60 * 60 * 1000) {
-                // Item expires within 7 days
+                // Item expiring within 7 days
                 expiringItems.push(items[i]);
                 let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
                 expiringDaysLeft.push(diffDays);
             }
         }
 
+        // Render the expirationPage view with data
         res.render('expirationPage.ejs', {
             user: req.user,
             expiringItems: expiringItems,
             expiringDaysLeft: expiringDaysLeft
         });
         } catch (err) {
+            // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err);
         }
     },
-      // getting the edit page
+      // Function to get edit page
     editItems: async (req, res) => {
         const id = req.params.id
+        // Error messages for wrong date inputs
         const purchaseDateError = req.flash('purchaseDateError');
         const expiryDateError = req.flash('expiryDateError');
         try {
             const items = await NewItem.find()
+            // Render the editDashboard view with data
             res.render('editDashboard.ejs', { dashItems : items, dashId : id, purchaseDateError: purchaseDateError, expiryDateError: expiryDateError})
         } catch (err) {
+            // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
         }
     },
-    // the actual update
+    // Function to update items in dashboard
     updateItem: async (req, res) => {
         const id = req.params.id
 
         try {
             console.log('Item has been updated');
+            // Retrieve and updates user's item based on its unique identifier.
             await NewItem.findByIdAndUpdate(id, {
                 itemInput: req.body.itemInput,
                 quantity: req.body.quantity,
@@ -134,20 +172,25 @@ module.exports = {
         const currentDate = new Date();
 
         if(purchaseDate > currentDate) {
+            // Check if date of purchase is in the future
             req.flash('purchaseDateError', 'Purchase date cannot be in the future.')
             return res.redirect(`/dash/edit/${id}`)
         }
         if (expiryDate < currentDate) {
+            // Check if date of expiration is in the past
             req.flash('expiryDateError', 'Expiry date cannot be in the past.')
             return res.redirect(`/dash/edit/${id}`)
         }
         if (expiryDate < purchaseDate) {
+            // Check if date of expiration is before date of purchase
             req.flash('expiryDateError', 'Expiry date cannot be before the purchase date.')
             return res.redirect(`/dash/edit/${id}`)
         }
         
+        // Redirect to dashboard view
             res.redirect('/dash')
         } catch (err) {
+            // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
             res.redirect('/dash')
         }
@@ -155,10 +198,13 @@ module.exports = {
     deleteItem: async (req, res) => {
         const id = req.params.id
         try {
+            // Delete the user's individual item based on its unique identifier.
             const item = await NewItem.findByIdAndDelete(id)
             console.log(item);
+            // Redirects to dashboard view
             res.redirect('/dash')
         } catch (err) {
+            // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
         }
     }
