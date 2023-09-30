@@ -1,31 +1,15 @@
-/**
- * Controller for managing user recipes, including creation, viewing, editing, deletion, and saving.
- * Handles data retrieval, validation, and rendering of views.
- *
- * @module RecipesController
- */
-
-const cloudinary = require("../middleware/cloudinary");
-const Recipe = require("../models/Recipe")
-const User = require("../models/User") //! This model was brought in ONLY for the displaySavedRecipes() because the saved recipes are stored in an array in the User database and all methods for the recipes are to be in one file
-const axios = require("axios");
+import cloudinary from "../middleware/cloudinary.js";
+import Recipe from "../models/Recipe.js";
+import User from "../models/User.js"; //! This model was brought in ONLY for the displaySavedRecipes() because the saved recipes are stored in an array in the User database and all methods for the recipes are to be in one file
+import axios from 'axios';
 // const UploadedRecipe = require("../models/UploadedRecipe")
 
-module.exports = {
-    /**
-    * Retrieves and renders the user's recipes by querying the database for recipes associated with the current user.
-    * Renders the 'recipes.ejs' view with the retrieved recipes and the user object for display.
-    *
-    * @function
-    * @async
-    * @param {Object} req - Express request object.
-    * @param {Object} res - Express response object.
-    * @returns {void}
-    */
-    getRecipes: async (req, res) => {
+
+
+    const getRecipes = async (req, res) => {
         try {
             // Query the database to find recipes associated with the current user
-            const recipes = await Recipe.find({ user: req.user.id })
+            const recipes = await Recipe.find({ user: req.user.id }).lean()
 
             // Render the 'recipes.ejs' view, passing the retrieved recipes and the user object for display
             res.render('recipes.ejs', { getRecipes: recipes, user: req.user })
@@ -33,21 +17,15 @@ module.exports = {
             // Handle errors and send an appropriate response with a 500 status code
             if (err) return res.status(500).send(err)
         }
-    },
-    /**
-    * Retrieves and renders a feed of all recipes sorted by creation date, including quotes.
-    * Integrates with an external API to fetch random quotes.
-    *
-    * @function
-    * @async
-    * @param {Object} req - Express request object.
-    * @param {Object} res - Express response object.
-    * @returns {void}
-    */
-    recipeFeed: async (req, res) => {
+    }
+
+    //* Retrieves and renders a feed of all recipes sorted by creation date, including quotes.
+    // * Integrates with an external API to fetch random quotes.
+
+    const recipeFeed = async (req, res) => {
         try {
             // Retrieve all recipes, sorted by creation date, and populate user information
-            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user");
+            const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user").lean();
 
             // Fetch random quotes from an external API
             const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
@@ -59,21 +37,15 @@ module.exports = {
             // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
         }
-    },
-    /**
-    * Displays the saved recipes for the current user by fetching and rendering saved recipes from the database.
-    * Retrieves quotes from an external API for display.
-    *
-    * @function
-    * @async
-    * @param {Object} req - Express request object.
-    * @param {Object} res - Express response object.
-    * @returns {void}
-    */
-    displaySavedRecipes: async (req, res) => {
+    }
+
+    //* Displays the saved recipes for the current user by fetching and rendering saved recipes from the database.
+    // * Retrieves quotes from an external API for display.
+
+    const displaySavedRecipes = async (req, res) => {
         try {
             // Retrieve the current user's saved recipes from the database, also populating the user details for each saved recipe
-            const user = await User.findById(req.user.id)
+            const user = await User.findById(req.user.id).lean()
             .populate({ path: 'savedRecipes', populate: { path: 'user' } });
 
             // Fetch quotes from an external API for additional content
@@ -87,9 +59,11 @@ module.exports = {
             console.error('Error fetching saved recipes:', err);
             res.status(500).send('Error fetching saved recipes');
         }
-    },
+    } 
+
+
     // Controller method to save a recipe for a user
-    saveRecipe: async(req, res) => {
+    const saveRecipe = async(req, res) => {
         const userId = req.user.id;
         const recipeId = req.params.id;
 
@@ -101,8 +75,9 @@ module.exports = {
             // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err);
         }
-    },
-    addRecipe: async (req, res) => {
+    }
+
+    // const addRecipe = async (req, res) => {
         // try {
             // Upload pdf to cloudinary
         // const result = await cloudinary.uploader.upload(req.file.path);
@@ -119,18 +94,11 @@ module.exports = {
         //     if (err) return res.status(500).send(err)
         //     res.redirect('/')
         // }
-    },
-    /**
-    * Creates a new recipe by processing user-submitted form data, including image upload to Cloudinary.
-    * Converts and stores hashtags as an array of strings.
-    *
-    * @function
-    * @async
-    * @param {Object} req - Express request object.
-    * @param {Object} res - Express response object.
-    * @returns {void}
-    */
-    createRecipe: async (req, res) => {
+    // }
+
+    //* Creates a new recipe by processing user-submitted form data, including image upload to Cloudinary.
+    // * Converts and stores hashtags as an array of strings.
+    const createRecipe = async (req, res) => {
         // Upload image to cloudinary
         const result = await cloudinary.uploader.upload(req.file.path);
 
@@ -182,18 +150,13 @@ module.exports = {
             if (err) return res.status(500).send(err)
             res.redirect('/')
         }
-    },
-    /**
- * Displays a single recipe for viewing, including options to edit if specified.
- * Retrieves and renders details of a single recipe by its unique identifier, populating user details.
- *
- * @function
- * @async
- * @param {Object} req - Express request object.
- * @param {Object} res - Express response object.
- * @returns {void}
- */
-    singleRecipe: async (req, res) => {
+    }
+
+
+    // * Displays a single recipe for viewing, including options to edit if specified.
+    //* Retrieves and renders details of a single recipe by its unique identifier, populating user details.
+
+    const singleRecipe = async (req, res) => {
         try {
             // Retrieve details of a single recipe by its unique identifier, and populate user details for display
             const viewRecipe = await Recipe.findById(req.params.id).populate("user");
@@ -207,19 +170,14 @@ module.exports = {
             // Handle errors
             console.log(err);
         }
-    },
-    /**
-    * Updates a recipe's details, including the option to upload a new image.
-    * Retrieves the recipe by its unique identifier, updates its properties with the provided data,
-    * and handles the uploading of a new image if specified.
-    *
-    * @function
-    * @async
-    * @param {Object} req - Express request object.
-    * @param {Object} res - Express response object.
-    * @returns {void}
-    */
-    updateRecipe: async (req, res) => {
+    }
+
+   
+    // * Updates a recipe's details, including the option to upload a new image.
+    // * Retrieves the recipe by its unique identifier, updates its properties with the provided data,
+    // * and handles the uploading of a new image if specified.
+
+    const updateRecipe = async (req, res) => {
         const id = req.params.id;
         try {
             // Destructure recipe details from the request body
@@ -270,8 +228,9 @@ module.exports = {
             // Handle errors and send an appropriate response
             res.status(500).send('Error retrieving recipe for editing.')
         }
-    },
-    // updateRecipe: async (req, res) => {
+    }
+
+    // const updateRecipe = async (req, res) => {
     //     const id = req.params.id
     //     try {
     //         const updatedRecipe = {
@@ -291,8 +250,10 @@ module.exports = {
     //         if (err) return res.status(500).send(err)
     //         res.redirect('/recipes')
     //     }
-    // },
-    deleteRecipe: async (req, res) => {
+    // }
+
+    //* Deletes recipes from the users account
+    const deleteRecipe = async (req, res) => {
         //   Find post by id
         const id = req.params.id
         try {
@@ -311,8 +272,9 @@ module.exports = {
       err.status(500).send(err)
       res.redirect('/recipes')
     }
-    },
-    deleteUploadedRecipe: async (req, res) => {
+}
+    
+    // const deleteUploadedRecipe = async (req, res) => {
         // try {
     //   Find post by id
     //   let uploadedRecipe = await UploadedRecipe.findByIdAndDelete(id)
@@ -324,5 +286,15 @@ module.exports = {
     // } catch (err) {
     //   if (err) return res.status(500).send(err)
     // }
+    // }
+
+    export {
+        getRecipes,
+        recipeFeed,
+        displaySavedRecipes,
+        saveRecipe,
+        createRecipe,
+        singleRecipe,
+        updateRecipe,
+        deleteRecipe
     }
-}

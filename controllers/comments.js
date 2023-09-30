@@ -1,24 +1,7 @@
-/**
- * Controller for managing user comments and notes, allowing users to create, view, edit, and delete text entries.
- * Handles data retrieval, validation, and rendering of views related to user-generated comments.
- *
- * @module CommentsController
- */
+import Comment from '../models/Comment.js';
 
-const Comment = require("../models/Comment")
 
-module.exports = {
-    /**
-      Renders the user's comments and notes page, displaying entries with truncated content
-     * and providing links to view, edit, or delete individual entries.
-     *
-     * @function
-     * @async
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {void}
-     */
-    getComments: async (req, res) => {
+    export const getComments = async (req, res) => {
         try {
             console.log(req.user.id);
             // Retrieve user's comments and notes 
@@ -28,8 +11,9 @@ module.exports = {
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
-    },
-    createComment: async (req, res) => {
+    }
+    
+    export const createComment = async (req, res) => {
         // Creates a new user comment or note containing the comment's title and content and saves it to the database.
         const newComment = new Comment(
             {
@@ -50,10 +34,11 @@ module.exports = {
             // Redirect to an error page or dashboard in case of an error
             res.redirect('/dash')
         }
-    },
+    }
+
     // Retrieves and renders an individual user comment or note in full detail.
     // This function is used to view the complete content of a specific entry.
-    getOneComment: async (req, res) => {
+    export const getOneComment = async (req, res) => {
         try {
             console.log(req.user.id);
             // Retrieve a single user comment or note by its unique identifier
@@ -63,9 +48,9 @@ module.exports = {
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
-    },
+    }
     // Function to get edit page
-    editComments: async (req, res) => {
+    export const editComments = async (req, res) => {
         const id = req.params.id
         console.log(id);
         try {
@@ -75,9 +60,9 @@ module.exports = {
         } catch (err) {
             if (err) return res.status(500).send(err)
         }
-    },
+    }
     // Function to update notes in comments
-    updateComment: async (req, res) => {
+    export const updateComment = async (req, res) => {
         const id = req.params.id
         try {
             // Updates the user's individual comment or note based on its unique identifier.
@@ -92,8 +77,9 @@ module.exports = {
             if (err) return res.status(500).send(err)
             res.redirect('/comments')
         }
-    },
-    deleteComment: async (req, res) => {
+    }
+    
+    export const deleteComment = async (req, res) => {
         const id = req.params.id
         try {
             // Delete the user's individual comment or note based on its unique identifier.
@@ -106,4 +92,3 @@ module.exports = {
             if (err) return res.status(500).send(err)
         }
     }
-}

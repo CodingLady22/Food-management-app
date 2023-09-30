@@ -1,33 +1,28 @@
 // todo - Declare Variables
-const express = require("express");
+import express from "express";
 const app = express();
-const mongoose = require("mongoose");
-const dotenv = require('dotenv')
-const passport = require('passport');
-const session = require('express-session');
-const MongoStore = require("connect-mongo");
-const methodOverride = require("method-override");
-const flash = require("express-flash");
-const logger = require("morgan");
-const axios = require("axios");
-const dashboardRoutes = require("./routes/dashboard");
-const commentsRoutes = require("./routes/comments");
-const recipesRoutes = require("./routes/recipes");
-const homeRoutes = require("./routes/home");
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
+import passport from 'passport';
+import confiurePassport from './config/passport.js'
+import session from 'express-session';
+import MongoStore from "connect-mongo";
+import methodOverride from "method-override";
+import flash from "express-flash";
+import logger from "morgan";
+import dashboardRoutes from "./routes/dashboard.js";
+import commentsRoutes from "./routes/comments.js";
+import recipesRoutes from "./routes/recipes.js";
+import homeRoutes from "./routes/home.js";
 
 
     //*Import functions/routes
-    const connectDB = require("./config/database")
+    import connectDB from "./config/database.js";
 
     // Passport config
-require("./config/passport")(passport);
+confiurePassport(passport)
 
 dotenv.config({ path: './config/.env' })
-
-
-// todo - connect to Database
-// connectDB()
-
 
 
 //todo - Set Middleware

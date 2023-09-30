@@ -1,20 +1,19 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const authController = require("../controllers/auth");
-const homeController = require('../controllers/home')
+import { getLogin, postLogin, getSignup, postSignup, logout } from "../controllers/auth.js";
+import homeController from "../controllers/home.js";
 
 
 // * Handles initial GET request on the homepage
 
 //Main Routes 
 router.get("/", homeController.getIndex);
-router.get("/login", authController.getLogin);
+router.get("/login", getLogin);
 
-router.post("/login", authController.postLogin);
-router.get("/logout", authController.logout); 
-router.get("/signup", authController.getSignup);
-router.post("/signup", authController.postSignup); 
+router.post("/login", postLogin);
+router.get("/logout", logout); 
+router.get("/signup", getSignup);
+router.post("/signup", postSignup); 
 
 
-
-module.exports = router
+export default router

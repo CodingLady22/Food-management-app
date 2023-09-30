@@ -1,4 +1,4 @@
-let mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const uploadedRecipeSchema = new mongoose.Schema({
     title : {
@@ -24,4 +24,7 @@ const uploadedRecipeSchema = new mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('UploadedRecipe', uploadedRecipeSchema)
+
+const UploadedRecipe = mongoose.model('UploadedRecipe', uploadedRecipeSchema)
+
+export default UploadedRecipe;
