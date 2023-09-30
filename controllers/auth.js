@@ -1,8 +1,8 @@
-const passport = require("passport");
-const validator = require("validator");
-const User = require("../models/User");
+import passport from 'passport';
+import validator from 'validator';
+import User from "../models/User.js";
 
-exports.getLogin = (req, res) => {
+export const getLogin = (req, res) => {
   if (req.user) {
     return res.redirect("/dash");
   }
@@ -11,7 +11,7 @@ exports.getLogin = (req, res) => {
   });
 };
 
-exports.postLogin = (req, res, next) => {
+export const postLogin = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });
@@ -44,7 +44,7 @@ exports.postLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.logout = (req, res) => {
+export const logout = (req, res) => {
   req.logout((err) => {
     if (err) {
       console.log('Error during logout:', err);
@@ -61,7 +61,7 @@ exports.logout = (req, res) => {
   });
 };
 
-exports.getSignup = (req, res) => {
+export const getSignup = (req, res) => {
   if (req.user) {
     return res.redirect("/dash");
   }
@@ -70,7 +70,7 @@ exports.getSignup = (req, res) => {
   });
 };
 
-exports.postSignup = (req, res, next) => {
+export const postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: "Please enter a valid email address." });

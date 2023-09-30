@@ -1,23 +1,23 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const commentsController = require('../controllers/comments')
+import { getComments, getOneComment, editComments, createComment, updateComment, deleteComment } from '../controllers/comments.js';
 
 
 // * Handles initial GET request for the comments page
-router.get('/', commentsController.getComments) // read
+router.get('/', getComments); // read
 // Gets the page to view a full comment
-router.get('/viewComment/:id', commentsController.getOneComment) // read
+router.get('/viewComment/:id', getOneComment); // read
 // getting the edit page
-router.get('/edit/:id', commentsController.editComments) // read
+router.get('/edit/:id', editComments); // read
 
 //* Handles POST method request for adding a new comments
-//! Always leave the post blank if it is from a route in the server except it's on the home route in the server
-router.post('/', commentsController.createComment) // create
+
+router.post('/',createComment); // create
 
 //* Handles POST method request for editing comments
-router.post('/update/:id', commentsController.updateComment) // create
+router.post('/update/:id', updateComment);
 
 //* Handles POST method request for deleting comments
-router.get('/delete/:id', commentsController.deleteComment) // create
+router.get('/delete/:id', deleteComment);
 
-module.exports = router
+export default router

@@ -1,24 +1,13 @@
-/**
- * Controller for managing the dashboard, including displaying items, creating, editing, and deleting.
- * Handles data retrieval, validation, and rendering of views.
- *
- * @module DashboardController
- */
+//* Controller for managing the dashboard, including displaying items, creating, editing, and deleting.
+//* Handles data retrieval, validation, and rendering of views.
 
-const NewItem = require("../models/NewItems")
+import NewItem from "../models/NewItems.js";
 
-module.exports = {
-    /**
-     * Retrieves and renders the user's dashboard, displaying items with expiration information.
-     * Handles date calculations and rendering of the dashboard view.
-     *
-     * @function
-     * @async
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {void}
-     */
-    getDashboard: async (req, res) => {
+
+    //* Retrieves and renders the user's dashboard, displaying items with expiration information.
+    //* Handles date calculations and rendering of the dashboard view.
+
+    export const getDashboard = async (req, res) => {
         // Error messages for wrong date inputs
         const purchaseDateError = req.flash('purchaseDateError');
         const expiryDateError = req.flash('expiryDateError');
@@ -54,8 +43,10 @@ module.exports = {
             // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
         }
-    },
-    createItem: async (req, res) => {
+    }
+
+    //* 
+    export const createItem = async (req, res) => {
 
         // Creates user's items
         const newItem = new NewItem(
@@ -100,8 +91,9 @@ module.exports = {
             if (err) return res.status(500).send(err)
             res.redirect('/dash')
         }
-    },
-    getExpiringItems: async (req, res) => {
+    }
+
+    export const getExpiringItems = async (req, res) => {
         try {
             // Retrieve user's items
             const items = await NewItem.find({ user: req.user.id })
@@ -134,9 +126,10 @@ module.exports = {
             // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err);
         }
-    },
+    }
+
       // Function to get edit page
-    editItems: async (req, res) => {
+    export const editItems = async (req, res) => {
         const id = req.params.id
         // Error messages for wrong date inputs
         const purchaseDateError = req.flash('purchaseDateError');
@@ -149,9 +142,10 @@ module.exports = {
             // Handle errors and send an appropriate response
             if (err) return res.status(500).send(err)
         }
-    },
+    }
+
     // Function to update items in dashboard
-    updateItem: async (req, res) => {
+    export const updateItem = async (req, res) => {
         const id = req.params.id
 
         try {
@@ -194,8 +188,9 @@ module.exports = {
             if (err) return res.status(500).send(err)
             res.redirect('/dash')
         }
-    },
-    deleteItem: async (req, res) => {
+    }
+
+    export const deleteItem = async (req, res) => {
         const id = req.params.id
         try {
             // Delete the user's individual item based on its unique identifier.
@@ -208,4 +203,3 @@ module.exports = {
             if (err) return res.status(500).send(err)
         }
     }
-}

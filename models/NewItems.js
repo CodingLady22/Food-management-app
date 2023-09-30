@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const newItemSchema = new mongoose.Schema({
     itemInput: {
@@ -31,4 +31,6 @@ const newItemSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('NewItem', newItemSchema)
+const NewItem = mongoose.model('NewItem', newItemSchema)
+
+export default NewItem;

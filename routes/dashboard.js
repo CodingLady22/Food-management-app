@@ -1,19 +1,19 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const dashboardController = require('../controllers/dashboard');
-const { ensureAuth, ensureGuest } = require("../middleware/auth");
+import { getDashboard, getExpiringItems, editItems, createItem, updateItem, deleteItem } from '../controllers/dashboard.js';
+import { ensureAuth, ensureGuest } from "../middleware/auth.js";
 
 // * Handles initial GET request from the homepage
 
-router.get('/', ensureAuth, dashboardController.getDashboard) // read
-router.get('/expiring', dashboardController.getExpiringItems) // read
-router.get('/edit/:id', dashboardController.editItems) // read
+router.get('/', ensureAuth, getDashboard) // read
+router.get('/expiring', getExpiringItems) // read
+router.get('/edit/:id', editItems) // read
 
 
 //* Handles POST method request for adding a new item
 
-router.post('/dashboard', dashboardController.createItem) // create
-router.post('/update/:id', dashboardController.updateItem) // update
-router.get('/delete/:id', dashboardController.deleteItem) // delete 
+router.post('/dashboard', createItem) // create
+router.post('/update/:id', updateItem) // update
+router.get('/delete/:id', deleteItem) // delete 
 
-module.exports = router
+export default router

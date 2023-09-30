@@ -1,6 +1,7 @@
 {
   "name": "food-management-app",
   "version": "1.0.0",
+  "type": "module",
   "description": "To reduce food wastage",
   "main": "server.js",
   "scripts": {
