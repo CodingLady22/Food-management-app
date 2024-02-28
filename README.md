@@ -60,13 +60,26 @@ Fork repo, clone and install dependencies
 ```
 npm install
 ```
+
+- Create your own .env file in the 'config' folder
+- Add these variables below with their appropriate values to the .env file:
+
+```
+ * PORT = 'port number of your choice'
+ * CONNECTION_STRING_DB = 'connection string from mongoDB'
+ * CLOUD_NAME = 'cloudinary cloud name'
+ * API_KEY = 'cloudinary key'
+ * API_SECRET = 'cloudinary API secret'
+
+```
+
+
 To run in development: Open 2 integrated terminals, one to run node and the other to run tailwind
+
 ```
 npm run dev
 npm run watch
 ```
-
-- Remember to create your own .env file
 
 
 
