@@ -194,11 +194,11 @@
                     <% }  else { %>
                         <!-- Display the owner's name -->
                         <% const ownerName = recipe.user ? recipe.user.userName : 'Owner information unavailable' %>
-                        <p class="border-black/10 border-2 text-xl font-semibold text-[#313135] mb-2">
+                        <p class="text-xl font-semibold text-[#313135] mb-2">
                             By: <%= ownerName %>
                         </p>
                         
-                        <form action="/recipes/saveRecipe/<%= recipe._id%>" method="POST" class="border-black/10 border-2 text-xl font-semibold text-[#313135] w-20 mb-2">
+                        <form action="/recipes/saveRecipe/<%= recipe._id%>" method="POST" class="border-black/10 border-2 text-center text-xl font-semibold text-[#313135] w-20 mb-2 rounded-md hover:cursor-pointer hover:text-[#FF8E6E] hover:shadow-md">
                             <button type="submit">Save</button>
                         </form>
                         
