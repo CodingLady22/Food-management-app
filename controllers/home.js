@@ -1,4 +1,4 @@
-//* Reads the home page
+//* Displays the home page
 
 export default {
   getIndex: (req, res) => {
