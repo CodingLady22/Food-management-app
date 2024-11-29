@@ -21,8 +21,16 @@ import axios from 'axios';
         try {           
             const recipes = await Recipe.find().sort({ createdAt: "desc" }).populate("user").lean();
 
-            const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
-            const quotes = response.data;
+            let quotes = 'No advice available today';
+            try {
+                const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote', {
+                timeout: 5000 // added timeout to prevent hanging
+            });
+
+            quotes = response.data || 'No advice available today'
+            } catch (error) {
+                console.error('Error fetching quote:', apiError.message);
+            }
 
             res.render('allRecipes.ejs', { recipes: recipes, quotes: quotes, user: req.user })
         } catch (err) {
@@ -37,8 +45,16 @@ import axios from 'axios';
             const user = await User.findById(req.user.id).lean()
             .populate({ path: 'savedRecipes', populate: { path: 'user' } });
 
-            const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote');
-            const quotes = response.data;
+            let quotes = 'No advice available today';
+            try {
+                const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote', {
+                timeout: 5000
+            });
+
+            quotes = response.data || 'No advice available today'
+            } catch (error) {
+                console.error('Error fetching quote:', apiError.message);
+            }
 
             res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, quotes: quotes, user: req.user })
         } catch (err) {
