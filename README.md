@@ -4,7 +4,7 @@
 
 Food wastage is a major problem all around the world. A simple and easy-to-use app that helps you manage your food and avoid waste. With this app, you will never have to worry about throwing away expired food again. 
 
-Live site: <a href="https://food-management-app.onrender.com" target="_blank">Click this</a>
+Live site: Click <a href="https://food-management-app.onrender.com" target="_blank">here</a>
 
 ## What the app looks like
 
