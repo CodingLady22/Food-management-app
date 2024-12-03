@@ -23,8 +23,8 @@ import axios from 'axios';
 
             let quotes = 'No advice available today';
             try {
-                const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote', {
-                timeout: 5000 // added timeout to prevent hanging
+                const response = await axios.get('https://food-quotes-api.onrender.com/', {
+                timeout: 50000 // added timeout to prevent hanging
             });
 
             quotes = response.data || 'No advice available today'
@@ -47,7 +47,7 @@ import axios from 'axios';
 
             let quotes = 'No advice available today';
             try {
-                const response = await axios.get('https://lazy-ox-trunks.cyclic.cloud/api/next-quote', {
+                const response = await axios.get('https://food-quotes-api.onrender.com/', {
                 timeout: 5000
             });
 
