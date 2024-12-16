@@ -23,13 +23,16 @@ import axios from 'axios';
 
             let quotes = 'No advice available today';
             try {
-                const response = await axios.get('https://food-quotes-api.onrender.com/', {
+                const response = await axios.get('https://food-quotes-api.onrender.com/api/next-quote', {
                 timeout: 50000 // added timeout to prevent hanging
             });
 
-            quotes = response.data || 'No advice available today'
+            if (response.data) {
+                quotes = response.data;
+            }
+
             } catch (error) {
-                console.error('Error fetching quote:', apiError.message);
+                console.error('Error fetching quote:', error.message);
             }
 
             res.render('allRecipes.ejs', { recipes: recipes, quotes: quotes, user: req.user })
@@ -45,15 +48,19 @@ import axios from 'axios';
             const user = await User.findById(req.user.id).lean()
             .populate({ path: 'savedRecipes', populate: { path: 'user' } });
 
-            let quotes = 'No advice available today';
+            let quotes = 'No advice available today'
+
             try {
-                const response = await axios.get('https://food-quotes-api.onrender.com/', {
+                const response = await axios.get('https://food-quotes-api.onrender.com/api/next-quote', {
                 timeout: 5000
             });
 
-            quotes = response.data || 'No advice available today'
+            if (response.data) {
+                quotes = response.data;
+            }
+
             } catch (error) {
-                console.error('Error fetching quote:', apiError.message);
+                console.error('Error fetching quote:', error.message);
             }
 
             res.render('savedRecipes.ejs', { savedRecipes: user.savedRecipes, quotes: quotes, user: req.user })
