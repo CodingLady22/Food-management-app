@@ -22,7 +22,7 @@ const newItemSchema = new mongoose.Schema({
         required: false,
     },
     user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.Mixed,  // Changed to Mixed to handle both ObjectId and string
     ref: "User",
   },
     createdAt: {
