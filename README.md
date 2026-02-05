@@ -4,30 +4,12 @@
 
 Food wastage is a major problem all around the world. A simple and easy-to-use app that helps you manage your food and avoid waste. With this app, you will never have to worry about throwing away expired food again. 
 
-Live site: Click <a href="https://food-management-app.onrender.com" target="_blank">here</a>
+<br>
 
-## What the app looks like
+<img width="1064" height="748" alt="food app - Gemini" src="https://github.com/user-attachments/assets/9013dfc9-727e-452f-bc6f-046502396c2f" />
 
-#### Landing Page
-<img width="771" alt="Screen Shot 2023-08-24 at 4 12 14 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/1ce793b6-7a15-4919-a6de-20e2f02425c8">
-
-#### Sign up 
-<img width="457" alt="Screen Shot 2023-08-24 at 4 14 20 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/58133139-a4ba-4b9e-ac82-15151553a146">
-
-#### Dashboard
-<img width="1440" alt="Screen Shot 2023-08-24 at 4 17 32 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/07c2358c-9ffd-4960-a013-a574eeb790b3">
-
-#### Dashboard Edit page
-<img width="1440" alt="Screen Shot 2023-08-24 at 4 18 56 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/7019bd53-ce53-41f1-aefa-95b763418f8e">
-
-#### Comments Page
-<img width="1440" alt="Screen Shot 2023-08-28 at 4 59 38 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/c66b3352-8ab9-43ef-97b2-b8b43e5dfc72">
-
-#### Displayed Comments
-<img width="808" alt="Screen Shot 2023-08-28 at 5 02 31 PM" src="https://github.com/CodingLady22/Food-management-app/assets/99496129/4383b8d0-1821-4fec-9308-7a025aa0fdd7">
-
-
-
+<br>
+<br>
 
 ## Features
 * Notifications for entered food 
