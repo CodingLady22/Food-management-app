@@ -6,9 +6,9 @@ Update this file after every completed feature. Any AI agent reading this should
 
 ## Current Status
 
-**Phase:**
-**Last completed:**
-**Next:** 01 Repo Restructure + Server Scaffold
+**Phase:** 1 — Foundation
+**Last completed:** 01 Repo Restructure + Server Scaffold
+**Next:** 02 Models + Migration Decision
 
 ---
 
@@ -16,7 +16,7 @@ Update this file after every completed feature. Any AI agent reading this should
 
 ### Phase 1 — Foundation
 
-- [ ] 01 Repo Restructure + Server Scaffold
+- [x] 01 Repo Restructure + Server Scaffold
 - [ ] 02 Models + Migration Decision
 - [ ] 03 Auth API
 - [ ] 04 React Scaffold + Auth UI
@@ -73,6 +73,17 @@ Audit of the v1 repo against `architecture.md`. Resolutions:
 **Entry files:** `AGENTS.md` is the single source of truth. `CLAUDE.md` is a one-line pointer to it; per-session notes from the `remember` skill are saved to `CLAUDE.md` and restored from it.
 
 ---
+
+### 2026-11-10 — Feature 01 decisions
+
+- **v1 preserved by tag:** the final v1 code is tagged `v1-final` (local tag; push it if you want it on GitHub). All v1 files (EJS views, controllers, models, routes, middleware, public, server.js, Tailwind 3 config) were removed from the working tree — look them up with `git show v1-final:<path>`.
+- **Env var names changed** to the v2 plan: `MONGODB_URI`, `CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET` (v1 used `CONNECTION_STRING_DB`, `CLOUD_NAME`, `API_KEY`, `API_SECRET`). The `.env` now lives at the **repo root** (see `.env.example`). The old untracked `config/.env` was left in place and is no longer read — delete it after rotating the credentials.
+- **`DEMO_USER_ID` is optional for now** (validated as an ObjectId when present). It can't be required until the seed script (feature 02) has produced the Guest id; make it required in feature 14.
+- **Env loading** uses Node's `--env-file-if-exists=../.env` (Node ≥ 20.6) instead of the `dotenv` package, so `dotenv` is not a dependency.
+- **`client/` is a minimal Vite + React 18 + TS placeholder** (just enough for `npm run dev`/`build`). Tailwind v4, React Router and TanStack Query are installed in feature 04.
+- **Workspaces:** root `package.json` uses npm workspaces (`server`, `client`); scripts `dev` (concurrently), `build`, `start`.
+- **No `app.ts`/`index.ts` split:** `server/src/index.ts` builds the app and starts it, as in architecture.md.
+- **Verification environment:** the old Atlas cluster in v1's `.env` no longer resolves (DNS `ENOTFOUND`), so boot/health were verified against a throwaway in-memory MongoDB. The server exited cleanly with a logged error on the failed connection.
 
 ## Notes
 
