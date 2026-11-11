@@ -9,7 +9,7 @@ const schema = z.object({
   // Free-tier model names and quotas change; unverified default — confirm in AI Studio.
   GEMINI_MODEL: z.preprocess(
     (v) => (v === "" ? undefined : v), // blank line in .env means "use the default"
-    z.string().min(1).default("gemini-3.8-flash"),
+    z.string().min(1).default("gemini-3.5-flash-lite"),
   ),
   CLOUDINARY_CLOUD_NAME: z.string().min(1),
   CLOUDINARY_API_KEY: z.string().min(1),
