@@ -5,7 +5,12 @@ const schema = z.object({
   PORT: z.coerce.number().int().positive().default(3000),
   MONGODB_URI: z.string().min(1),
   SESSION_SECRET: z.string().min(32, "must be at least 32 characters"),
-  ANTHROPIC_API_KEY: z.string().min(1),
+  GEMINI_API_KEY: z.string().min(1),
+  // Free-tier model names and quotas change; unverified default — confirm in AI Studio.
+  GEMINI_MODEL: z.preprocess(
+    (v) => (v === "" ? undefined : v), // blank line in .env means "use the default"
+    z.string().min(1).default("gemini-3.8-flash"),
+  ),
   CLOUDINARY_CLOUD_NAME: z.string().min(1),
   CLOUDINARY_API_KEY: z.string().min(1),
   CLOUDINARY_API_SECRET: z.string().min(1),

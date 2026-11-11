@@ -13,7 +13,7 @@ Full detail is in `context/`. Read these before building:
 1. `context/project-overview.md` — what it does and why (app name there is "FreshTrack" — superseded: the app is **IntelliPantry**)
 2. `context/architecture.md` — stack, folders, API design, data flow, schema, **and the v1 bug blocklist**
 3. `context/code-standards.md` — how to write code here, including the non-negotiable security rules
-4. `context/library-docs.md` — how this project uses each library (Anthropic SDK vision pattern lives here)
+4. `context/library-docs.md` — how this project uses each library (Gemini SDK vision pattern lives here)
 5. `context/ui-tokens.md`, `context/ui-rules.md`, `context/ui-registry.md` — UI tokens, rules, and page blueprints
 6. `context/designs/landing-page.png`, `context/designs/inventory.png` — the two design mockups; `ui-rules.md` Rule Zero governs how to read them (directional, never copy their text)
 7. `context/build-plan.md` — the 15-feature plan, in order
@@ -84,7 +84,7 @@ Order of authority for library usage:
 MCP server (real-time) → Skills (this repo) → context/library-docs.md (project rules) → general knowledge
 ```
 
-Never rely on training knowledge alone for the Anthropic SDK, Mongoose 8, or Tailwind v4 APIs.
+Never rely on training knowledge alone for the Google GenAI SDK, Mongoose 8, or Tailwind v4 APIs.
 
 ---
 
@@ -103,7 +103,7 @@ If any of these are configured, prefer them over manual work:
 - **Every AI response is Zod-validated** before it reaches a client. AI output is untrusted input. Validation failure → typed 502, never raw errors to users.
 - **Every single-document query on user-owned data is ownership-filtered** (`{ _id, user }`). No bare `findById` on Items, Recipes, Notes. Cross-user access returns 404.
 - **All secrets from env vars** (`config/env.ts`, Zod-validated at boot; server refuses to start if missing). Never in code, never in the DB, never in the frontend. Never commit `.env`.
-- **All Anthropic calls go through `server/src/ai/`**; all prompts live in `ai/prompts.ts`; token usage is logged on every call.
+- **All Gemini calls go through `server/src/ai/`**; all prompts live in `ai/prompts.ts`; token usage is logged on every call.
 - **AI routes are rate-limited** (10/hr per session; 5/hr for the demo user). The demo is public and AI calls cost money — never remove the limiter "temporarily".
 - **Demo user is a normal User document**; its data (Items, Notes, fridge-chef Recipes) is wiped nightly by cron. Never special-case `'demo'` string ids — that v1 hack is dead.
 - **Vision image buffers are never persisted** — memory storage only, resized with sharp, discarded after the call.
@@ -112,4 +112,4 @@ If any of these are configured, prefer them over manual work:
 
 ## Stack At A Glance
 
-React 18 + Vite + Tailwind v4 + React Router v7 + TanStack Query v5 (client) · Node + Express 4 + TypeScript strict (server) · MongoDB + Mongoose 8 · Passport local + express-session + connect-mongo (same-origin cookie auth — Express serves `client/dist`, one Render deploy) · @anthropic-ai/sdk with `claude-sonnet-4-6` vision + tool-forced structured output · Zod everywhere · Multer + sharp + Cloudinary · node-cron · express-rate-limit. REST API under `/api`.
+React 18 + Vite + Tailwind v4 + React Router v7 + TanStack Query v5 (client) · Node + Express 4 + TypeScript strict (server) · MongoDB + Mongoose 8 · Passport local + express-session + connect-mongo (same-origin cookie auth — Express serves `client/dist`, one Render deploy) · @google/genai (Gemini, model from `GEMINI_MODEL`) vision + schema-constrained JSON output · Zod everywhere · Multer + sharp + Cloudinary · node-cron · express-rate-limit. REST API under `/api`.

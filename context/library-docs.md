@@ -8,25 +8,27 @@ Order of authority:
 MCP server (real-time docs) → Skills via AGENTS.md → This file → General training knowledge
 ```
 
-Never rely on training knowledge alone for library APIs — verify against current docs, especially for the Anthropic SDK and Mongoose 8.
+Never rely on training knowledge alone for library APIs — verify against current docs, especially for the Google GenAI SDK and Mongoose 8.
 
 ---
 
-## @anthropic-ai/sdk
+## @google/genai (Gemini)
 
-### Client init — `server/src/ai/anthropic.ts`
+> **Provider switch (2026-11-11):** the project moved from Anthropic to Google Gemini to use free-tier quotas while testing. The previous Anthropic tool-forced pattern is retired. The SDK was at `@google/genai` 3.x (Node ≥ 22) when this was written, and Google's current docs steer towards the **Interactions API** (`client.interactions.create`) rather than `generateContent`. **The exact call shape below is provisional — verify it against the installed SDK types and the live docs at the start of feature 07, then replace this section with the verified code.** Never rely on training knowledge for this SDK.
+
+### Client init — `server/src/ai/gemini.ts`
 
 ```typescript
-import Anthropic from "@anthropic-ai/sdk";
-import { env } from "../config/env";
+import { GoogleGenAI } from "@google/genai";
+import { env } from "../config/env.js";
 
-export const anthropic = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
-export const MODEL = "claude-sonnet-4-6";
+export const gemini = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
+export const MODEL = env.GEMINI_MODEL; // configurable — free-tier model names and quotas change; check AI Studio
 ```
 
 ### Vision + structured output pattern (used by BOTH AI features)
 
-Send the image as base64, force a tool call, Zod-validate the tool input:
+Send the image as base64 with its mime type plus the prompt, request **JSON output constrained by a schema**, then `JSON.parse` and **Zod-validate**. Zod stays the gate — provider-side schema support is best-effort and constraints such as `minLength`/`maxLength`/`uniqueItems` are stripped rather than enforced, so every limit must also live in the Zod schema.
 
 ```typescript
 import { z } from "zod";
@@ -40,64 +42,25 @@ const ExtractedItemSchema = z.object({
 });
 const SnapResultSchema = z.object({ items: z.array(ExtractedItemSchema).max(40) });
 
-export async function extractItemsFromImage(
-  imageBase64: string,
-  mediaType: "image/jpeg" | "image/png" | "image/webp"
-): Promise<z.infer<typeof SnapResultSchema>> {
-  const response = await anthropic.messages.create({
-    model: MODEL,
-    max_tokens: 2000,
-    tools: [
-      {
-        name: "record_food_items",
-        description: "Record the food items identified in the image",
-        input_schema: {
-          type: "object",
-          properties: {
-            items: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  name: { type: "string" },
-                  quantity: { type: "number" },
-                  unit: { type: "string", enum: ["pcs", "g", "kg", "ml", "l", "pack"] },
-                  estimatedExpiryDate: { type: "string", description: "ISO date, today + typical shelf life" },
-                  confidence: { type: "string", enum: ["high", "medium", "low"] },
-                },
-                required: ["name", "quantity", "unit", "estimatedExpiryDate", "confidence"],
-              },
-            },
-          },
-          required: ["items"],
-        },
-      },
-    ],
-    tool_choice: { type: "tool", name: "record_food_items" },
-    messages: [
-      {
-        role: "user",
-        content: [
-          { type: "image", source: { type: "base64", media_type: mediaType, data: imageBase64 } },
-          { type: "text", text: SNAP_TO_ADD_PROMPT }, // from prompts.ts, includes today's date
-        ],
-      },
-    ],
-  });
-
-  const toolUse = response.content.find((b) => b.type === "tool_use");
-  if (!toolUse || toolUse.type !== "tool_use") throw new AIExtractionError("No tool call in response");
-  return SnapResultSchema.parse(toolUse.input); // Zod is the gate — AI output is untrusted
-}
+// Shape of the call (verify in feature 07):
+//   model: MODEL
+//   input/contents: [ { text: SNAP_TO_ADD_PROMPT /* includes today's date */ },
+//                     { image, base64 data, mime_type } ]
+//   response format: JSON (application/json) + JSON schema of SnapResultSchema
+//   → text = response output text → SnapResultSchema.parse(JSON.parse(text))
+// Any throw (no text, bad JSON, Zod failure, provider error) → AIExtractionError → 502.
 ```
 
-Fridge Chef follows the identical pattern with a `suggest_recipes` tool; the prompt additionally embeds a plain-text summary of the user's inventory with days-left, and instructs the model to prioritise expiring items.
+Fridge Chef follows the identical pattern with a `RecipeSuggestion[]` schema; the prompt additionally embeds a plain-text summary of the user's inventory with days-left, and instructs the model to prioritise expiring items.
 
 ### Rules
 
 - Always include today's date in prompts (the model can't know it) — needed for expiry estimation
-- Log `response.usage.input_tokens` / `output_tokens` after every call
+- Log token usage (input/output) after every call, using whatever usage fields the SDK response exposes
 - Resize images server-side with `sharp` to max 1568px on the long edge before sending — cuts token cost significantly on phone photos
+- The model id comes from `GEMINI_MODEL`, never hardcoded in service code
+- Provider `429`/quota errors are expected on the free tier (limits are per project and low) — map them to a friendly typed error (`429`/`503`), never surface raw provider messages
+- **Privacy:** on Gemini's free tier, submitted content may be used by Google to improve its products. Do not send anything sensitive; keep the demo-mode copy honest about this (see progress-tracker decision)
 
 ---
 

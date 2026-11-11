@@ -62,7 +62,7 @@ Audit of the v1 repo against `architecture.md`. Resolutions:
 | 6 | `require: true` typo (should be `required`) on Comment/Recipe/UploadedRecipe — validation never enforced. | Erased by the v2 model rewrite. |
 | 7 | `source` field missing on Item and Recipe. | Added by the v2 models (feature 02). |
 | 8 | `node-cron` 3.0.3 is installed but not in package.json and never imported; no cron job exists. | Greenfield in feature 14; add as a proper dependency then. |
-| 9 | No Zod, sharp, express-rate-limit, @anthropic-ai/sdk in package.json; Tailwind is v3. | Added/upgraded by the features that need them. |
+| 9 | No Zod, sharp, express-rate-limit, the AI SDK in package.json (now @google/genai, see 2026-11-11); Tailwind is v3. | Added/upgraded by the features that need them. |
 | 10 | Quote API has two timeouts in v1 (50000 ms and 5000 ms). | **Keep the 3s timeout** from the plan (bug #9, feature 11). |
 | 11 | Session secret hardcoded `"keyboard cat"`; `dotenv.config()` runs after imports; no cookie flags / `trust proxy`. | Fixed by `config/env.ts` (Zod, required `SESSION_SECRET`) in feature 01 and session config in feature 03. |
 | 12 | `middleware/multer.js` uses diskStorage with `fileFilter` on the storage (never runs), no size limit. | Replaced by `upload.ts` (memory storage, size + mime limits) in feature 07/11. |
@@ -84,6 +84,18 @@ Audit of the v1 repo against `architecture.md`. Resolutions:
 - **Workspaces:** root `package.json` uses npm workspaces (`server`, `client`); scripts `dev` (concurrently), `build`, `start`.
 - **No `app.ts`/`index.ts` split:** `server/src/index.ts` builds the app and starts it, as in architecture.md.
 - **Verification environment:** the old Atlas cluster in v1's `.env` no longer resolves (DNS `ENOTFOUND`), so boot/health were verified against a throwaway in-memory MongoDB. The server exited cleanly with a logged error on the failed connection.
+
+### 2026-11-11 — AI provider switched from Anthropic to Google Gemini
+
+Developer decision: use Google Gemini instead of Anthropic while testing, to rely on free tiers.
+
+- **Env:** `ANTHROPIC_API_KEY` → `GEMINI_API_KEY` (required); new optional `GEMINI_MODEL` (default `gemini-3.8-flash`, **unverified as free-tier** — confirm in AI Studio and override in `.env`).
+- **Code/docs renamed:** `ai/anthropic.ts` → `ai/gemini.ts`; `@anthropic-ai/sdk` → `@google/genai`; "tool-forced structured output" → "schema-constrained JSON output + Zod". Updated in AGENTS.md, architecture.md, build-plan.md, code-standards.md, library-docs.md, `env.ts`, `.env.example`. No SDK is installed yet (first needed in feature 07).
+- **Provisional SDK pattern:** the live Google docs now show the Interactions API (`client.interactions.create`) with `gemini-3.8-flash`, which differs from the `generateContent` style I know. `library-docs.md` marks the call shape as provisional — **verify against the installed `@google/genai` types and live docs at the start of feature 07.** The docs I could fetch gave no free-tier quota numbers; quotas are per project and have been cut before, so check AI Studio.
+- **Node ≥ 22** now required (`@google/genai` 3.x engine requirement); root `engines` updated.
+- **Privacy caveat:** on Gemini's free tier, submitted content may be used to improve Google's products. Grocery/fridge photos are low-sensitivity, but demo-mode/landing copy should not claim otherwise. Revisit before public launch (paid tier changes data handling).
+- **Rate limits:** our own limiter (10/hr per session, 5/hr demo) stays; Google 429s must map to a friendly typed error.
+- **Unchanged:** "AI never writes to the DB", Zod validation of every AI response, sharp resize, memory-only uploads, token-usage logging.
 
 ## Notes
 

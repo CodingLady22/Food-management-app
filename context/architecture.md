@@ -11,7 +11,7 @@
 | Backend        | Node.js + Express 4 + TypeScript      | JSON API (converted from EJS monolith)       |
 | Database       | MongoDB + Mongoose 8                  | Data persistence                             |
 | Auth           | Passport.js (local) + express-session + connect-mongo | Cookie sessions, same-origin |
-| AI             | Anthropic API (@anthropic-ai/sdk), Claude vision + tool-based structured output | Snap-to-Add, Fridge Chef |
+| AI             | Google Gemini API (@google/genai), vision + schema-constrained JSON output | Snap-to-Add, Fridge Chef |
 | Images         | Multer (memory storage) + Cloudinary  | Recipe images; vision uploads never persist  |
 | Validation     | Zod                                   | All API input validation, AI output validation |
 | Scheduler      | node-cron                             | Nightly demo data reset                      |
@@ -19,7 +19,7 @@
 
 **Key decision — single origin monolith:** Express serves the built React app from `client/dist` and the API under `/api/*`. One deploy, no CORS, cookie sessions just work. Do not split into two deployments.
 
-**Key decision — plain Anthropic SDK, not LangChain:** both AI features are single vision calls with structured output. No chains, no graphs. Keep it simple.
+**Key decision — plain Google GenAI SDK, not LangChain:** both AI features are single vision calls with structured output. No chains, no graphs. Keep it simple.
 
 ---
 
@@ -73,7 +73,7 @@
 │   │   ├── controllers/                 → Thin: parse/validate → call service → respond
 │   │   ├── services/                    → Business logic, DB access
 │   │   ├── ai/
-│   │   │   ├── anthropic.ts            → SDK client init
+│   │   │   ├── gemini.ts               → SDK client init
 │   │   │   ├── snapToAdd.ts            → image → extracted items
 │   │   │   ├── fridgeChef.ts           → image + inventory → recipe suggestions
 │   │   │   └── prompts.ts              → All prompt text in one place
@@ -99,7 +99,7 @@
 | `server/routes/`      | URL → controller mapping + middleware chains. Nothing else.              |
 | `server/controllers/` | Request/response handling. No DB calls, no business logic.               |
 | `server/services/`    | All DB access and business logic. Every query filters by user ownership. |
-| `server/ai/`          | All Anthropic calls and prompts. Returns validated typed data or throws. |
+| `server/ai/`          | All Gemini calls and prompts. Returns validated typed data or throws. |
 
 ---
 
@@ -165,7 +165,7 @@ User uploads grocery/receipt photo
         ↓
 POST /api/ai/snap-to-add (Multer memory storage, max 10MB, jpeg/png/webp only)
         ↓
-ai/snapToAdd.ts → Claude vision call with tool-forced structured output
+ai/snapToAdd.ts → Gemini vision call with schema-constrained JSON output
         ↓
 Zod-validate the AI response → ExtractedItem[]
   { name, quantity, unit, estimatedExpiryDate, confidence }
@@ -188,7 +188,7 @@ POST /api/ai/fridge-chef
         ↓
 Service loads user's current inventory (name, quantity, daysLeft)
         ↓
-ai/fridgeChef.ts → Claude vision call: photo + inventory summary in prompt
+ai/fridgeChef.ts → Gemini vision call: photo + inventory summary in prompt
         ↓
 Zod-validate → RecipeSuggestion[]
   { title, description, usesExpiring: string[], onHand: string[], missing: string[], steps: string[] }

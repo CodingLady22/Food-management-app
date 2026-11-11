@@ -32,7 +32,7 @@ Implementation rules for the entire project. The AI agent must follow these in e
 These exist because v1 violated every one of them:
 
 1. **Ownership on every query.** Any service function touching a single document uses `Model.findOne({ _id, user: userId })` — never bare `findById` for user-owned data. Update/delete: `findOneAndUpdate`/`findOneAndDelete` with the same compound filter. Missing → 404 (never reveal the document exists).
-2. **All secrets from env.** `SESSION_SECRET`, `MONGODB_URI`, `ANTHROPIC_API_KEY`, `CLOUDINARY_*`. On boot, validate required env vars with Zod (`config/env.ts`); crash with a clear message if missing.
+2. **All secrets from env.** `SESSION_SECRET`, `MONGODB_URI`, `GEMINI_API_KEY`, `CLOUDINARY_*`. On boot, validate required env vars with Zod (`config/env.ts`); crash with a clear message if missing.
 3. **Validate every request body with Zod** before it reaches a service. Validation failure → 400 with field-level messages.
 4. **Validate every AI response with Zod** before it reaches the client. AI output is untrusted input.
 5. **Upload limits:** images max 10MB, mimetype allowlist (jpeg/png/webp), Multer memory storage for AI endpoints — image buffers are never written to disk or DB.
@@ -68,9 +68,9 @@ These exist because v1 violated every one of them:
 ## AI Code Conventions
 
 - All prompts live in `server/src/ai/prompts.ts` — never inline prompt strings in services
-- Every AI call uses **tool-forced structured output** (a single tool whose input schema is the desired shape, `tool_choice` forced) — never parse free text
+- Every AI call uses **schema-constrained JSON output** (JSON response type + the desired JSON schema), then `JSON.parse` and Zod-validate — never parse free text
 - Every AI function: try/catch → on failure return a typed error the controller maps to `502 { error: "AI extraction failed, please try again" }` — AI failures never crash the server and never surface raw API errors to users
-- Model: `claude-sonnet-4-6` for both features. Set `max_tokens` explicitly
+- Model: read from `GEMINI_MODEL` (env) for both features — never hardcode a model id in services. Set an explicit max output token limit
 - Log token usage (input/output) per call via the logger — cost visibility from day one
 
 ---

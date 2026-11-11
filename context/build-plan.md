@@ -15,7 +15,7 @@ UI in this plan describes **functionality only** — layout, styling, and visual
 **Logic:**
 
 - Create `client/` and `server/` folders per architecture.md
-- `server/`: TypeScript, Express app skeleton, `config/env.ts` (Zod-validated env: `MONGODB_URI`, `SESSION_SECRET`, `ANTHROPIC_API_KEY`, `CLOUDINARY_*`, `DEMO_USER_ID`), database connection, logger util, asyncHandler, central errorHandler
+- `server/`: TypeScript, Express app skeleton, `config/env.ts` (Zod-validated env: `MONGODB_URI`, `SESSION_SECRET`, `GEMINI_API_KEY`, `GEMINI_MODEL` (optional), `CLOUDINARY_*`, `DEMO_USER_ID`), database connection, logger util, asyncHandler, central errorHandler
 - `.env.example` with every key
 - Root package.json scripts: `dev` (concurrently server + Vite), `build`, `start`
 - Health route `GET /api/health` → `{ ok: true }`
@@ -109,7 +109,7 @@ UI in this plan describes **functionality only** — layout, styling, and visual
 
 **Logic:**
 
-- `ai/anthropic.ts`, `ai/prompts.ts`, `ai/snapToAdd.ts` per library-docs.md pattern
+- `ai/gemini.ts`, `ai/prompts.ts`, `ai/snapToAdd.ts` per library-docs.md pattern (verify the Gemini SDK call shape against installed types + live docs first)
 - `sharp` resize before sending; Multer memory upload middleware; rate limiter
 - `POST /api/ai/snap-to-add` returns extracted items — saves nothing
 - Prompt requirements: identify food items only, estimate quantity + sensible unit, estimate expiry as today + typical shelf life for that food, mark confidence, ignore non-food objects; handles both grocery photos and receipts
@@ -140,7 +140,7 @@ UI in this plan describes **functionality only** — layout, styling, and visual
 
 **Logic:**
 
-- `ai/fridgeChef.ts`: loads user inventory summary (names + daysLeft), embeds in prompt, vision call with `suggest_recipes` tool → 3 suggestions per the schema in architecture.md
+- `ai/fridgeChef.ts`: loads user inventory summary (names + daysLeft), embeds in prompt, vision call with a `RecipeSuggestion[]` JSON schema → 3 suggestions per the schema in architecture.md
 - Prompt requirements: only suggest recipes plausible from visible + tracked ingredients; explicitly prioritise items expiring within 7 days; list what's on hand vs missing; short step list
 - Same upload/rate-limit/validation stack as 07
 
