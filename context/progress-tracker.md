@@ -7,8 +7,8 @@ Update this file after every completed feature. Any AI agent reading this should
 ## Current Status
 
 **Phase:** 1 — Foundation
-**Last completed:** 02 Models + Migration Decision
-**Next:** 03 Auth API (read "Carry-overs for feature 03" under Decisions Made During Build first)
+**Last completed:** 03 Auth API
+**Next:** 04 React Scaffold + Auth UI (read "Carry-overs for feature 04 and 14" under the Feature 03 decisions first)
 
 ---
 
@@ -18,7 +18,7 @@ Update this file after every completed feature. Any AI agent reading this should
 
 - [x] 01 Repo Restructure + Server Scaffold
 - [x] 02 Models + Migration Decision
-- [ ] 03 Auth API
+- [x] 03 Auth API
 - [ ] 04 React Scaffold + Auth UI
 
 ### Phase 2 — Inventory
@@ -112,6 +112,33 @@ Developer decision: use Google Gemini instead of Anthropic while testing, to rel
 - **Cap `password` at 72 bytes in the signup Zod schema** (bcryptjs ignores everything after 72 bytes). Measure bytes, not characters (`new TextEncoder().encode(p).length <= 72`), and keep the ≥ 8 minimum. Apply the same cap to the login schema.
 - Login must load the user with `.select('+password')`; the default query returns no hash.
 - If `autoIndex` is ever turned off for production, run `syncIndexes()` once so the unique `email`/`userName` indexes and the `user` indexes exist.
+
+### 2026-11-12 — Feature 03 decisions
+
+- **Sessions:** express-session + connect-mongo (reuses Mongoose's connection, so the app is built inside `start()` after `connectDB()`), 7-day lifetime with `rolling: true`, `saveUninitialized: false`, cookie `connect.sid` (`httpOnly`, `sameSite: lax`, `secure` in production). Passport stores only the user id and reloads the user per request; `req.user` is `PublicUser` (never the hash). Passport regenerates the session on login (no fixation); logout destroys the session and clears the cookie.
+- **Routes** (`/api/auth`): `signup` (201, logs in immediately), `login`, `logout`, `demo`, `me` (behind the new reusable `requireAuth`). Success responses are `{ user: PublicUser }`; logout returns `{ ok: true }`.
+- **Validation:** signup = userName 2–30, email format (trimmed + lowercased), password ≥ 8 and ≤ 72 **bytes**, confirm must match. **Login validates presence only** (strength rules belong on signup), so this supersedes the carry-over that said to cap login too.
+- **Login failures are indistinguishable:** unknown email and wrong password return the same 401 message, and a dummy bcrypt compare equalises timing. Signup does say which of email/username is taken (accepted account-enumeration trade-off).
+- **Duplicates:** promise-based existence checks (v1 bug #3; email and case-insensitive username queried separately, see the `/code-review` outcome below) with the unique-index error (11000) mapped to 409 as the race backstop.
+- **Brute-force limiters** (`middleware/rateLimiters.ts`): login per IP+email 5 failed/15 min, login per IP 30 failed/15 min (both `skipSuccessfulRequests`), signup 10/hr per IP, demo 30/hr per IP. 429 returns `{ error }` with `RateLimit` headers. The per-IP login limiter runs before `validateBody` (so malformed bodies are throttled); the per-email one runs after it so its key uses the normalised email. **`app.set('trust proxy', 1)`** (one hop, Render) so `req.ip` is the real client. **The in-memory limiter store assumes a SINGLE server instance and resets on restart — if the app is ever scaled out, swap in a shared (Mongo-backed) store.** Feature 07 adds the AI limiters to the same file.
+- **Demo login is by email, decoupled from `DEMO_USER_ID`:** `findDemoUser()` in `auth.service.ts` looks up `guest@intellipantry.app`. The email/username constants moved to `config/demo.ts`, shared with the seed script. If the Guest is missing, `POST /api/auth/demo` returns 503.
+- **Shared types:** `PublicUser`, `SignupRequest`, `LoginRequest`, `AuthResponse` added to `types/api.ts`, with the client copy updated in the same change.
+- **Verified against real Atlas** (curl): signup → me → logout → me 401 → login → demo; duplicate email/username 409; identical 401s; 72-byte cap 400; lockout on the 6th failed attempt with other emails unaffected; `Secure` cookie behind `X-Forwarded-Proto: https` in production; the seed script re-run after the import change (same Guest id). Test users and sessions were deleted afterwards. `npm audit` = 0.
+- **Review outcome:** no Critical/Important issues. Fixed: why-comments on the four `as` casts, auth types moved into shared `api.ts`. Still open: there are no automated tests (no runner yet).
+- **`/code-review` outcome (8 findings; 4 fixed, 4 rejected):**
+  - **Reserved Guest identity:** the signup schema rejects the email `guest@intellipantry.app` (after trim + lowercase) and the username `Guest` (case-insensitive, after trim) with 400. Without this, someone could register that identity before `seed:demo` ran, and the seed and demo login would then treat their account as the Guest.
+  - **Case-insensitive usernames:** the `userName` unique index is now `userName_ci_unique` (collation `{ locale: 'en', strength: 2 }`, exported as `USERNAME_COLLATION` from `models/User.ts`), replacing the case-sensitive `userName_1`. `createUser` checks email and username with two separate `exists()` queries, because a single `$or` with the collation would turn the email branch into a collection scan. **`syncIndexes()` was run once against Atlas** (only Guest existed) and dropped the old index. A fresh database gets the right index from `autoIndex`; any existing database still holding the old `userName_1` needs `syncIndexes()` once.
+  - **Login limiter order:** `loginPerIpLimiter` now runs before `validateBody`, so malformed login bodies are throttled too (the per-email limiter stays after validation because it needs the normalised email).
+  - **bcrypt cost:** `BCRYPT_COST` is exported from `models/User.ts`; the timing-equaliser hash is computed lazily at that cost on first use.
+  - **Rejected:** the `ip:email` key collision (emails can't contain `:`), the logout cookie options and CSRF claims (`Lax` doesn't send cookies on cross-site POSTs, and the routes accept JSON only with no CORS), demo/login over an existing session (same reasoning), and hand-copied shared types (the documented convention in code-standards; a CI diff check would be a later addition).
+- **Re-verified after the fixes (curl, real Atlas):** reserved email (including upper-case and padded variants) and usernames `Guest`/`guest`/`GUEST`/` guest ` → 400; `f03case…` and `F03CASE…` against an existing `F03Case…` → 409; duplicate email 409; the login/me/logout/demo flow and the identical 401s still pass; 28 malformed login bodies → 400 then 429 from the 29th, with demo unaffected. **Race test:** five rounds of two concurrent signups for the same username in different cases produced exactly one created account per round (each round's loser got a 409). That shows the end result is correct, but it can't show whether the pre-check or the unique index rejected the loser, so the 11000 mapping itself is still not independently proven. The seed was re-run (same Guest id) and `npm audit` = 0. All test users and sessions were deleted.
+- **`v1-final` tag** is already on GitHub (the local and remote tags point to the same commit), so there is nothing to push.
+
+#### Carry-overs for feature 04 and 14
+
+- **Feature 04:** the client's `AuthContext` loads from `GET /api/auth/me` (401 = logged out); `fetch` must send `credentials: 'same-origin'` (Vite dev proxy → same-origin cookies). Show the field-level `fields[]` from 400 responses and the `{ error }` message from 401/409/429.
+- **Feature 14:** the nightly cron must find the Guest with `findDemoUser()` (the same lookup as the demo login), not by `DEMO_USER_ID`; then decide whether `DEMO_USER_ID` is still needed. The demo AI limiter (5/hr) should identify the demo user via `req.user` rather than a hardcoded id.
+- If the app ever runs on more than one instance: shared rate-limit store (see above).
 
 ## Notes
 

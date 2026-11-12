@@ -1,7 +1,12 @@
 import bcrypt from 'bcryptjs';
 import { Schema, model, type HydratedDocument, type Model, type Types } from 'mongoose';
 
-const BCRYPT_COST = 12;
+// Exported so the login timing-equaliser in auth.service.ts always hashes at the real cost.
+export const BCRYPT_COST = 12;
+
+// userName uniqueness is case-insensitive ('guest' and 'Guest' are the same name).
+// Queries must pass the same collation to be served by the index (see auth.service.ts).
+export const USERNAME_COLLATION = { locale: 'en', strength: 2 } as const;
 
 export type IUser = {
   userName: string;
@@ -21,7 +26,7 @@ type UserModel = Model<IUser, Record<string, never>, IUserMethods>;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
-    userName: { type: String, required: true, trim: true, unique: true },
+    userName: { type: String, required: true, trim: true }, // unique index (case-insensitive) declared below
     email: { type: String, required: true, trim: true, lowercase: true, unique: true },
     // select:false — hash never leaves the DB unless a query asks for '+password'
     password: { type: String, required: true, select: false },
@@ -36,6 +41,11 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
       },
     },
   },
+);
+
+userSchema.index(
+  { userName: 1 },
+  { unique: true, collation: USERNAME_COLLATION, name: 'userName_ci_unique' },
 );
 
 userSchema.pre('save', async function (): Promise<void> {

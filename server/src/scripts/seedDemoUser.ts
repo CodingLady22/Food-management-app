@@ -5,11 +5,9 @@
 import { randomBytes } from 'node:crypto';
 import mongoose from 'mongoose';
 import { z } from 'zod';
+import { GUEST_EMAIL, GUEST_USERNAME } from '../config/demo.js';
 import { User } from '../models/User.js';
 import { logger } from '../utils/logger.js';
-
-const GUEST_EMAIL = 'guest@intellipantry.app';
-const GUEST_USERNAME = 'Guest';
 
 const envResult = z.object({ MONGODB_URI: z.string().min(1) }).safeParse(process.env);
 if (!envResult.success) {
