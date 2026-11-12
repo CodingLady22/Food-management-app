@@ -7,8 +7,8 @@ Update this file after every completed feature. Any AI agent reading this should
 ## Current Status
 
 **Phase:** 1 — Foundation
-**Last completed:** 01 Repo Restructure + Server Scaffold
-**Next:** 02 Models + Migration Decision
+**Last completed:** 02 Models + Migration Decision
+**Next:** 03 Auth API (read "Carry-overs for feature 03" under Decisions Made During Build first)
 
 ---
 
@@ -17,7 +17,7 @@ Update this file after every completed feature. Any AI agent reading this should
 ### Phase 1 — Foundation
 
 - [x] 01 Repo Restructure + Server Scaffold
-- [ ] 02 Models + Migration Decision
+- [x] 02 Models + Migration Decision
 - [ ] 03 Auth API
 - [ ] 04 React Scaffold + Auth UI
 
@@ -96,6 +96,22 @@ Developer decision: use Google Gemini instead of Anthropic while testing, to rel
 - **Privacy caveat:** on Gemini's free tier, submitted content may be used to improve Google's products. Grocery/fridge photos are low-sensitivity, but demo-mode/landing copy should not claim otherwise. Revisit before public launch (paid tier changes data handling).
 - **Rate limits:** our own limiter (10/hr per session, 5/hr demo) stays; Google 429s must map to a friendly typed error.
 - **Unchanged:** "AI never writes to the DB", Zod validation of every AI response, sharp resize, memory-only uploads, token-usage logging.
+
+### 2026-11-12 — Feature 02 decisions
+
+- **Database name:** `MONGODB_URI` now ends in `/intellipantry` (it had no db name, so Mongoose was using the default `test` database). Any new environment's URI must include the db name.
+- **Zod upgraded 3 → 4** (`^4.6.7`) to clear a high-severity advisory (memory exhaustion on oversized constrained collections, fixed in 4.6.6). Done now while only `env.ts`, `errorHandler.ts` and the seed script use Zod. Verified: typecheck, build, boot with `.env`, `/api/health` 200, JSON 404, and the missing-vars exit path. `npm audit` reports 0 vulnerabilities. Zod 4 error text differs from v3 (e.g. "Invalid input: expected string, received undefined").
+- **Models:** `User`, `Item`, `Recipe`, `Note` in `server/src/models/`, exported types are `type` aliases (code-standards), all with `timestamps: true` and `index: true` on `user`; extra compound index `{ user: 1, expiry: 1 }` on Item. Enums: Item `source` `manual|ai`, Recipe `source` `user|fridge-chef`.
+- **User:** `bcryptjs` v3 (pure JS, ships its own types, no `@types`), cost 12, hash only when `password` is modified. `password` is `select: false` and stripped in `toJSON`, so login must query with `.select('+password')` before `comparePassword`. `email` is trimmed + lowercased; `userName` is trimmed. Both are unique.
+- **Seed script:** `server/src/scripts/seedDemoUser.ts` (inside `src` so `tsc` covers it), run with `npm run seed:demo -w server`. Needs only `MONGODB_URI`. Finds the Guest by email `guest@intellipantry.app`, creates it if missing with a random throwaway password (never stored or printed, so nobody can log in as Guest except through `POST /api/auth/demo`), and logs `DEMO_USER_ID=<id>`. Verified against Atlas: run twice, same id, exactly 1 Guest document. The Guest now exists in the `intellipantry` database; the developer pastes the printed id into `.env` as `DEMO_USER_ID`.
+- **Workflow rule added to AGENTS.md:** on `main`, create `feature/NN-short-name` before building; on any other branch, ask whether it is the accepted branch for the feature before proceeding.
+- **Review (skill) outcome:** no Critical issues. Fixed: `console.*` → `utils/logger.ts`, `interface` → `type`, explicit return types on the `pre('save')` hook and `toJSON` transform. Skipped for now: unit tests for the models (no test setup yet — add them when a test runner is introduced).
+
+#### Carry-overs for feature 03
+
+- **Cap `password` at 72 bytes in the signup Zod schema** (bcryptjs ignores everything after 72 bytes). Measure bytes, not characters (`new TextEncoder().encode(p).length <= 72`), and keep the ≥ 8 minimum. Apply the same cap to the login schema.
+- Login must load the user with `.select('+password')`; the default query returns no hash.
+- If `autoIndex` is ever turned off for production, run `syncIndexes()` once so the unique `email`/`userName` indexes and the `user` indexes exist.
 
 ## Notes
 

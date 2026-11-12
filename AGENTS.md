@@ -45,6 +45,7 @@ The context files were written from the controllers and an app summary, not the 
 ## How To Work
 
 - **One feature at a time**, in the order in `context/build-plan.md`. Fifteen features, five phases.
+- **Branch before you build.** At the start of a feature, check `git branch --show-current`. If on `main`, create a new branch first (`feature/NN-short-name`) — never build on `main`. If already on another branch, **ask the developer whether that branch is the accepted one for this feature before proceeding**; do not assume.
 - **Read context before coding.** Never assume an API or pattern — verify against the context files.
 - **Backend verified, then UI** — each feature's API is proven with curl/REST client before the UI consuming it is built, and every feature ends user-visible and testable (the "Verify" line in each build-plan feature is the exit criterion).
 - **Update `context/progress-tracker.md`** after every completed feature.
