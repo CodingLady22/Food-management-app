@@ -21,7 +21,7 @@ env:
 
 jobs:
   server:
-    name: Server (typecheck + build)
+    name: Server (typecheck + test + build)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +33,7 @@ jobs:
       - run: npm run typecheck -w server
       - run: npm run build -w server
       # - run: npm run lint -w server
-      # - run: npm test -w server
+      - run: npm test -w server
 
   client:
     name: Client (typecheck + build)
