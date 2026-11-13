@@ -140,6 +140,20 @@ Developer decision: use Google Gemini instead of Anthropic while testing, to rel
 - **Feature 14:** the nightly cron must find the Guest with `findDemoUser()` (the same lookup as the demo login), not by `DEMO_USER_ID`; then decide whether `DEMO_USER_ID` is still needed. The demo AI limiter (5/hr) should identify the demo user via `req.user` rather than a hardcoded id.
 - If the app ever runs on more than one instance: shared rate-limit store (see above).
 
+### 2026-11-13 — Testing decision: Vitest on the server (branch `chore/vitest-server`)
+
+Developer decision: add Vitest now, but **do not chase coverage**. Test only security-critical pure logic, as it is built:
+
+- Zod schemas (reserved Guest identity, 72-byte password cap, password rules) — **backfilled for feature 03** in `schemas/auth.schemas.test.ts` (16 tests).
+- Ownership-filter helpers — when feature 05 adds them.
+- `daysLeft` math — feature 05 (including the expired = `<= 0` fix).
+- AI output validation (Zod schemas for extracted items / recipe suggestions) — feature 07 onwards.
+- No database or network in unit tests. No client tests for now.
+
+Setup: `vitest` 5 in `server` devDependencies; `npm test` (`vitest run`) and `npm run test:watch` in `server`; `server/vitest.config.ts` includes `src/**/*.test.ts`. `tsconfig.json` excludes tests so they never reach `dist`; `typecheck` now uses `tsconfig.test.json` so tests are still type-checked. CI runs `npm test -w server` after typecheck and build. This closes the "no test runner" open item from features 02 and 03 (model tests are still skipped by choice).
+
+**Gemini call shape:** confirmed — verify against the installed SDK at the start of feature 07, no action before then.
+
 ## Notes
 
 _Add notes here as the build progresses — workarounds, patterns, anything that differs from the context files._
